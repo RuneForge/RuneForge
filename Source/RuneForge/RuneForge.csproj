@@ -24,7 +24,6 @@
 
   <!-- MonoGame Content Project References -->
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
 
   <!-- MonoGame Content Intermediate Directories -->
