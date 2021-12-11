@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- MSBuild General Settings -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <MonoGameFrameworkContentPipelinePackageVersion>3.8.0.1641</MonoGameFrameworkContentPipelinePackageVersion>
+  </PropertyGroup>
+
+  <!-- NuGet Package References -->
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.Content.Pipeline" Version="$(MonoGameFrameworkContentPipelinePackageVersion)">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0-runeforge0.1.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Hide MonoGame.Framework.Content.Pipeline Content Files -->
+  <ItemGroup>
+    <Content Update="$(NuGetPackageRoot)\Monogame.Framework.Content.Pipeline\$(MonoGameFrameworkContentPipelinePackageVersion)\ContentFiles\Any\netstandard2.0\**">
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+
+</Project>
