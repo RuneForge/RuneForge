@@ -8,6 +8,10 @@
 
   <!-- NuGet Package References -->
   <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MonoGame.Framework.Content.Pipeline" Version="$(MonoGameFrameworkContentPipelinePackageVersion)">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
