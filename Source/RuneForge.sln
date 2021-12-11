@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge", "RuneForge\RuneForge.csproj", "{34C678FB-DBD3-48B5-918C-B220A6FA4EB6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93F808B2-33F0-4BC2-B68E-7EABEC7EAF8D} = {93F808B2-33F0-4BC2-B68E-7EABEC7EAF8D}
+		{B98758B2-5195-40E9-983A-52AECD66EA69} = {B98758B2-5195-40E9-983A-52AECD66EA69}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Core", "RuneForge.Core\RuneForge.Core.csproj", "{DE94405B-4FEE-46EA-98C7-DFD56FFAEDEC}"
 EndProject
