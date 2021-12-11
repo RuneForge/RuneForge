@@ -6,6 +6,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
+    <EnableMGCBItems>false</EnableMGCBItems>
   </PropertyGroup>
 
   <!-- Application Icon and Manifest -->
@@ -24,6 +25,8 @@
 
   <!-- MonoGame Content Project References -->
   <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.Debug.mgcb" Condition="'$(Configuration)' == 'Debug'" />
+    <MonoGameContentReference Include="Content\Content.Release.mgcb" Condition="'$(Configuration)' == 'Release'" />
   </ItemGroup>
 
   <!-- MonoGame Content Intermediate Directories -->
