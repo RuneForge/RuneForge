@@ -120,6 +120,7 @@ coverage*[.json, .xml, .info]
 *.snupkg
 *.nuget.props
 *.nuget.targets
+!Source/LocalPackages/*.nupkg
 
 ###############################################################################
 # Ignore Visual Studio cache files.
