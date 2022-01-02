@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +46,8 @@ namespace RuneForge
             services.AddMonoGame((serviceProvider) =>
             {
                 GameWindow gameWindow = serviceProvider.GetRequiredService<GameWindow>();
-                return new RuneForgeGame(serviceProvider, gameWindow);
+                IEnumerable<IGameComponent> gameComponents = serviceProvider.GetRequiredService<IEnumerable<IGameComponent>>();
+                return new RuneForgeGame(serviceProvider, gameWindow, gameComponents);
             });
         }
     }
