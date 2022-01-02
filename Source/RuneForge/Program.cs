@@ -42,7 +42,11 @@ namespace RuneForge
 
         private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddMonoGame((serviceProvider, gameWindow) => new RuneForgeGame(serviceProvider, gameWindow));
+            services.AddMonoGame((serviceProvider) =>
+            {
+                GameWindow gameWindow = serviceProvider.GetRequiredService<GameWindow>();
+                return new RuneForgeGame(serviceProvider, gameWindow);
+            });
         }
     }
 }
