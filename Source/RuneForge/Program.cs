@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.DependencyInjection;
+
+using RuneForge.DependencyInjection;
 
 namespace RuneForge
 {
@@ -43,12 +43,7 @@ namespace RuneForge
 
         private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddMonoGame((serviceProvider) =>
-            {
-                GameWindow gameWindow = serviceProvider.GetRequiredService<GameWindow>();
-                IEnumerable<IGameComponent> gameComponents = serviceProvider.GetRequiredService<IEnumerable<IGameComponent>>();
-                return new RuneForgeGame(serviceProvider, gameWindow, gameComponents);
-            });
+            services.AddRuneForgeGame();
         }
     }
 }
