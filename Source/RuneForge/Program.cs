@@ -5,7 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.DependencyInjection;
+
+using RuneForge.DependencyInjection;
 
 namespace RuneForge
 {
@@ -42,7 +43,7 @@ namespace RuneForge
 
         private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddMonoGame((serviceProvider, gameWindow) => new RuneForgeGame(serviceProvider, gameWindow));
+            services.AddRuneForgeGame();
         }
     }
 }

@@ -271,6 +271,10 @@ dotnet_naming_symbols.private_static_fields.required_modifiers = static
 dotnet_naming_symbols.private_instance_fields.applicable_kinds = field
 dotnet_naming_symbols.private_instance_fields.applicable_accessibilities = private
 
+# Members - Public Instance Fields
+dotnet_naming_symbols.public_instance_fields.applicable_kinds = field
+dotnet_naming_symbols.public_instance_fields.applicable_accessibilities = public
+
 # Members - Fields
 dotnet_naming_symbols.fields.applicable_kinds = field
 
@@ -341,6 +345,11 @@ dotnet_naming_rule.private_static_fields_should_be_camel_case_beginning_with_s.s
 dotnet_naming_rule.private_instance_fields_should_be_camel_case_beginning_with_c.severity = suggestion
 dotnet_naming_rule.private_instance_fields_should_be_camel_case_beginning_with_c.symbols = private_instance_fields
 dotnet_naming_rule.private_instance_fields_should_be_camel_case_beginning_with_c.style = camel_case_beginning_with_m
+
+# Members - Public instance fields should be Pascal Case
+dotnet_naming_rule.public_instance_fields_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.public_instance_fields_should_be_pascal_case.symbols = public_instance_fields
+dotnet_naming_rule.public_instance_fields_should_be_pascal_case.style = pascal_case
 
 # Members - Other fields should be Camel Case
 dotnet_naming_rule.fields_should_be_camel_case.severity = suggestion

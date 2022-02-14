@@ -11,7 +11,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0-runeforge0.1.0" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0-runeforge0.1.1" />
   </ItemGroup>
 
 </Project>
