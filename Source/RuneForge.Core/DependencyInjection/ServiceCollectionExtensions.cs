@@ -5,6 +5,9 @@ using RuneForge.Core.Input.Components;
 using RuneForge.Core.Input.EventProviders;
 using RuneForge.Core.Input.EventProviders.Configuration;
 using RuneForge.Core.Input.EventProviders.Interfaces;
+using RuneForge.Core.Interface;
+using RuneForge.Core.Interface.Components;
+using RuneForge.Core.Interface.Interfaces;
 
 namespace RuneForge.Core.DependencyInjection
 {
@@ -25,6 +28,14 @@ namespace RuneForge.Core.DependencyInjection
             services.AddSingleton<IKeyboardEventProvider, KeyboardEventProvider>();
             services.AddSingleton<IMouseEventProvider, MouseEventProvider>();
             services.AddSingleton<IGameComponent, InputComponent>();
+            return services;
+        }
+
+        public static IServiceCollection AddGraphicsInterfaceServices(this IServiceCollection services)
+        {
+            services.AddSingleton<ISpriteFontProvider, SpriteFontProvider>();
+            services.AddSingleton<IGraphicsInterfaceService, GraphicsInterfaceService>();
+            services.AddSingleton<IGameComponent, GraphicsInterfaceComponent>();
             return services;
         }
     }
