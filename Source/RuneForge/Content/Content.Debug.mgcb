@@ -34,3 +34,20 @@
 
 #begin Fonts/License.txt
 /copy:Fonts/License.txt
+
+#begin TextureAtlases/Interface/Controls/Button.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Interface/Controls/Button.xml
+
+#begin Textures/Interface/Controls/Button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Interface/Controls/Button.png
