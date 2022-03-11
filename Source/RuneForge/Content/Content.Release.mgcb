@@ -39,6 +39,11 @@
 /processor:PassThroughProcessor
 /build:TextureAtlases/Interface/Controls/Button.xml
 
+#begin TextureAtlases/Interface/Controls/Window.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Interface/Controls/Window.xml
+
 #begin Textures/Interface/Controls/Button.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -50,3 +55,15 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Interface/Controls/Button.png
+
+#begin Textures/Interface/Controls/Window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Interface/Controls/Window.png
