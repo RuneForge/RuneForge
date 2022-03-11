@@ -10,8 +10,6 @@ namespace RuneForge.Core.Interface.Controls
 {
     public abstract class GraphicsControl : Control
     {
-        private readonly SpriteBatch m_spriteBatch;
-
         private RenderTarget2D m_renderTarget;
 
         private bool m_renderCacheInvalidated;
@@ -21,6 +19,8 @@ namespace RuneForge.Core.Interface.Controls
         public ContentManager ContentManager { get; }
 
         public GraphicsDevice GraphicsDevice { get; }
+
+        protected SpriteBatch SpriteBatch { get; }
 
         protected GraphicsControl(ControlEventSource eventSource, ContentManager contentManager, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
             : this(eventSource, contentManager, graphicsDevice, spriteBatch, DefaultEnabledValue, DefaultVisibleValue, DefaultDrawOrder)
@@ -32,7 +32,7 @@ namespace RuneForge.Core.Interface.Controls
         {
             ContentManager = contentManager;
             GraphicsDevice = graphicsDevice;
-            m_spriteBatch = spriteBatch;
+            SpriteBatch = spriteBatch;
         }
 
         public override void Draw(GameTime gameTime)
@@ -46,9 +46,9 @@ namespace RuneForge.Core.Interface.Controls
             }
             if (Width * Height > 0)
             {
-                m_spriteBatch.Begin(0, null, null, null, null, null, null);
-                m_spriteBatch.Draw((Texture2D)(object)m_renderTarget, new Rectangle(0, 0, Width, Height), Color.White);
-                m_spriteBatch.End();
+                SpriteBatch.Begin(0, null, null, null, null, null, null);
+                SpriteBatch.Draw((Texture2D)(object)m_renderTarget, new Rectangle(0, 0, Width, Height), Color.White);
+                SpriteBatch.End();
             }
         }
 
@@ -114,12 +114,12 @@ namespace RuneForge.Core.Interface.Controls
             Viewport viewport2 = CreateRenderTargetViewport(in viewport);
             GraphicsDevice.SetRenderTarget(m_renderTarget);
             GraphicsDevice.Viewport = viewport2;
-            m_spriteBatch.Begin(0, BlendState.AlphaBlend, null, null, null, null, null);
+            SpriteBatch.Begin(0, BlendState.AlphaBlend, null, null, null, null, null);
             GraphicsDevice.Clear(Color.Transparent);
-            m_spriteBatch.End();
-            m_spriteBatch.Begin(0, null, null, null, null, null, null);
-            Render(gameTime, m_spriteBatch);
-            m_spriteBatch.End();
+            SpriteBatch.End();
+            SpriteBatch.Begin(0, null, null, null, null, null, null);
+            Render(gameTime, SpriteBatch);
+            SpriteBatch.End();
             foreach (Control item in BuiltInControls.GetControlsByDrawOrder())
             {
                 DrawControlWithViewport(in viewport2, item, gameTime);
