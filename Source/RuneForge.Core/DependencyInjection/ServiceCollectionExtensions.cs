@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 
+using RuneForge.Core.GameStates;
+using RuneForge.Core.GameStates.Components;
+using RuneForge.Core.GameStates.Interfaces;
 using RuneForge.Core.Input.Components;
 using RuneForge.Core.Input.EventProviders;
 using RuneForge.Core.Input.EventProviders.Configuration;
@@ -28,6 +31,13 @@ namespace RuneForge.Core.DependencyInjection
             services.AddSingleton<IKeyboardEventProvider, KeyboardEventProvider>();
             services.AddSingleton<IMouseEventProvider, MouseEventProvider>();
             services.AddSingleton<IGameComponent, InputComponent>();
+            return services;
+        }
+
+        public static IServiceCollection AddGameStateManagementServices(this IServiceCollection services)
+        {
+            services.AddSingleton<IGameStateService, GameStateService>();
+            services.AddSingleton<IGameComponent, GameStateComponent>();
             return services;
         }
 
