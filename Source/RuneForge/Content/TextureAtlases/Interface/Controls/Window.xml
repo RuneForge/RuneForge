@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-16"?>
+<TextureAtlas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TextureAssetName>Textures\Interface\Controls\Window</TextureAssetName>
+  <TextureRegions>
+    <!-- Background -->
+    <TextureRegion Name="Frame-Background" X="6" Y="6" Width="4" Height="4" />
+    <!-- Regular Sides -->
+    <TextureRegion Name="Frame-Side-Top" X="6" Y="0" Width="4" Height="6" />
+    <TextureRegion Name="Frame-Side-Bottom" X="6" Y="10" Width="4" Height="6" />
+    <TextureRegion Name="Frame-Side-Left" X="0" Y="6" Width="6" Height="4" />
+    <TextureRegion Name="Frame-Side-Right" X="10" Y="6" Width="6" Height="4" />
+    <!-- Regular Corners -->
+    <TextureRegion Name="Frame-Corner-TopLeft" X="0" Y="0" Width="6" Height="6" />
+    <TextureRegion Name="Frame-Corner-TopRight" X="10" Y="0" Width="6" Height="6" />
+    <TextureRegion Name="Frame-Corner-BottomLeft" X="0" Y="10" Width="6" Height="6" />
+    <TextureRegion Name="Frame-Corner-BottomRight" X="10" Y="10" Width="6" Height="6" />
+    <!-- Horizontal Splitter Sides -->
+    <TextureRegion Name="Frame-HorizontalSplitter-Side-Top" X="22" Y="5" Width="4" Height="5" />
+    <TextureRegion Name="Frame-HorizontalSplitter-Side-Bottom" X="22" Y="0" Width="4" Height="5" />
+    <!-- Horizontal Splitter Corners -->
+    <TextureRegion Name="Frame-HorizontalSplitter-Corner-TopLeft" X="16" Y="5" Width="6" Height="5" />
+    <TextureRegion Name="Frame-HorizontalSplitter-Corner-TopRight" X="26" Y="5" Width="6" Height="5" />
+    <TextureRegion Name="Frame-HorizontalSplitter-Corner-BottomLeft" X="16" Y="0" Width="6" Height="5" />
+    <TextureRegion Name="Frame-HorizontalSplitter-Corner-BottomRight" X="26" Y="0" Width="6" Height="5" />
+    <!-- Vertical Splitter Sides -->
+    <TextureRegion Name="Frame-VerticalSplitter-Side-Left" X="37" Y="6" Width="5" Height="4" />
+    <TextureRegion Name="Frame-VerticalSplitter-Side-Right" X="32" Y="6" Width="5" Height="4" />
+    <!-- Vertical Splitter Corners -->
+    <TextureRegion Name="Frame-VerticalSplitter-Corner-TopLeft" X="37" Y="0" Width="5" Height="6" />
+    <TextureRegion Name="Frame-VerticalSplitter-Corner-TopRight" X="32" Y="0" Width="5" Height="6" />
+    <TextureRegion Name="Frame-VerticalSplitter-Corner-BottomLeft" X="37" Y="10" Width="5" Height="6" />
+    <TextureRegion Name="Frame-VerticalSplitter-Corner-BottomRight" X="32" Y="10" Width="5" Height="6" />
+    <!-- Close Button -->
+    <TextureRegion Name="CloseButton-Released" X="42" Y="0" Width="20" Height="20" />
+    <TextureRegion Name="CloseButton-Pressed" X="62" Y="0" Width="20" Height="20" />
+    <!-- Move Button -->
+    <TextureRegion Name="MoveButton-Released" X="82" Y="0" Width="20" Height="20" />
+    <TextureRegion Name="MoveButton-Pressed" X="102" Y="0" Width="20" Height="20" />
+  </TextureRegions>
+</TextureAtlas>

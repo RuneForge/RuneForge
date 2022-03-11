@@ -11,3 +11,59 @@
 /reference:..\..\RuneForge.Content.Pipeline.Game\bin\Release\netstandard2.1\RuneForge.Content.Pipeline.Game.dll
 
 #---------------------------------- Content ---------------------------------#
+#begin Fonts/Kingthings-Foundation.ttf
+/copy:Fonts/Kingthings-Foundation.ttf
+
+#begin Fonts/Kingthings-Foundation-48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Kingthings-Foundation-48.spritefont
+
+#begin Fonts/Kingthings-Petrock.ttf
+/copy:Fonts/Kingthings-Petrock.ttf
+
+#begin Fonts/Kingthings-Petrock-12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Kingthings-Petrock-12.spritefont
+
+#begin Fonts/License.txt
+/copy:Fonts/License.txt
+
+#begin TextureAtlases/Interface/Controls/Button.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Interface/Controls/Button.xml
+
+#begin TextureAtlases/Interface/Controls/Window.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Interface/Controls/Window.xml
+
+#begin Textures/Interface/Controls/Button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Interface/Controls/Button.png
+
+#begin Textures/Interface/Controls/Window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Interface/Controls/Window.png

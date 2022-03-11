@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-16"?>
+<TextureAtlas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TextureAssetName>Textures\Interface\Controls\Button</TextureAssetName>
+  <TextureRegions>
+    <!-- Frame Background -->
+    <TextureRegion Name="Frame-Background" X="4" Y="4" Width="4" Height="4" />
+    <!-- Frame Sides -->
+    <TextureRegion Name="Frame-Side-Top" X="4" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Frame-Side-Bottom" X="4" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Frame-Side-Left" X="0" Y="4" Width="4" Height="4" />
+    <TextureRegion Name="Frame-Side-Right" X="8" Y="4" Width="4" Height="4" />
+    <!-- Frame Corners -->
+    <TextureRegion Name="Frame-Corner-TopLeft" X="0" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Frame-Corner-TopRight" X="8" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Frame-Corner-BottomLeft" X="0" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Frame-Corner-BottomRight" X="8" Y="8" Width="4" Height="4" />
+    <!-- Released Background -->
+    <TextureRegion Name="Button-Released-Background" X="16" Y="4" Width="4" Height="4" />
+    <!-- Released Sides -->
+    <TextureRegion Name="Button-Released-Side-Top" X="16" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Released-Side-Bottom" X="16" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Button-Released-Side-Left" X="12" Y="4" Width="4" Height="4" />
+    <TextureRegion Name="Button-Released-Side-Right" X="20" Y="4" Width="4" Height="4" />
+    <!-- Released Corners -->
+    <TextureRegion Name="Button-Released-Corner-TopLeft" X="12" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Released-Corner-TopRight" X="20" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Released-Corner-BottomLeft" X="12" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Button-Released-Corner-BottomRight" X="20" Y="8" Width="4" Height="4" />
+    <!-- Pressed Background -->
+    <TextureRegion Name="Button-Pressed-Background" X="28" Y="4" Width="4" Height="4" />
+    <!-- Pressed Sides -->
+    <TextureRegion Name="Button-Pressed-Side-Top" X="28" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Pressed-Side-Bottom" X="28" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Button-Pressed-Side-Left" X="24" Y="4" Width="4" Height="4" />
+    <TextureRegion Name="Button-Pressed-Side-Right" X="32" Y="4" Width="4" Height="4" />
+    <!-- Pressed Corners -->
+    <TextureRegion Name="Button-Pressed-Corner-TopLeft" X="24" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Pressed-Corner-TopRight" X="32" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Pressed-Corner-BottomLeft" X="24" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Button-Pressed-Corner-BottomRight" X="32" Y="8" Width="4" Height="4" />
+    <!-- Disabled Background -->
+    <TextureRegion Name="Button-Disabled-Background" X="40" Y="4" Width="4" Height="4" />
+    <!-- Disabled Sides -->
+    <TextureRegion Name="Button-Disabled-Side-Top" X="40" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Disabled-Side-Bottom" X="40" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Button-Disabled-Side-Left" X="36" Y="4" Width="4" Height="4" />
+    <TextureRegion Name="Button-Disabled-Side-Right" X="44" Y="4" Width="4" Height="4" />
+    <!-- Disabled Corners -->
+    <TextureRegion Name="Button-Disabled-Corner-TopLeft" X="36" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Disabled-Corner-TopRight" X="44" Y="0" Width="4" Height="4" />
+    <TextureRegion Name="Button-Disabled-Corner-BottomLeft" X="36" Y="8" Width="4" Height="4" />
+    <TextureRegion Name="Button-Disabled-Corner-BottomRight" X="44" Y="8" Width="4" Height="4" />
+  </TextureRegions>
+</TextureAtlas>
