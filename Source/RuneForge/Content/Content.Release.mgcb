@@ -11,3 +11,25 @@
 /reference:..\..\RuneForge.Content.Pipeline.Game\bin\Release\netstandard2.1\RuneForge.Content.Pipeline.Game.dll
 
 #---------------------------------- Content ---------------------------------#
+#begin Fonts/Kingthings-Foundation.ttf
+/copy:Fonts/Kingthings-Foundation.ttf
+
+#begin Fonts/Kingthings-Foundation-48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Kingthings-Foundation-48.spritefont
+
+#begin Fonts/Kingthings-Petrock.ttf
+/copy:Fonts/Kingthings-Petrock.ttf
+
+#begin Fonts/Kingthings-Petrock-12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Kingthings-Petrock-12.spritefont
+
+#begin Fonts/License.txt
+/copy:Fonts/License.txt
