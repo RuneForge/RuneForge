@@ -42,10 +42,13 @@ namespace RuneForge.Core.GameStates
             }
 
             CurrentGameState = gameState;
-            if (m_globalContentLoaded && CurrentGameState != null)
+            if (CurrentGameState != null)
             {
-                m_globalContentUnloaded = false;
-                CurrentGameState.LoadContent();
+                if (m_globalContentLoaded)
+                {
+                    m_globalContentUnloaded = false;
+                    CurrentGameState.LoadContent();
+                }
                 CurrentGameState.Run();
             }
 
