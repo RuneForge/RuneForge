@@ -51,6 +51,8 @@ namespace RuneForge
             services.AddInputServices();
             services.AddGameStateManagementServices();
             services.AddGraphicsInterfaceServices();
+
+            services.AddMaps();
         }
     }
 }
