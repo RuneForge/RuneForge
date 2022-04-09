@@ -9,9 +9,11 @@ using Microsoft.Xna.Framework.Input;
 using RuneForge.Core.GameStates;
 using RuneForge.Core.GameStates.Interfaces;
 
+using XnaGame = Microsoft.Xna.Framework.Game;
+
 namespace RuneForge
 {
-    public class RuneForgeGame : Game
+    public class RuneForgeGame : XnaGame
     {
         private readonly IServiceProvider m_serviceProvider;
         private readonly IGameStateService m_gameStateService;
