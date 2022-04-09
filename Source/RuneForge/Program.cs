@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Xna.Framework;
 
 using RuneForge.Core.DependencyInjection;
 using RuneForge.DependencyInjection;
@@ -51,8 +50,10 @@ namespace RuneForge
             services.AddInputServices();
             services.AddGameStateManagementServices();
             services.AddGraphicsInterfaceServices();
+            services.AddRenderingServices();
+            services.AddControllers();
 
-            services.AddMaps();
+            services.AddMapServices();
         }
     }
 }

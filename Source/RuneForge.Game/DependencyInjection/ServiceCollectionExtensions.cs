@@ -7,9 +7,10 @@ namespace RuneForge.Game.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddMaps(this IServiceCollection services)
+        public static IServiceCollection AddMapServices(this IServiceCollection services)
         {
-            services.AddTransient<IMapCellTypeResolver, MapCellTypeResolver>();
+            services.AddScoped<IMapProvider, MapProvider>();
+            services.AddScoped<IMapCellTypeResolver, MapCellTypeResolver>();
 
             return services;
         }
