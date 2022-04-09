@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.DependencyInjection;
 
+using XnaGame = Microsoft.Xna.Framework.Game;
+
 namespace RuneForge.DependencyInjection
 {
     public static class ServiceCollectionExtensions
@@ -18,12 +20,12 @@ namespace RuneForge.DependencyInjection
                 return new RuneForgeGame(serviceProvider, gameWindow, gameComponents);
             });
 
-            services.AddSingleton(serviceProvider => (RuneForgeGame)serviceProvider.GetRequiredService<Game>());
+            services.AddSingleton(serviceProvider => (RuneForgeGame)serviceProvider.GetRequiredService<XnaGame>());
             services.AddSingleton(serviceProvider =>
             {
                 return new Lazy<RuneForgeGame>(() =>
                 {
-                    return (RuneForgeGame)serviceProvider.GetRequiredService<Game>();
+                    return (RuneForgeGame)serviceProvider.GetRequiredService<XnaGame>();
                 });
             });
 

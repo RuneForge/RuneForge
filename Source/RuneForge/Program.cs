@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 
 using RuneForge.Core.DependencyInjection;
 using RuneForge.DependencyInjection;
+using RuneForge.Game.DependencyInjection;
+
+using XnaGame = Microsoft.Xna.Framework.Game;
 
 namespace RuneForge
 {
@@ -17,7 +20,7 @@ namespace RuneForge
         private static async Task Main(string[] args)
         {
             using IHost host = CreateHostBuilder(args).ConfigureServices(ConfigureServices).Build();
-            using Game game = host.Services.GetRequiredService<Game>();
+            using XnaGame game = host.Services.GetRequiredService<XnaGame>();
 
             await host.StartAsync();
 
@@ -27,7 +30,7 @@ namespace RuneForge
             }
             catch (Exception e)
             {
-                ILogger<Game> gameLogger = host.Services.GetRequiredService<ILogger<Game>>();
+                ILogger<XnaGame> gameLogger = host.Services.GetRequiredService<ILogger<XnaGame>>();
                 gameLogger.LogError(e, "Shutting down the application host because of an unhandled exception.");
                 throw;
             }
@@ -48,6 +51,8 @@ namespace RuneForge
             services.AddInputServices();
             services.AddGameStateManagementServices();
             services.AddGraphicsInterfaceServices();
+
+            services.AddMaps();
         }
     }
 }

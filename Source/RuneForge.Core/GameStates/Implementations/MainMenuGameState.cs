@@ -8,11 +8,13 @@ using RuneForge.Core.Interface.Controls;
 using RuneForge.Core.Interface.Interfaces;
 using RuneForge.Core.Interface.Windows;
 
+using XnaGame = Microsoft.Xna.Framework.Game;
+
 namespace RuneForge.Core.GameStates
 {
     public class MainMenuGameState : GameState
     {
-        private readonly Lazy<Game> m_gameProvider;
+        private readonly Lazy<XnaGame> m_gameProvider;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
         private readonly ISpriteFontProvider m_spriteFontProvider;
@@ -22,7 +24,7 @@ namespace RuneForge.Core.GameStates
         private Label m_titleLabel;
 
         public MainMenuGameState(
-            Lazy<Game> gameProvider,
+            Lazy<XnaGame> gameProvider,
             Lazy<ContentManager> contentManagerProvider,
             Lazy<GraphicsDevice> graphicsDeviceProvider,
             ISpriteFontProvider spriteFontProvider,
