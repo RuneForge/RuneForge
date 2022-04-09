@@ -4,52 +4,63 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using RuneForge.Core.Rendering.Interfaces;
 using RuneForge.Core.TextureAtlases;
 using RuneForge.Game.Maps;
+using RuneForge.Game.Maps.Interfaces;
 
 namespace RuneForge.Core.Rendering
 {
     public class MapRenderer
     {
-        private readonly Map m_map;
+        private readonly IMapProvider m_mapProvider;
+        private readonly ISpriteBatchProvider m_spriteBatchProvider;
+        private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Camera2D m_camera;
-        private readonly SpriteBatch m_spriteBatch;
-        private readonly ContentManager m_contentManager;
-        private readonly Viewport m_viewport;
+        private readonly Camera2DParameters m_cameraParameters;
         private TextureAtlas m_textureAtlas;
 
-        public MapRenderer(Map map, Camera2D camera, SpriteBatch spriteBatch, ContentManager contentManager, Viewport viewport)
+        public MapRenderer(
+            IMapProvider mapProvider,
+            ISpriteBatchProvider spriteBatchProvider,
+            Lazy<ContentManager> contentManagerProvider,
+            Camera2D camera,
+            Camera2DParameters cameraParameters
+            )
         {
-            m_map = map;
+            m_mapProvider = mapProvider;
+            m_spriteBatchProvider = spriteBatchProvider;
+            m_contentManagerProvider = contentManagerProvider;
             m_camera = camera;
-            m_spriteBatch = spriteBatch;
-            m_contentManager = contentManager;
-            m_viewport = viewport;
+            m_cameraParameters = cameraParameters;
             m_textureAtlas = null;
         }
 
         public void Draw()
         {
-            (int minVisibleX, int minVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(m_viewport.Bounds.Left, m_viewport.Bounds.Top)).ToPoint();
-            (int maxVisibleX, int maxVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(m_viewport.Bounds.Right, m_viewport.Bounds.Bottom)).ToPoint();
+            Rectangle viewportBounds = m_cameraParameters.Viewport.Bounds;
+            (int minVisibleX, int minVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(viewportBounds.Left, viewportBounds.Top)).ToPoint();
+            (int maxVisibleX, int maxVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(viewportBounds.Right, viewportBounds.Bottom)).ToPoint();
 
             int minVisibleCellX = minVisibleX / Map.CellWidth;
             int minVisibleCellY = minVisibleY / Map.CellHeight;
             int maxVisibleCellX = maxVisibleX / Map.CellWidth;
             int maxVisibleCellY = maxVisibleY / Map.CellHeight;
 
-            MapTileset tileset = m_map.Tileset;
-            for (int y = Math.Max(minVisibleCellY, 0); y <= Math.Min(maxVisibleCellY, m_map.Height - 1); y++)
+            Map map = m_mapProvider.Map;
+            MapTileset tileset = map.Tileset;
+            SpriteBatch spriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
+            for (int y = Math.Max(minVisibleCellY, 0); y <= Math.Min(maxVisibleCellY, map.Height - 1); y++)
             {
-                for (int x = Math.Max(minVisibleCellX, 0); x <= Math.Min(maxVisibleCellX, m_map.Width - 1); x++)
+                for (int x = Math.Max(minVisibleCellX, 0); x <= Math.Min(maxVisibleCellX, map.Width - 1); x++)
                 {
-                    MapCell cell = m_map.GetCell(x, y);
+                    MapCell cell = map.GetCell(x, y);
                     if (cell.Tier != MapCellTier.None)
                     {
                         if (tileset.TryGetCellPrototype(cell.Tier, cell.Type, out MapTilesetCellPrototype cellPrototype))
                         {
                             TextureRegion2D textureRegion = m_textureAtlas.TextureRegions[cellPrototype.TextureRegionName];
-                            m_spriteBatch.Draw(textureRegion, new Rectangle(x * Map.CellWidth, y * Map.CellHeight, Map.CellWidth, Map.CellHeight), Color.White);
+                            spriteBatch.Draw(textureRegion, new Rectangle(x * Map.CellWidth, y * Map.CellHeight, Map.CellWidth, Map.CellHeight), Color.White);
                         }
                     }
                 }
@@ -58,7 +69,9 @@ namespace RuneForge.Core.Rendering
 
         public void LoadContent()
         {
-            m_textureAtlas = m_contentManager.Load<TextureAtlas>(m_map.Tileset.TextureAtlasName);
+            Map map = m_mapProvider.Map;
+            ContentManager contentManager = m_contentManagerProvider.Value;
+            m_textureAtlas = contentManager.Load<TextureAtlas>(map.Tileset.TextureAtlasName);
         }
     }
 }

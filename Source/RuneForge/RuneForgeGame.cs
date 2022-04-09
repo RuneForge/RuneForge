@@ -15,13 +15,11 @@ namespace RuneForge
 {
     public class RuneForgeGame : XnaGame
     {
-        private readonly IServiceProvider m_serviceProvider;
         private readonly IGameStateService m_gameStateService;
 
         public RuneForgeGame(IServiceProvider serviceProvider, GameWindow gameWindow, IEnumerable<IGameComponent> gameComponents)
             : base(serviceProvider, gameWindow)
         {
-            m_serviceProvider = serviceProvider;
             m_gameStateService = serviceProvider.GetRequiredService<IGameStateService>();
 
             ContentManager.RootDirectory = "Content";
@@ -39,8 +37,7 @@ namespace RuneForge
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
             base.LoadContent();
 
-            MainMenuGameState mainMenuGameState = m_serviceProvider.GetRequiredService<MainMenuGameState>();
-            m_gameStateService.RunGameState(mainMenuGameState);
+            m_gameStateService.RunGameState<MainMenuGameState>();
         }
 
         protected override void Update(GameTime gameTime)

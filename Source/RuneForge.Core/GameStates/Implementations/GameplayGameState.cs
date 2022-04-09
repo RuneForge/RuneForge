@@ -1,17 +1,15 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using RuneForge.Core.Controllers;
+using RuneForge.Core.DependencyInjection;
 using RuneForge.Core.Input;
 using RuneForge.Core.Input.EventProviders.Interfaces;
 using RuneForge.Core.Rendering;
-using RuneForge.Game.Maps;
-using RuneForge.Game.Maps.Interfaces;
+using RuneForge.Core.Rendering.Interfaces;
 
 namespace RuneForge.Core.GameStates.Implementations
 {
@@ -19,26 +17,28 @@ namespace RuneForge.Core.GameStates.Implementations
     {
         private static readonly string s_defaultMapAssetName = Path.Combine("Maps", "Southshore");
 
-        private readonly IServiceProvider m_serviceProvider;
-        private readonly Lazy<ContentManager> m_contentManagerProvider;
-        private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
+        private readonly ISpriteBatchProvider m_spriteBatchProvider;
         private readonly IKeyboardEventProvider m_keyboardEventProvider;
-        private Map m_map;
-        private SpriteBatch m_spriteBatch;
-        private Camera2D m_camera;
-        private MapRenderer m_mapRenderer;
+        private readonly Camera2D m_camera;
+        private readonly MapRenderer m_mapRenderer;
+        private readonly CameraController m_cameraController;
+        private readonly GameplayDependencyInitializer m_gameplayDependencyInitializer;
 
         public GameplayGameState(
-            IServiceProvider serviceProvider,
-            Lazy<ContentManager> contentManagerProvider,
-            Lazy<GraphicsDevice> graphicsDeviceProvider,
-            IKeyboardEventProvider keyboardEventProvider
+            ISpriteBatchProvider spriteBatchProvider,
+            IKeyboardEventProvider keyboardEventProvider,
+            Camera2D camera,
+            MapRenderer mapRenderer,
+            CameraController cameraController,
+            GameplayDependencyInitializer gameplayDependencyInitializer
             )
         {
-            m_serviceProvider = serviceProvider;
-            m_contentManagerProvider = contentManagerProvider;
-            m_graphicsDeviceProvider = graphicsDeviceProvider;
+            m_spriteBatchProvider = spriteBatchProvider;
             m_keyboardEventProvider = keyboardEventProvider;
+            m_camera = camera;
+            m_mapRenderer = mapRenderer;
+            m_cameraController = cameraController;
+            m_gameplayDependencyInitializer = gameplayDependencyInitializer;
         }
 
         public override void Run()
@@ -54,20 +54,7 @@ namespace RuneForge.Core.GameStates.Implementations
 
         public override void LoadContent()
         {
-            ContentManager contentManager = m_contentManagerProvider.Value;
-            GraphicsDevice graphicsDevice = m_graphicsDeviceProvider.Value;
-
-            m_map = contentManager.Load<Map>(s_defaultMapAssetName);
-
-            IMapCellTypeResolver mapCellTypeResolver = m_serviceProvider.GetRequiredService<IMapCellTypeResolver>();
-            m_map.ResolveMapCellTypes(mapCellTypeResolver);
-
-            m_spriteBatch = new SpriteBatch(graphicsDevice);
-            m_camera = new Camera2D(new Point(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height));
-            m_mapRenderer = new MapRenderer(m_map, m_camera, m_spriteBatch, contentManager, graphicsDevice.Viewport);
-
-            m_mapRenderer.LoadContent();
-
+            m_gameplayDependencyInitializer.InitializeDependencies(s_defaultMapAssetName);
             base.LoadContent();
         }
 
@@ -77,9 +64,10 @@ namespace RuneForge.Core.GameStates.Implementations
         }
         public override void Draw(GameTime gameTime)
         {
-            m_spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: m_camera.GetWorldToScreenTransformationMatrix());
+            SpriteBatch worldSpriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
+            worldSpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: m_camera.GetWorldToScreenTransformationMatrix());
             m_mapRenderer.Draw();
-            m_spriteBatch.End();
+            worldSpriteBatch.End();
 
             base.Draw(gameTime);
         }
@@ -103,16 +91,16 @@ namespace RuneForge.Core.GameStates.Implementations
                 switch (e.Key)
                 {
                     case Key.Up:
-                        m_camera.Location += new Point(0, -8);
+                        m_cameraController.MoveCamera(new Point(0, -8));
                         break;
                     case Key.Down:
-                        m_camera.Location += new Point(0, +8);
+                        m_cameraController.MoveCamera(new Point(0, +8));
                         break;
                     case Key.Left:
-                        m_camera.Location += new Point(-8, 0);
+                        m_cameraController.MoveCamera(new Point(-8, 0));
                         break;
                     case Key.Right:
-                        m_camera.Location += new Point(+8, 0);
+                        m_cameraController.MoveCamera(new Point(+8, 0));
                         break;
                 }
             }
@@ -125,10 +113,10 @@ namespace RuneForge.Core.GameStates.Implementations
                 switch (e.Key)
                 {
                     case Key.Add:
-                        m_camera.Scale *= 2.0f;
+                        m_cameraController.SetCameraScale(m_camera.Scale * 2.0f);
                         break;
                     case Key.Subtract:
-                        m_camera.Scale *= 0.5f;
+                        m_cameraController.SetCameraScale(m_camera.Scale * 0.5f);
                         break;
                 }
             }

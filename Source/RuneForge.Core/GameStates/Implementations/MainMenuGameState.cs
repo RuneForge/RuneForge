@@ -1,6 +1,5 @@
 ﻿using System;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,7 +19,6 @@ namespace RuneForge.Core.GameStates
         private readonly Lazy<XnaGame> m_gameProvider;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
-        private readonly IServiceProvider m_serviceScopeFactory;
         private readonly ISpriteFontProvider m_spriteFontProvider;
         private readonly IGraphicsInterfaceService m_graphicsInterfaceService;
         private readonly IGameStateService m_gameStateService;
@@ -32,7 +30,6 @@ namespace RuneForge.Core.GameStates
             Lazy<XnaGame> gameProvider,
             Lazy<ContentManager> contentManagerProvider,
             Lazy<GraphicsDevice> graphicsDeviceProvider,
-            IServiceProvider serviceScopeFactory,
             ISpriteFontProvider spriteFontProvider,
             IGraphicsInterfaceService graphicsInterfaceService,
             IGameStateService gameStateService
@@ -41,7 +38,6 @@ namespace RuneForge.Core.GameStates
             m_gameProvider = gameProvider;
             m_contentManagerProvider = contentManagerProvider;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
-            m_serviceScopeFactory = serviceScopeFactory;
             m_spriteFontProvider = spriteFontProvider;
             m_graphicsInterfaceService = graphicsInterfaceService;
             m_gameStateService = gameStateService;
@@ -83,16 +79,22 @@ namespace RuneForge.Core.GameStates
                 Y = m_titleLabel.Y + m_titleLabel.Height + 16,
             };
 
-            m_mainMenuWindow.StartGameButtonClicked += (sender, e) =>
-            {
-                GameplayGameState gameplayGameState = m_serviceScopeFactory.GetRequiredService<GameplayGameState>();
-                m_gameStateService.RunGameState(gameplayGameState);
-            };
-            m_mainMenuWindow.ExitGameButtonClicked += (sender, e) => m_gameProvider.Value.Exit();
+            m_mainMenuWindow.StartGameButtonClicked += (sender, e) => OnStartGameButtonClicked(sender, e);
+            m_mainMenuWindow.ExitGameButtonClicked += (sender, e) => OnExitGameButtonClicked(sender, e);
 
             m_titleLabel.LoadContent();
             m_mainMenuWindow.LoadContent();
             base.LoadContent();
+        }
+
+        private void OnStartGameButtonClicked(object sender, EventArgs e)
+        {
+            m_gameStateService.RunGameState<GameplayGameState>();
+        }
+        private void OnExitGameButtonClicked(object sender, EventArgs e)
+        {
+            XnaGame game = m_gameProvider.Value;
+            game.Exit();
         }
     }
 }

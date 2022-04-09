@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 
+using RuneForge.Core.Controllers;
 using RuneForge.Core.GameStates;
 using RuneForge.Core.GameStates.Components;
 using RuneForge.Core.GameStates.Implementations;
@@ -12,6 +13,8 @@ using RuneForge.Core.Input.EventProviders.Interfaces;
 using RuneForge.Core.Interface;
 using RuneForge.Core.Interface.Components;
 using RuneForge.Core.Interface.Interfaces;
+using RuneForge.Core.Rendering;
+using RuneForge.Core.Rendering.Interfaces;
 
 namespace RuneForge.Core.DependencyInjection
 {
@@ -39,8 +42,9 @@ namespace RuneForge.Core.DependencyInjection
         {
             services.AddSingleton<IGameStateService, GameStateService>();
             services.AddSingleton<IGameComponent, GameStateComponent>();
-            services.AddTransient<MainMenuGameState>();
-            services.AddTransient<GameplayGameState>();
+            services.AddScoped<MainMenuGameState>();
+            services.AddScoped<GameplayGameState>();
+            services.AddScoped<GameplayDependencyInitializer>();
             return services;
         }
 
@@ -49,6 +53,21 @@ namespace RuneForge.Core.DependencyInjection
             services.AddSingleton<ISpriteFontProvider, SpriteFontProvider>();
             services.AddSingleton<IGraphicsInterfaceService, GraphicsInterfaceService>();
             services.AddSingleton<IGameComponent, GraphicsInterfaceComponent>();
+            return services;
+        }
+
+        public static IServiceCollection AddRenderingServices(this IServiceCollection services)
+        {
+            services.AddScoped<ISpriteBatchProvider, SpriteBatchProvider>();
+            services.AddScoped<Camera2D>();
+            services.AddScoped<Camera2DParameters>();
+            services.AddScoped<MapRenderer>();
+            return services;
+        }
+
+        public static IServiceCollection AddControllers(this IServiceCollection services)
+        {
+            services.AddScoped<CameraController>();
             return services;
         }
     }
