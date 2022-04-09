@@ -14,7 +14,7 @@ namespace RuneForge.Core.Input.EventProviders
     {
         private const char c_emptyCharacter = '\0';
 
-        private static readonly Key[] s_keys = (Key[])Enum.GetValues(typeof(Key));
+        private static readonly Key[] s_keys = ((Key[])Enum.GetValues(typeof(Key))).Where(key => key != Key.None).ToArray();
 
         private readonly KeyboardEventProviderConfiguration m_configuration;
 
@@ -45,6 +45,8 @@ namespace RuneForge.Core.Input.EventProviders
         public event EventHandler<KeyboardEventArgs> KeyPressed;
 
         public event EventHandler<KeyboardEventArgs> KeyReleased;
+
+        public event EventHandler<KeyboardEventArgs> KeyTyped;
 
         public event EventHandler<KeyboardEventArgs> TextTyped;
 
@@ -122,6 +124,10 @@ namespace RuneForge.Core.Input.EventProviders
             m_extendedState = new KeyboardStateEx(state, m_previousState);
             m_previousState = state;
             ModifierKeys modifierKeys = m_extendedState.GetModifierKeys();
+            foreach (Key key in s_keys.Where(key => m_extendedState.IsKeyDown(key)))
+            {
+                KeyDown?.Invoke(this, new KeyboardEventArgs(key, modifierKeys, c_emptyCharacter, m_extendedState));
+            }  
             foreach (Key item in s_keys.Where((Key key) => m_extendedState.WasKeyJustPressed(key)))
             {
                 KeyPressed?.Invoke(this, new KeyboardEventArgs(item, modifierKeys, c_emptyCharacter, m_extendedState));
@@ -141,13 +147,13 @@ namespace RuneForge.Core.Input.EventProviders
             {
                 if (m_initialEvent && gameTime.TotalGameTime - m_previousKeyPressedOn >= InitialEventDelay)
                 {
-                    KeyDown?.Invoke(this, new KeyboardEventArgs(m_previousKey, modifierKeys, c_emptyCharacter, m_extendedState));
+                    KeyTyped?.Invoke(this, new KeyboardEventArgs(m_previousKey, modifierKeys, c_emptyCharacter, m_extendedState));
                     m_previousKeyPressedOn += InitialEventDelay;
                     m_initialEvent = false;
                 }
                 else if (!m_initialEvent && gameTime.TotalGameTime - m_previousKeyPressedOn >= RepeatedEventDelay)
                 {
-                    KeyDown?.Invoke(this, new KeyboardEventArgs(m_previousKey, modifierKeys, c_emptyCharacter, m_extendedState));
+                    KeyTyped?.Invoke(this, new KeyboardEventArgs(m_previousKey, modifierKeys, c_emptyCharacter, m_extendedState));
                     m_previousKeyPressedOn += RepeatedEventDelay;
                 }
             }

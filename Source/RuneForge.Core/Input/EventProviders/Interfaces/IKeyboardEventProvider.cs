@@ -16,6 +16,8 @@ namespace RuneForge.Core.Input.EventProviders.Interfaces
 
         event EventHandler<KeyboardEventArgs> KeyReleased;
 
+        event EventHandler<KeyboardEventArgs> KeyTyped;
+
         event EventHandler<KeyboardEventArgs> TextTyped;
 
         KeyboardStateEx GetState();
