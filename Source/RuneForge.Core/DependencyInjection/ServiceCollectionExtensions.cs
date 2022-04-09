@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 
 using RuneForge.Core.GameStates;
 using RuneForge.Core.GameStates.Components;
+using RuneForge.Core.GameStates.Implementations;
 using RuneForge.Core.GameStates.Interfaces;
 using RuneForge.Core.Input.Components;
 using RuneForge.Core.Input.EventProviders;
@@ -39,6 +40,7 @@ namespace RuneForge.Core.DependencyInjection
             services.AddSingleton<IGameStateService, GameStateService>();
             services.AddSingleton<IGameComponent, GameStateComponent>();
             services.AddTransient<MainMenuGameState>();
+            services.AddTransient<GameplayGameState>();
             return services;
         }
 
