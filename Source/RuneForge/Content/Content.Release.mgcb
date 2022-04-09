@@ -34,6 +34,11 @@
 #begin Fonts/License.txt
 /copy:Fonts/License.txt
 
+#begin Maps/Southshore.xml
+/importer:MapImporter
+/processor:PassThroughProcessor
+/build:Maps/Southshore.xml
+
 #begin TextureAtlases/Interface/Controls/Button.xml
 /importer:TextureAtlasImporter
 /processor:PassThroughProcessor
@@ -43,6 +48,11 @@
 /importer:TextureAtlasImporter
 /processor:PassThroughProcessor
 /build:TextureAtlases/Interface/Controls/Window.xml
+
+#begin TextureAtlases/Maps/SummerPlains.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Maps/SummerPlains.xml
 
 #begin Textures/Interface/Controls/Button.png
 /importer:TextureImporter
@@ -67,3 +77,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Interface/Controls/Window.png
+
+#begin Textures/Maps/License.txt
+/copy:Textures/Maps/License.txt
+
+#begin Textures/Maps/SummerPlains.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Maps/SummerPlains.png
