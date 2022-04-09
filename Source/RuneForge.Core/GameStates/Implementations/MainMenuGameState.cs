@@ -1,9 +1,12 @@
 ﻿using System;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using RuneForge.Core.GameStates.Implementations;
+using RuneForge.Core.GameStates.Interfaces;
 using RuneForge.Core.Interface.Controls;
 using RuneForge.Core.Interface.Interfaces;
 using RuneForge.Core.Interface.Windows;
@@ -17,8 +20,10 @@ namespace RuneForge.Core.GameStates
         private readonly Lazy<XnaGame> m_gameProvider;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
+        private readonly IServiceProvider m_serviceScopeFactory;
         private readonly ISpriteFontProvider m_spriteFontProvider;
         private readonly IGraphicsInterfaceService m_graphicsInterfaceService;
+        private readonly IGameStateService m_gameStateService;
         private SpriteBatch m_spriteBatch;
         private MainMenuWindow m_mainMenuWindow;
         private Label m_titleLabel;
@@ -27,15 +32,19 @@ namespace RuneForge.Core.GameStates
             Lazy<XnaGame> gameProvider,
             Lazy<ContentManager> contentManagerProvider,
             Lazy<GraphicsDevice> graphicsDeviceProvider,
+            IServiceProvider serviceScopeFactory,
             ISpriteFontProvider spriteFontProvider,
-            IGraphicsInterfaceService graphicsInterfaceService
+            IGraphicsInterfaceService graphicsInterfaceService,
+            IGameStateService gameStateService
             )
         {
             m_gameProvider = gameProvider;
             m_contentManagerProvider = contentManagerProvider;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
+            m_serviceScopeFactory = serviceScopeFactory;
             m_spriteFontProvider = spriteFontProvider;
             m_graphicsInterfaceService = graphicsInterfaceService;
+            m_gameStateService = gameStateService;
         }
 
         public override void Run()
@@ -74,6 +83,11 @@ namespace RuneForge.Core.GameStates
                 Y = m_titleLabel.Y + m_titleLabel.Height + 16,
             };
 
+            m_mainMenuWindow.StartGameButtonClicked += (sender, e) =>
+            {
+                GameplayGameState gameplayGameState = m_serviceScopeFactory.GetRequiredService<GameplayGameState>();
+                m_gameStateService.RunGameState(gameplayGameState);
+            };
             m_mainMenuWindow.ExitGameButtonClicked += (sender, e) => m_gameProvider.Value.Exit();
 
             m_titleLabel.LoadContent();
