@@ -17,5 +17,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlArray(ElementName = "Cells")]
         [XmlArrayItem(ElementName = "Cell")]
         public List<MapCell> Cells { get; set; }
+
+        [XmlArray(ElementName = "Decorations")]
+        [XmlArrayItem(ElementName = "Decoration")]
+        public List<MapDecoration> Decorations { get; set; }
     }
 }
