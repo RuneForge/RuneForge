@@ -15,6 +15,7 @@ namespace RuneForge.Core.DependencyInjection
         private readonly IMapProvider m_mapProvider;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
         private readonly IMapCellTypeResolver m_mapCellTypeResolver;
+        private readonly IMapDecorationTypeResolver m_mapDecorationTypeResolver;
         private readonly MapRenderer m_mapRenderer;
         private readonly Camera2DParameters m_cameraParameters;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
@@ -24,6 +25,7 @@ namespace RuneForge.Core.DependencyInjection
             IMapProvider mapProvider,
             ISpriteBatchProvider spriteBatchProvider,
             IMapCellTypeResolver mapCellTypeResolver,
+            IMapDecorationTypeResolver mapDecorationTypeResolver,
             MapRenderer mapRenderer,
             Camera2DParameters cameraParameters,
             Lazy<ContentManager> contentManagerProvider,
@@ -33,6 +35,7 @@ namespace RuneForge.Core.DependencyInjection
             m_mapProvider = mapProvider;
             m_spriteBatchProvider = spriteBatchProvider;
             m_mapCellTypeResolver = mapCellTypeResolver;
+            m_mapDecorationTypeResolver = mapDecorationTypeResolver;
             m_mapRenderer = mapRenderer;
             m_cameraParameters = cameraParameters;
             m_contentManagerProvider = contentManagerProvider;
@@ -46,6 +49,7 @@ namespace RuneForge.Core.DependencyInjection
 
             Map map = contentManager.Load<Map>(mapAssetName);
             map.ResolveMapCellTypes(m_mapCellTypeResolver);
+            map.ResolveMapDecorationTypes(m_mapDecorationTypeResolver);
             m_mapProvider.Map = map;
 
             SpriteBatch worldSpriteBatch = new SpriteBatch(graphicsDevice);

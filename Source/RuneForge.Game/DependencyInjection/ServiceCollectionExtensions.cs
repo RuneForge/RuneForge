@@ -11,6 +11,7 @@ namespace RuneForge.Game.DependencyInjection
         {
             services.AddScoped<IMapProvider, MapProvider>();
             services.AddScoped<IMapCellTypeResolver, MapCellTypeResolver>();
+            services.AddScoped<IMapDecorationTypeResolver, MapDecorationTypeResolver>();
 
             return services;
         }

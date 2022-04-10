@@ -63,6 +63,15 @@ namespace RuneForge.Core.Rendering
                             spriteBatch.Draw(textureRegion, new Rectangle(x * Map.CellWidth, y * Map.CellHeight, Map.CellWidth, Map.CellHeight), Color.White);
                         }
                     }
+                    MapDecoration decoration = map.GetDecoration(x, y);
+                    if (decoration.Tier != MapDecorationTier.None)
+                    {
+                        if (tileset.TryGetDecorationPrototype(decoration.Tier, decoration.Type, out MapTilesetDecorationPrototype decorationPrototype))
+                        {
+                            TextureRegion2D textureRegion = m_textureAtlas.TextureRegions[decorationPrototype.TextureRegionName];
+                            spriteBatch.Draw(textureRegion, new Rectangle(x * Map.CellWidth, y * Map.CellHeight, Map.CellWidth, Map.CellHeight), Color.White);
+                        }
+                    }
                 }
             }
         }
