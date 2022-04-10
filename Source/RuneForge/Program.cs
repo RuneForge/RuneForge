@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using RuneForge.Configuration;
 using RuneForge.Core.DependencyInjection;
 using RuneForge.DependencyInjection;
 using RuneForge.Game.DependencyInjection;
@@ -46,6 +47,8 @@ namespace RuneForge
 
         private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
+            services.Configure<GraphicsConfiguration>(context.Configuration.GetSection(nameof(GraphicsConfiguration)));
+
             services.AddRuneForgeGame();
             services.AddInputServices();
             services.AddGameStateManagementServices();
