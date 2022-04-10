@@ -24,8 +24,17 @@ namespace RuneForge.Game.Maps
 
                 cells.Add(new MapCell(tier, type));
             }
+            int decorationsCount = width * height;
+            List<MapDecoration> decorations = new List<MapDecoration>();
+            for (int i = 0; i < decorationsCount; i++)
+            {
+                MapDecorationTier tier = (MapDecorationTier)reader.ReadInt32();
+                MapDecorationType type = (MapDecorationType)reader.ReadInt32();
 
-            return new Map(mapAssetName, width, height, tileset, cells);
+                decorations.Add(new MapDecoration(tier, type));
+            }
+
+            return new Map(mapAssetName, width, height, tileset, cells, decorations);
         }
 
         private MapTileset ReadTileset(ContentReader reader)
@@ -46,8 +55,22 @@ namespace RuneForge.Game.Maps
                     TextureRegionName = textureRegionName,
                 });
             }
+            int decorationPrototypesCount = reader.ReadInt32();
+            Dictionary<(MapDecorationTier, MapDecorationType), MapTilesetDecorationPrototype> decorationPrototypes = new Dictionary<(MapDecorationTier, MapDecorationType), MapTilesetDecorationPrototype>();
+            for (int i = 0; i < decorationPrototypesCount; i++)
+            {
+                MapDecorationTier tier = (MapDecorationTier)reader.ReadInt32();
+                MapDecorationType type = (MapDecorationType)reader.ReadInt32();
 
-            return new MapTileset(textureAtlasName, cellPrototypes);
+                string textureRegionName = reader.ReadString();
+
+                decorationPrototypes.Add((tier, type), new MapTilesetDecorationPrototype()
+                {
+                    TextureRegionName = textureRegionName,
+                });
+            }
+
+            return new MapTileset(textureAtlasName, cellPrototypes, decorationPrototypes);
         }
     }
 }
