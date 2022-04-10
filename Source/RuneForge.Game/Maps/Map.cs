@@ -11,6 +11,7 @@ namespace RuneForge.Game.Maps
         public const int CellHeight = 32;
 
         private readonly MapCell[] m_cells;
+        private readonly MapDecoration[] m_decorations;
 
         public string Name { get; }
 
@@ -19,9 +20,10 @@ namespace RuneForge.Game.Maps
 
         public MapTileset Tileset { get; }
 
-        public Map(string name, int width, int height, MapTileset tileset, IList<MapCell> cells)
+        public Map(string name, int width, int height, MapTileset tileset, IList<MapCell> cells, IList<MapDecoration> decorations)
         {
             m_cells = cells.ToArray();
+            m_decorations = decorations.ToArray();
 
             Name = name;
 
@@ -45,10 +47,18 @@ namespace RuneForge.Game.Maps
         {
             return m_cells[GetIndexByCoordinates(x, y)];
         }
+        public MapDecoration GetDecoration(int x, int y)
+        {
+            return m_decorations[GetIndexByCoordinates(x, y)];
+        }
 
         private void SetCell(int x, int y, MapCell mapCell)
         {
             m_cells[GetIndexByCoordinates(x, y)] = mapCell;
+        }
+        private void SetDecoration(int x, int y, MapDecoration mapDecoration)
+        {
+            m_decorations[GetIndexByCoordinates(x, y)] = mapDecoration;
         }
 
         private void GetCoordinatesByIndex(int index, out int x, out int y)
