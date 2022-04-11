@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using RuneForge.Configuration;
 using RuneForge.Core.DependencyInjection;
 using RuneForge.DependencyInjection;
+using RuneForge.Game.AutoMapper;
 using RuneForge.Game.DependencyInjection;
 
 using XnaGame = Microsoft.Xna.Framework.Game;
@@ -49,6 +50,11 @@ namespace RuneForge
         {
             services.Configure<GraphicsConfiguration>(context.Configuration.GetSection(nameof(GraphicsConfiguration)));
 
+            services.AddAutoMapper(configuration =>
+            {
+                configuration.AddProfile<PlayerProfile>();
+            });
+
             services.AddRuneForgeGame();
 
             services.AddInputServices();
@@ -59,6 +65,7 @@ namespace RuneForge
 
             services.AddGameSessionContext();
             services.AddMapServices();
+            services.AddPlayerServices();
         }
     }
 }
