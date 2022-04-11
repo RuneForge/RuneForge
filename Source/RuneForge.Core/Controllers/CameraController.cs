@@ -1,19 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 
 using RuneForge.Core.Rendering;
+using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
-using RuneForge.Game.Maps.Interfaces;
 
 namespace RuneForge.Core.Controllers
 {
     public class CameraController
     {
-        private readonly IMapProvider m_mapProvider;
+        private readonly IGameSessionContext m_gameSessionContext;
         private readonly Camera2D m_camera;
 
-        public CameraController(IMapProvider mapProvider, Camera2D camera)
+        public CameraController(IGameSessionContext gameSessionContext, Camera2D camera)
         {
-            m_mapProvider = mapProvider;
+            m_gameSessionContext = gameSessionContext;
             m_camera = camera;
         }
 
@@ -24,7 +24,7 @@ namespace RuneForge.Core.Controllers
 
         public void SetCameraLocation(Point absoluteLocation)
         {
-            Map map = m_mapProvider.Map;
+            Map map = m_gameSessionContext.Map;
             if (absoluteLocation.X < 0)
                 absoluteLocation.X = 0;
             if (absoluteLocation.X > (map.Width + 1) * Map.CellWidth)

@@ -6,14 +6,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 using RuneForge.Core.Rendering.Interfaces;
 using RuneForge.Core.TextureAtlases;
+using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
-using RuneForge.Game.Maps.Interfaces;
 
 namespace RuneForge.Core.Rendering
 {
     public class MapRenderer
     {
-        private readonly IMapProvider m_mapProvider;
+        private readonly IGameSessionContext m_gameSessionContext;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Camera2D m_camera;
@@ -21,14 +21,14 @@ namespace RuneForge.Core.Rendering
         private TextureAtlas m_textureAtlas;
 
         public MapRenderer(
-            IMapProvider mapProvider,
+            IGameSessionContext gameSessionContext,
             ISpriteBatchProvider spriteBatchProvider,
             Lazy<ContentManager> contentManagerProvider,
             Camera2D camera,
             Camera2DParameters cameraParameters
             )
         {
-            m_mapProvider = mapProvider;
+            m_gameSessionContext = gameSessionContext;
             m_spriteBatchProvider = spriteBatchProvider;
             m_contentManagerProvider = contentManagerProvider;
             m_camera = camera;
@@ -47,7 +47,7 @@ namespace RuneForge.Core.Rendering
             int maxVisibleCellX = maxVisibleX / Map.CellWidth;
             int maxVisibleCellY = maxVisibleY / Map.CellHeight;
 
-            Map map = m_mapProvider.Map;
+            Map map = m_gameSessionContext.Map;
             MapTileset tileset = map.Tileset;
             SpriteBatch spriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
             for (int y = Math.Max(minVisibleCellY, 0); y <= Math.Min(maxVisibleCellY, map.Height - 1); y++)
@@ -78,7 +78,7 @@ namespace RuneForge.Core.Rendering
 
         public void LoadContent()
         {
-            Map map = m_mapProvider.Map;
+            Map map = m_gameSessionContext.Map;
             ContentManager contentManager = m_contentManagerProvider.Value;
             m_textureAtlas = contentManager.Load<TextureAtlas>(map.Tileset.TextureAtlasName);
         }
