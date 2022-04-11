@@ -15,4 +15,9 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0-runeforge0.1.2" />
   </ItemGroup>
 
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\RuneForge.Data\RuneForge.Data.csproj" />
+  </ItemGroup>
+
 </Project>
