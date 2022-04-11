@@ -44,7 +44,6 @@ namespace RuneForge.Core.DependencyInjection
             services.AddSingleton<IGameComponent, GameStateComponent>();
             services.AddScoped<MainMenuGameState>();
             services.AddScoped<GameplayGameState>();
-            services.AddScoped<GameplayDependencyInitializer>();
             return services;
         }
 

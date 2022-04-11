@@ -50,12 +50,14 @@ namespace RuneForge
             services.Configure<GraphicsConfiguration>(context.Configuration.GetSection(nameof(GraphicsConfiguration)));
 
             services.AddRuneForgeGame();
+
             services.AddInputServices();
             services.AddGameStateManagementServices();
             services.AddGraphicsInterfaceServices();
             services.AddRenderingServices();
             services.AddControllers();
 
+            services.AddGameSessionContext();
             services.AddMapServices();
         }
     }
