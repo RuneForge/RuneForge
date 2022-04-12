@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 
 using Microsoft.Xna.Framework.Content;
 
+using RuneForge.Game.Buildings;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Maps.Interfaces;
@@ -22,6 +23,7 @@ namespace RuneForge.Game.GameSessions
         public Collection<Player> Players { get; }
 
         public Collection<Unit> Units { get; }
+        public Collection<Building> Buildings { get; }
 
         public bool Initialized { get; private set; }
 
@@ -34,6 +36,7 @@ namespace RuneForge.Game.GameSessions
             Map = null;
             Players = new Collection<Player>();
             Units = new Collection<Unit>();
+            Buildings = new Collection<Building>();
             Initialized = false;
         }
 
