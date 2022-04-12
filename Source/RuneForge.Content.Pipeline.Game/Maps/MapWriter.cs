@@ -34,6 +34,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     writer.Write((int)cellPrototype.Tier);
                     writer.Write((int)cellPrototype.Type);
 
+                    writer.Write((int)cellPrototype.BuildingFlags);
+                    writer.Write((int)cellPrototype.MovementFlags);
+
                     writer.Write(cellPrototype.TextureRegionName);
                 }
                 writer.Write(tileset.DecorationPrototypes.Count);
@@ -41,6 +44,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 {
                     writer.Write((int)decorationPrototype.Tier);
                     writer.Write((int)decorationPrototype.Type);
+
+                    writer.Write((int)decorationPrototype.BuildingFlags);
+                    writer.Write((int)decorationPrototype.MovementFlags);
 
                     writer.Write(decorationPrototype.TextureRegionName);
                 }

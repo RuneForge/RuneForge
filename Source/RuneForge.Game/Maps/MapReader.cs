@@ -48,12 +48,12 @@ namespace RuneForge.Game.Maps
                 MapCellTier tier = (MapCellTier)reader.ReadInt32();
                 MapCellTypes type = (MapCellTypes)reader.ReadInt32();
 
+                MapCellMovementFlags movementFlags = (MapCellMovementFlags)reader.ReadInt32();
+                MapCellBuildingFlags buildingFlags = (MapCellBuildingFlags)reader.ReadInt32();
+
                 string textureRegionName = reader.ReadString();
 
-                cellPrototypes.Add((tier, type), new MapTilesetCellPrototype()
-                {
-                    TextureRegionName = textureRegionName,
-                });
+                cellPrototypes.Add((tier, type), new MapTilesetCellPrototype(movementFlags, buildingFlags, textureRegionName));
             }
             int decorationPrototypesCount = reader.ReadInt32();
             Dictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype> decorationPrototypes = new Dictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype>();
@@ -62,12 +62,12 @@ namespace RuneForge.Game.Maps
                 MapDecorationTier tier = (MapDecorationTier)reader.ReadInt32();
                 MapDecorationTypes type = (MapDecorationTypes)reader.ReadInt32();
 
+                MapDecorationMovementFlags movementFlags = (MapDecorationMovementFlags)reader.ReadInt32();
+                MapDecorationBuildingFlags buildingFlags = (MapDecorationBuildingFlags)reader.ReadInt32();
+
                 string textureRegionName = reader.ReadString();
 
-                decorationPrototypes.Add((tier, type), new MapTilesetDecorationPrototype()
-                {
-                    TextureRegionName = textureRegionName,
-                });
+                decorationPrototypes.Add((tier, type), new MapTilesetDecorationPrototype(movementFlags, buildingFlags, textureRegionName));
             }
 
             return new MapTileset(textureAtlasName, cellPrototypes, decorationPrototypes);

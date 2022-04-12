@@ -11,6 +11,11 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlAttribute(AttributeName = "Type")]
         public MapCellTypes Type { get; set; }
 
+        [XmlElement(ElementName = "MovementFlags")]
+        public MapCellMovementFlags MovementFlags { get; set; }
+        [XmlElement(ElementName = "BuildingFlags")]
+        public MapCellBuildingFlags BuildingFlags { get; set; }
+
         [XmlElement(ElementName = "TextureRegionName")]
         public string TextureRegionName { get; set; }
     }
