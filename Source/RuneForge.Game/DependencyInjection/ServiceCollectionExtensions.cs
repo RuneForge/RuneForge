@@ -1,9 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
+using RuneForge.Data.Buildings;
+using RuneForge.Data.Buildings.Interfaces;
 using RuneForge.Data.Players;
 using RuneForge.Data.Players.Interfaces;
 using RuneForge.Data.Units;
 using RuneForge.Data.Units.Interfaces;
+using RuneForge.Game.Buildings;
+using RuneForge.Game.Buildings.Interfaces;
 using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
@@ -42,6 +46,14 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<IUnitRepository, InMemoryUnitRepository>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IUnitFactory, UnitFactory>();
+            return services;
+        }
+
+        public static IServiceCollection AddBuildingServices(this IServiceCollection services)
+        {
+            services.AddScoped<IBuildingRepository, InMemoryBuildingRepository>();
+            services.AddScoped<IBuildingService, BuildingService>();
+            services.AddScoped<IBuildingFactory, BuildingFactory>();
             return services;
         }
     }
