@@ -53,6 +53,7 @@ namespace RuneForge
             services.AddAutoMapper(configuration =>
             {
                 configuration.AddProfile<PlayerProfile>();
+                configuration.AddProfile<UnitProfile>();
             });
 
             services.AddRuneForgeGame();

@@ -2,6 +2,7 @@
 
 using RuneForge.Game.Maps;
 using RuneForge.Game.Players;
+using RuneForge.Game.Units;
 
 namespace RuneForge.Game.GameSessions.Interfaces
 {
@@ -10,6 +11,8 @@ namespace RuneForge.Game.GameSessions.Interfaces
         public Map Map { get; }
 
         public Collection<Player> Players { get; }
+
+        public Collection<Unit> Units { get; }
 
         public bool Initialized { get; }
 
