@@ -38,7 +38,7 @@ namespace RuneForge.Game.Maps
             for (int i = 0; i < m_cells.Length; i++)
             {
                 GetCoordinatesByIndex(i, out int x, out int y);
-                if (mapCellTypeResolver.TryResolveMapCellType(x, y, this, out MapCellType type))
+                if (mapCellTypeResolver.TryResolveMapCellType(x, y, this, out MapCellTypes type))
                     SetCell(x, y, new MapCell(m_cells[i].Tier, type));
             }
         }
@@ -47,8 +47,8 @@ namespace RuneForge.Game.Maps
             for (int i = 0; i < m_cells.Length; i++)
             {
                 GetCoordinatesByIndex(i, out int x, out int y);
-                if (!mapDecorationTypeResolver.TryResolveMapDecorationType(x, y, this, out MapDecorationType type))
-                    type = MapDecorationType.Destroyed;
+                if (!mapDecorationTypeResolver.TryResolveMapDecorationType(x, y, this, out MapDecorationTypes type))
+                    type = MapDecorationTypes.Destroyed;
                 SetDecoration(x, y, new MapDecoration(m_decorations[i].Tier, type));
             }
         }

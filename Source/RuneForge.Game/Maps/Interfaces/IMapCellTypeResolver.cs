@@ -2,8 +2,8 @@
 {
     public interface IMapCellTypeResolver
     {
-        public MapCellType ResolveMapCellType(int x, int y, Map map);
+        public MapCellTypes ResolveMapCellType(int x, int y, Map map);
 
-        public bool TryResolveMapCellType(int x, int y, Map map, out MapCellType type);
+        public bool TryResolveMapCellType(int x, int y, Map map, out MapCellTypes type);
     }
 }

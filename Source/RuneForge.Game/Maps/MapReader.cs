@@ -20,7 +20,7 @@ namespace RuneForge.Game.Maps
             for (int i = 0; i < cellsCount; i++)
             {
                 MapCellTier tier = (MapCellTier)reader.ReadInt32();
-                MapCellType type = (MapCellType)reader.ReadInt32();
+                MapCellTypes type = (MapCellTypes)reader.ReadInt32();
 
                 cells.Add(new MapCell(tier, type));
             }
@@ -29,7 +29,7 @@ namespace RuneForge.Game.Maps
             for (int i = 0; i < decorationsCount; i++)
             {
                 MapDecorationTier tier = (MapDecorationTier)reader.ReadInt32();
-                MapDecorationType type = (MapDecorationType)reader.ReadInt32();
+                MapDecorationTypes type = (MapDecorationTypes)reader.ReadInt32();
 
                 decorations.Add(new MapDecoration(tier, type));
             }
@@ -42,11 +42,11 @@ namespace RuneForge.Game.Maps
             string textureAtlasName = reader.ReadString();
 
             int cellPrototypesCount = reader.ReadInt32();
-            Dictionary<(MapCellTier, MapCellType), MapTilesetCellPrototype> cellPrototypes = new Dictionary<(MapCellTier, MapCellType), MapTilesetCellPrototype>();
+            Dictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype> cellPrototypes = new Dictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype>();
             for (int i = 0; i < cellPrototypesCount; i++)
             {
                 MapCellTier tier = (MapCellTier)reader.ReadInt32();
-                MapCellType type = (MapCellType)reader.ReadInt32();
+                MapCellTypes type = (MapCellTypes)reader.ReadInt32();
 
                 string textureRegionName = reader.ReadString();
 
@@ -56,11 +56,11 @@ namespace RuneForge.Game.Maps
                 });
             }
             int decorationPrototypesCount = reader.ReadInt32();
-            Dictionary<(MapDecorationTier, MapDecorationType), MapTilesetDecorationPrototype> decorationPrototypes = new Dictionary<(MapDecorationTier, MapDecorationType), MapTilesetDecorationPrototype>();
+            Dictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype> decorationPrototypes = new Dictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype>();
             for (int i = 0; i < decorationPrototypesCount; i++)
             {
                 MapDecorationTier tier = (MapDecorationTier)reader.ReadInt32();
-                MapDecorationType type = (MapDecorationType)reader.ReadInt32();
+                MapDecorationTypes type = (MapDecorationTypes)reader.ReadInt32();
 
                 string textureRegionName = reader.ReadString();
 

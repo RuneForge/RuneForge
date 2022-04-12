@@ -7,35 +7,35 @@ namespace RuneForge.Game.Maps
 {
     public class MapCellTypeResolver : IMapCellTypeResolver
     {
-        private readonly List<(MapCellType, Directions)> s_mapCellPatterns = new List<(MapCellType, Directions)>()
+        private static readonly List<(MapCellTypes, Directions)> s_mapCellPatterns = new List<(MapCellTypes, Directions)>()
         {
-            (MapCellType.Center, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
-            (MapCellType.InnerCornerNorthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
-            (MapCellType.InnerCornerNorthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.SouthWest | Directions.SouthEast),
-            (MapCellType.InnerCornerSouthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthEast),
-            (MapCellType.InnerCornerSouthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest),
-            (MapCellType.EdgeNorth, Directions.South | Directions.West | Directions.East | Directions.SouthWest | Directions.SouthEast),
-            (MapCellType.EdgeSouth, Directions.North | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast),
-            (MapCellType.EdgeWest, Directions.North | Directions.South | Directions.East | Directions.NorthEast | Directions.SouthEast),
-            (MapCellType.EdgeEast, Directions.North | Directions.South | Directions.West | Directions.NorthWest | Directions.SouthWest),
-            (MapCellType.OuterCornerNorthWest, Directions.South | Directions.East | Directions.SouthEast),
-            (MapCellType.OuterCornerNorthEast, Directions.South | Directions.West | Directions.SouthWest),
-            (MapCellType.OuterCornerSouthWest, Directions.North | Directions.East | Directions.NorthEast),
-            (MapCellType.OuterCornerSouthEast, Directions.North | Directions.West | Directions.NorthWest),
+            (MapCellTypes.Center, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
+            (MapCellTypes.InnerCornerNorthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
+            (MapCellTypes.InnerCornerNorthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.SouthWest | Directions.SouthEast),
+            (MapCellTypes.InnerCornerSouthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthEast),
+            (MapCellTypes.InnerCornerSouthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest),
+            (MapCellTypes.EdgeNorth, Directions.South | Directions.West | Directions.East | Directions.SouthWest | Directions.SouthEast),
+            (MapCellTypes.EdgeSouth, Directions.North | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast),
+            (MapCellTypes.EdgeWest, Directions.North | Directions.South | Directions.East | Directions.NorthEast | Directions.SouthEast),
+            (MapCellTypes.EdgeEast, Directions.North | Directions.South | Directions.West | Directions.NorthWest | Directions.SouthWest),
+            (MapCellTypes.OuterCornerNorthWest, Directions.South | Directions.East | Directions.SouthEast),
+            (MapCellTypes.OuterCornerNorthEast, Directions.South | Directions.West | Directions.SouthWest),
+            (MapCellTypes.OuterCornerSouthWest, Directions.North | Directions.East | Directions.NorthEast),
+            (MapCellTypes.OuterCornerSouthEast, Directions.North | Directions.West | Directions.NorthWest),
         };
 
-        public MapCellType ResolveMapCellType(int x, int y, Map map)
+        public MapCellTypes ResolveMapCellType(int x, int y, Map map)
         {
-            if (!TryResolveMapCellType(x, y, map, out MapCellType type))
+            if (!TryResolveMapCellType(x, y, map, out MapCellTypes type))
                 throw new InvalidOperationException("Unable to resolve the type of the cell.");
             else
                 return type;
         }
 
-        public bool TryResolveMapCellType(int x, int y, Map map, out MapCellType type)
+        public bool TryResolveMapCellType(int x, int y, Map map, out MapCellTypes type)
         {
             Directions adjacentCells = GetAdjacentCells(x, y, map);
-            foreach ((MapCellType mapCellType, Directions mask) in s_mapCellPatterns)
+            foreach ((MapCellTypes mapCellType, Directions mask) in s_mapCellPatterns)
             {
                 if ((adjacentCells & mask) == mask)
                 {
@@ -43,7 +43,7 @@ namespace RuneForge.Game.Maps
                     return true;
                 }
             }
-            type = MapCellType.Center;
+            type = MapCellTypes.Center;
             return false;
         }
 

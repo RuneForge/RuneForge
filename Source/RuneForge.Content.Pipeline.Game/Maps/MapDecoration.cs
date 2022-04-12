@@ -9,6 +9,6 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlAttribute(AttributeName = "Tier")]
         public MapDecorationTier Tier { get; set; }
         [XmlAttribute(AttributeName = "Type")]
-        public MapDecorationType Type { get; set; }
+        public MapDecorationTypes Type { get; set; }
     }
 }
