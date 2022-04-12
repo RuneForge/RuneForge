@@ -7,6 +7,7 @@ using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Maps.Interfaces;
 using RuneForge.Game.Players;
+using RuneForge.Game.Units;
 
 namespace RuneForge.Game.GameSessions
 {
@@ -20,6 +21,8 @@ namespace RuneForge.Game.GameSessions
 
         public Collection<Player> Players { get; }
 
+        public Collection<Unit> Units { get; }
+
         public bool Initialized { get; private set; }
 
         public GameSessionContext(IMapCellTypeResolver mapCellTypeResolver, IMapDecorationTypeResolver mapDecorationTypeResolver, Lazy<ContentManager> contentManagerProvider)
@@ -30,6 +33,7 @@ namespace RuneForge.Game.GameSessions
 
             Map = null;
             Players = new Collection<Player>();
+            Units = new Collection<Unit>();
             Initialized = false;
         }
 
