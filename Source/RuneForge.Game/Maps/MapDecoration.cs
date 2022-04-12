@@ -3,9 +3,9 @@
     public struct MapDecoration
     {
         public MapDecorationTier Tier { get; }
-        public MapDecorationType Type { get; }
+        public MapDecorationTypes Type { get; }
 
-        public MapDecoration(MapDecorationTier tier, MapDecorationType type)
+        public MapDecoration(MapDecorationTier tier, MapDecorationTypes type)
         {
             Tier = tier;
             Type = type;

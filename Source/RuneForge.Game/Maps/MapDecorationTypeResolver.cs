@@ -7,35 +7,35 @@ namespace RuneForge.Game.Maps
 {
     public class MapDecorationTypeResolver : IMapDecorationTypeResolver
     {
-        private readonly List<(MapDecorationType, Directions)> s_mapDecorationPatterns = new List<(MapDecorationType, Directions)>()
+        private static readonly List<(MapDecorationTypes, Directions)> s_mapDecorationPatterns = new List<(MapDecorationTypes, Directions)>()
         {
-            (MapDecorationType.Center, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
-            (MapDecorationType.InnerCornerNorthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
-            (MapDecorationType.InnerCornerNorthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.SouthWest | Directions.SouthEast),
-            (MapDecorationType.InnerCornerSouthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthEast),
-            (MapDecorationType.InnerCornerSouthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest),
-            (MapDecorationType.EdgeNorth, Directions.South | Directions.West | Directions.East | Directions.SouthWest | Directions.SouthEast),
-            (MapDecorationType.EdgeSouth, Directions.North | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast),
-            (MapDecorationType.EdgeWest, Directions.North | Directions.South | Directions.East | Directions.NorthEast | Directions.SouthEast),
-            (MapDecorationType.EdgeEast, Directions.North | Directions.South | Directions.West | Directions.NorthWest | Directions.SouthWest),
-            (MapDecorationType.OuterCornerNorthWest, Directions.South | Directions.East | Directions.SouthEast),
-            (MapDecorationType.OuterCornerNorthEast, Directions.South | Directions.West | Directions.SouthWest),
-            (MapDecorationType.OuterCornerSouthWest, Directions.North | Directions.East | Directions.NorthEast),
-            (MapDecorationType.OuterCornerSouthEast, Directions.North | Directions.West | Directions.NorthWest),
+            (MapDecorationTypes.Center, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
+            (MapDecorationTypes.InnerCornerNorthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthEast | Directions.SouthWest | Directions.SouthEast),
+            (MapDecorationTypes.InnerCornerNorthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.SouthWest | Directions.SouthEast),
+            (MapDecorationTypes.InnerCornerSouthWest, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthEast),
+            (MapDecorationTypes.InnerCornerSouthEast, Directions.North | Directions.South | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast | Directions.SouthWest),
+            (MapDecorationTypes.EdgeNorth, Directions.South | Directions.West | Directions.East | Directions.SouthWest | Directions.SouthEast),
+            (MapDecorationTypes.EdgeSouth, Directions.North | Directions.West | Directions.East | Directions.NorthWest | Directions.NorthEast),
+            (MapDecorationTypes.EdgeWest, Directions.North | Directions.South | Directions.East | Directions.NorthEast | Directions.SouthEast),
+            (MapDecorationTypes.EdgeEast, Directions.North | Directions.South | Directions.West | Directions.NorthWest | Directions.SouthWest),
+            (MapDecorationTypes.OuterCornerNorthWest, Directions.South | Directions.East | Directions.SouthEast),
+            (MapDecorationTypes.OuterCornerNorthEast, Directions.South | Directions.West | Directions.SouthWest),
+            (MapDecorationTypes.OuterCornerSouthWest, Directions.North | Directions.East | Directions.NorthEast),
+            (MapDecorationTypes.OuterCornerSouthEast, Directions.North | Directions.West | Directions.NorthWest),
         };
 
-        public MapDecorationType ResolveMapDecorationType(int x, int y, Map map)
+        public MapDecorationTypes ResolveMapDecorationType(int x, int y, Map map)
         {
-            if (!TryResolveMapDecorationType(x, y, map, out MapDecorationType type))
+            if (!TryResolveMapDecorationType(x, y, map, out MapDecorationTypes type))
                 throw new InvalidOperationException("Unable to resolve the type of the decoration.");
             else
                 return type;
         }
 
-        public bool TryResolveMapDecorationType(int x, int y, Map map, out MapDecorationType type)
+        public bool TryResolveMapDecorationType(int x, int y, Map map, out MapDecorationTypes type)
         {
             Directions adjacentCells = GetAdjacentCells(x, y, map);
-            foreach ((MapDecorationType mapDecorationType, Directions mask) in s_mapDecorationPatterns)
+            foreach ((MapDecorationTypes mapDecorationType, Directions mask) in s_mapDecorationPatterns)
             {
                 if ((adjacentCells & mask) == mask)
                 {
@@ -43,7 +43,7 @@ namespace RuneForge.Game.Maps
                     return true;
                 }
             }
-            type = MapDecorationType.Center;
+            type = MapDecorationTypes.Center;
             return false;
         }
 

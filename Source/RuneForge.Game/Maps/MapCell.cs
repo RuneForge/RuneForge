@@ -3,9 +3,9 @@
     public readonly struct MapCell
     {
         public MapCellTier Tier { get; }
-        public MapCellType Type { get; }
+        public MapCellTypes Type { get; }
 
-        public MapCell(MapCellTier tier, MapCellType type)
+        public MapCell(MapCellTier tier, MapCellTypes type)
         {
             Tier = tier;
             Type = type;

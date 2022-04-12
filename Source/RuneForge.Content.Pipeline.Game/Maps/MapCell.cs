@@ -9,6 +9,6 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlAttribute(AttributeName = "Tier")]
         public MapCellTier Tier { get; set; }
         [XmlAttribute(AttributeName = "Type")]
-        public MapCellType Type { get; set; }
+        public MapCellTypes Type { get; set; }
     }
 }

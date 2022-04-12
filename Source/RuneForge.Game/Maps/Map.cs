@@ -38,7 +38,7 @@ namespace RuneForge.Game.Maps
             for (int i = 0; i < m_cells.Length; i++)
             {
                 GetCoordinatesByIndex(i, out int x, out int y);
-                if (mapCellTypeResolver.TryResolveMapCellType(x, y, this, out MapCellType type))
+                if (mapCellTypeResolver.TryResolveMapCellType(x, y, this, out MapCellTypes type))
                     SetCell(x, y, new MapCell(m_cells[i].Tier, type));
             }
         }
@@ -47,8 +47,8 @@ namespace RuneForge.Game.Maps
             for (int i = 0; i < m_cells.Length; i++)
             {
                 GetCoordinatesByIndex(i, out int x, out int y);
-                if (!mapDecorationTypeResolver.TryResolveMapDecorationType(x, y, this, out MapDecorationType type))
-                    type = MapDecorationType.Destroyed;
+                if (!mapDecorationTypeResolver.TryResolveMapDecorationType(x, y, this, out MapDecorationTypes type))
+                    type = MapDecorationTypes.Destroyed;
                 SetDecoration(x, y, new MapDecoration(m_decorations[i].Tier, type));
             }
         }
@@ -60,6 +60,31 @@ namespace RuneForge.Game.Maps
         public MapDecoration GetDecoration(int x, int y)
         {
             return m_decorations[GetIndexByCoordinates(x, y)];
+        }
+
+        public MapCellMovementFlags GetCellMovementFlags(int x, int y)
+        {
+            MapCell cell = GetCell(x, y);
+            MapTilesetCellPrototype cellPrototype = Tileset.GetCellPrototype(cell.Tier, cell.Type);
+            return cellPrototype.MovementFlags;
+        }
+        public MapCellBuildingFlags GetCellBuildingFlags(int x, int y)
+        {
+            MapCell cell = GetCell(x, y);
+            MapTilesetCellPrototype cellPrototype = Tileset.GetCellPrototype(cell.Tier, cell.Type);
+            return cellPrototype.BuildingFlags;
+        }
+        public MapDecorationMovementFlags GetDecorationMovementFlags(int x, int y)
+        {
+            MapDecoration decoration = GetDecoration(x, y);
+            MapTilesetDecorationPrototype decorationPrototype = Tileset.GetDecorationPrototype(decoration.Tier, decoration.Type);
+            return decorationPrototype.MovementFlags;
+        }
+        public MapDecorationBuildingFlags GetDecorationBuildingFlags(int x, int y)
+        {
+            MapDecoration decoration = GetDecoration(x, y);
+            MapTilesetDecorationPrototype decorationPrototype = Tileset.GetDecorationPrototype(decoration.Tier, decoration.Type);
+            return decorationPrototype.BuildingFlags;
         }
 
         private void SetCell(int x, int y, MapCell mapCell)

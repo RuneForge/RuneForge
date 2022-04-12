@@ -3,7 +3,7 @@
 namespace RuneForge.Game.Maps
 {
     [Flags]
-    public enum MapCellType
+    public enum MapCellTypes
     {
         Center = 0x0000,
         EdgeNorth = 0x0001,
