@@ -62,6 +62,31 @@ namespace RuneForge.Game.Maps
             return m_decorations[GetIndexByCoordinates(x, y)];
         }
 
+        public MapCellMovementFlags GetCellMovementFlags(int x, int y)
+        {
+            MapCell cell = GetCell(x, y);
+            MapTilesetCellPrototype cellPrototype = Tileset.GetCellPrototype(cell.Tier, cell.Type);
+            return cellPrototype.MovementFlags;
+        }
+        public MapCellBuildingFlags GetCellBuildingFlags(int x, int y)
+        {
+            MapCell cell = GetCell(x, y);
+            MapTilesetCellPrototype cellPrototype = Tileset.GetCellPrototype(cell.Tier, cell.Type);
+            return cellPrototype.BuildingFlags;
+        }
+        public MapDecorationMovementFlags GetDecorationMovementFlags(int x, int y)
+        {
+            MapDecoration decoration = GetDecoration(x, y);
+            MapTilesetDecorationPrototype decorationPrototype = Tileset.GetDecorationPrototype(decoration.Tier, decoration.Type);
+            return decorationPrototype.MovementFlags;
+        }
+        public MapDecorationBuildingFlags GetDecorationBuildingFlags(int x, int y)
+        {
+            MapDecoration decoration = GetDecoration(x, y);
+            MapTilesetDecorationPrototype decorationPrototype = Tileset.GetDecorationPrototype(decoration.Tier, decoration.Type);
+            return decorationPrototype.BuildingFlags;
+        }
+
         private void SetCell(int x, int y, MapCell mapCell)
         {
             m_cells[GetIndexByCoordinates(x, y)] = mapCell;
