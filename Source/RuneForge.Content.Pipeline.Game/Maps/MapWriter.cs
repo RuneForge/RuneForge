@@ -21,6 +21,18 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             writer.Write(map.Width);
             writer.Write(map.Height);
 
+            List<MapDecorationPrototype> decorationPrototypes = map.DecorationPrototypes;
+            if (decorationPrototypes == null)
+                throw new InvalidOperationException("The map should have at least an empty list of decoration prototypes.");
+            else
+            {
+                writer.Write(decorationPrototypes.Count);
+                foreach (MapDecorationPrototype decorationPrototype in decorationPrototypes)
+                {
+                    writer.Write(decorationPrototype.Name);
+                }
+            }
+
             MapTileset tileset = map.Tileset;
             if (tileset == null)
                 throw new InvalidOperationException("The map has no associated tileset.");
@@ -47,6 +59,8 @@ namespace RuneForge.Content.Pipeline.Game.Maps
 
                     writer.Write((int)decorationCellPrototype.BuildingFlags);
                     writer.Write((int)decorationCellPrototype.MovementFlags);
+
+                    writer.Write(decorationCellPrototype.PrototypeName);
 
                     writer.Write(decorationCellPrototype.TextureRegionName);
                 }

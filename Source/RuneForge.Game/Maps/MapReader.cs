@@ -13,7 +13,16 @@ namespace RuneForge.Game.Maps
             int width = reader.ReadInt32();
             int height = reader.ReadInt32();
 
-            MapTileset tileset = ReadTileset(reader);
+            int decorationPrototypesCount = reader.ReadInt32();
+            Dictionary<string, MapDecorationPrototype> decorationPrototypes = new Dictionary<string, MapDecorationPrototype>();
+            for (int i = 0; i < decorationPrototypesCount; i++)
+            {
+                string name = reader.ReadString();
+
+                decorationPrototypes.Add(name, new MapDecorationPrototype(name));
+            }
+
+            MapTileset tileset = ReadTileset(reader, decorationPrototypes);
 
             int landscapeCellsCount = width * height;
             List<MapLandscapeCell> landscapeCells = new List<MapLandscapeCell>();
@@ -37,7 +46,7 @@ namespace RuneForge.Game.Maps
             return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells);
         }
 
-        private MapTileset ReadTileset(ContentReader reader)
+        private MapTileset ReadTileset(ContentReader reader, Dictionary<string, MapDecorationPrototype> decorationPrototypes)
         {
             string textureAtlasName = reader.ReadString();
 
@@ -65,9 +74,12 @@ namespace RuneForge.Game.Maps
                 MapDecorationCellMovementFlags movementFlags = (MapDecorationCellMovementFlags)reader.ReadInt32();
                 MapDecorationCellBuildingFlags buildingFlags = (MapDecorationCellBuildingFlags)reader.ReadInt32();
 
+                string decorationPrototypeName = reader.ReadString();
+                MapDecorationPrototype decorationPrototype = decorationPrototypes[decorationPrototypeName];
+
                 string textureRegionName = reader.ReadString();
 
-                decorationCellPrototypes.Add((tier, type), new MapTilesetDecorationCellPrototype(movementFlags, buildingFlags, textureRegionName));
+                decorationCellPrototypes.Add((tier, type), new MapTilesetDecorationCellPrototype(movementFlags, buildingFlags, decorationPrototype, textureRegionName));
             }
 
             return new MapTileset(textureAtlasName, landscapeCellPrototypes, decorationCellPrototypes);
