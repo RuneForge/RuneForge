@@ -151,148 +151,182 @@
       <DecorationCellPrototype Tier="Trees" Type="Center">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-Center</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="Destroyed">
         <MovementFlags>None</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Trees-Destroyed</PrototypeName>
         <TextureRegionName>Trees-Destroyed</TextureRegionName>
       </DecorationCellPrototype>
       <!-- Trees to Grass Transition -->
       <DecorationCellPrototype Tier="Trees" Type="EdgeNorth">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-EdgeNorth</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="EdgeSouth">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-EdgeSouth</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="EdgeWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-EdgeWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="EdgeEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-EdgeEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="OuterCornerNorthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-OuterCornerNorthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="OuterCornerNorthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-OuterCornerNorthEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="OuterCornerSouthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-OuterCornerSouthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="OuterCornerSouthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-OuterCornerSouthEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="InnerCornerNorthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-InnerCornerNorthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="InnerCornerNorthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-InnerCornerNorthEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="InnerCornerSouthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-InnerCornerSouthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Trees" Type="InnerCornerSouthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>LandBuildingBlocked</BuildingFlags>
+        <PrototypeName>Trees</PrototypeName>
         <TextureRegionName>Trees-InnerCornerSouthEast</TextureRegionName>
       </DecorationCellPrototype>
       <!-- Rocks -->
       <DecorationCellPrototype Tier="Rocks" Type="Center">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-Center</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="Destroyed">
         <MovementFlags>None</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks-Destroyed</PrototypeName>
         <TextureRegionName>Rocks-Destroyed</TextureRegionName>
       </DecorationCellPrototype>
       <!-- Rocks to Mud Transition -->
       <DecorationCellPrototype Tier="Rocks" Type="EdgeNorth">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-EdgeNorth</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="EdgeSouth">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-EdgeSouth</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="EdgeWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-EdgeWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="EdgeEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-EdgeEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="OuterCornerNorthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-OuterCornerNorthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="OuterCornerNorthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-OuterCornerNorthEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="OuterCornerSouthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-OuterCornerSouthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="OuterCornerSouthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-OuterCornerSouthEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="InnerCornerNorthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-InnerCornerNorthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="InnerCornerNorthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-InnerCornerNorthEast</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="InnerCornerSouthWest">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-InnerCornerSouthWest</TextureRegionName>
       </DecorationCellPrototype>
       <DecorationCellPrototype Tier="Rocks" Type="InnerCornerSouthEast">
         <MovementFlags>LandMovementBlocked</MovementFlags>
         <BuildingFlags>None</BuildingFlags>
+        <PrototypeName>Rocks</PrototypeName>
         <TextureRegionName>Rocks-InnerCornerSouthEast</TextureRegionName>
       </DecorationCellPrototype>
     </DecorationCellPrototypes>
   </Tileset>
+  <DecorationPrototypes>
+    <DecorationPrototype Name="Trees" />
+    <DecorationPrototype Name="Trees-Destroyed" />
+    <DecorationPrototype Name="Rocks" />
+    <DecorationPrototype Name="Rocks-Destroyed" />
+  </DecorationPrototypes>
   <LandscapeCells>
     <LandscapeCell Tier="Grass" Type="Center" />
     <LandscapeCell Tier="Grass" Type="Center" />
