@@ -18,6 +18,7 @@ namespace RuneForge.Game.GameSessions
         private readonly IMapDecorationCellTypeResolver m_decorationCellTypeResolver;
         private readonly IMapDecorationFactory m_mapDecorationFactory;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
+        private readonly Lazy<IMapDecorationService> m_mapDecorationServiceProvider;
 
         public Map Map { get; private set; }
 
@@ -34,13 +35,15 @@ namespace RuneForge.Game.GameSessions
             IMapLandscapeCellTypeResolver landscapeCellTypeResolver,
             IMapDecorationCellTypeResolver decorationCellTypeResolver,
             IMapDecorationFactory mapDecorationFactory,
-            Lazy<ContentManager> contentManagerProvider
+            Lazy<ContentManager> contentManagerProvider,
+            Lazy<IMapDecorationService> mapDecorationServiceProvider
             )
         {
             m_landscapeCellTypeResolver = landscapeCellTypeResolver;
             m_decorationCellTypeResolver = decorationCellTypeResolver;
             m_mapDecorationFactory = mapDecorationFactory;
             m_contentManagerProvider = contentManagerProvider;
+            m_mapDecorationServiceProvider = mapDecorationServiceProvider;
 
             Map = null;
             MapDecorations = new Collection<MapDecoration>();
@@ -57,10 +60,11 @@ namespace RuneForge.Game.GameSessions
             else
             {
                 ContentManager contentManager = m_contentManagerProvider.Value;
+                IMapDecorationService mapDecorationService = m_mapDecorationServiceProvider.Value;
                 Map map = contentManager.Load<Map>(parameters.MapAssetName);
                 map.ResolveLandscapeCellTypes(m_landscapeCellTypeResolver);
                 map.ResolveDecorationCellTypes(m_decorationCellTypeResolver);
-                map.CreateMapDecorations(m_mapDecorationFactory);
+                map.CreateMapDecorations(m_mapDecorationFactory, mapDecorationService);
 
                 Map = map;
                 Initialized = true;

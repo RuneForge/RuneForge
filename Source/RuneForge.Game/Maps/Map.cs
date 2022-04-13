@@ -52,7 +52,7 @@ namespace RuneForge.Game.Maps
                 SetDecorationCell(x, y, new MapDecorationCell(m_decorationCells[i].Tier, type));
             }
         }
-        public void CreateMapDecorations(IMapDecorationFactory mapDecorationFactory)
+        public void CreateMapDecorations(IMapDecorationFactory mapDecorationFactory, IMapDecorationService mapDecorationService)
         {
             for (int i = 0; i < m_landscapeCells.Length; i++)
             {
@@ -62,6 +62,7 @@ namespace RuneForge.Game.Maps
                 {
                     MapDecorationPrototype decorationPrototype = cellPrototype.EntityPrototype;
                     MapDecoration decoration = mapDecorationFactory.CreateFromPrototype(x, y, decorationPrototype);
+                    mapDecorationService.AddMapDecoration(decoration);
                     SetDecorationCell(x, y, new MapDecorationCell(cell.Tier, cell.Type, decoration));
                 }
             }
