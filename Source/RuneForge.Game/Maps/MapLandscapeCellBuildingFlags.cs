@@ -3,7 +3,7 @@
 namespace RuneForge.Game.Maps
 {
     [Flags]
-    public enum MapCellBuildingFlags
+    public enum MapLandscapeCellBuildingFlags
     {
         None = 0x00,
         LandBuildingAllowed = 0x01,

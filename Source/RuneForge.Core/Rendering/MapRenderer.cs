@@ -54,12 +54,12 @@ namespace RuneForge.Core.Rendering
             {
                 for (int x = Math.Max(minVisibleCellX, 0); x <= Math.Min(maxVisibleCellX, map.Width - 1); x++)
                 {
-                    MapCell cell = map.GetCell(x, y);
-                    if (cell.Tier != MapCellTier.None)
+                    MapLandscapeCell landscapeCell = map.GetLandscapeCell(x, y);
+                    if (landscapeCell.Tier != MapLandscapeCellTier.None)
                     {
-                        if (tileset.TryGetCellPrototype(cell.Tier, cell.Type, out MapTilesetCellPrototype cellPrototype))
+                        if (tileset.TryGetLandscapeCellPrototype(landscapeCell.Tier, landscapeCell.Type, out MapTilesetLandscapeCellPrototype landscapeCellPrototype))
                         {
-                            TextureRegion2D textureRegion = m_textureAtlas.TextureRegions[cellPrototype.TextureRegionName];
+                            TextureRegion2D textureRegion = m_textureAtlas.TextureRegions[landscapeCellPrototype.TextureRegionName];
                             spriteBatch.Draw(textureRegion, new Rectangle(x * Map.CellWidth, y * Map.CellHeight, Map.CellWidth, Map.CellHeight), Color.White);
                         }
                     }

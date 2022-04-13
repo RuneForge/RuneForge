@@ -1,6 +1,6 @@
 ﻿namespace RuneForge.Game.Maps
 {
-    public enum MapCellTier
+    public enum MapLandscapeCellTier
     {
         None = 0,
         Water = 1,

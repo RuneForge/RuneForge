@@ -8,9 +8,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlElement(ElementName = "TextureAtlasName")]
         public string TextureAtlasName { get; set; }
 
-        [XmlArray(ElementName = "CellPrototypes")]
-        [XmlArrayItem(ElementName = "CellPrototype")]
-        public List<MapTilesetCellPrototype> CellPrototypes { get; set; }
+        [XmlArray(ElementName = "LandscapeCellPrototypes")]
+        [XmlArrayItem(ElementName = "LandscapeCellPrototype")]
+        public List<MapTilesetLandscapeCellPrototype> LandscapeCellPrototypes { get; set; }
 
         [XmlArray(ElementName = "DecorationPrototypes")]
         [XmlArrayItem(ElementName = "DecorationPrototype")]

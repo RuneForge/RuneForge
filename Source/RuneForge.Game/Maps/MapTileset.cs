@@ -7,32 +7,32 @@ namespace RuneForge.Game.Maps
     {
         public string TextureAtlasName { get; }
 
-        public ReadOnlyDictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype> CellPrototypes { get; }
+        public ReadOnlyDictionary<(MapLandscapeCellTier, MapLandscapeCellTypes), MapTilesetLandscapeCellPrototype> LandscapeCellPrototypes { get; }
         public ReadOnlyDictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype> DecorationPrototypes { get; }
 
         public MapTileset(
             string textureAtlasName,
-            IDictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype> cellPrototypes,
+            IDictionary<(MapLandscapeCellTier, MapLandscapeCellTypes), MapTilesetLandscapeCellPrototype> landscapeCellPrototypes,
             IDictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype> decorationPrototypes
             )
         {
             TextureAtlasName = textureAtlasName;
-            CellPrototypes = new ReadOnlyDictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype>(cellPrototypes);
+            LandscapeCellPrototypes = new ReadOnlyDictionary<(MapLandscapeCellTier, MapLandscapeCellTypes), MapTilesetLandscapeCellPrototype>(landscapeCellPrototypes);
             DecorationPrototypes = new ReadOnlyDictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype>(decorationPrototypes);
         }
 
-        public MapTilesetCellPrototype GetCellPrototype(MapCellTier tier, MapCellTypes type)
+        public MapTilesetLandscapeCellPrototype GetLandscapeCellPrototype(MapLandscapeCellTier tier, MapLandscapeCellTypes type)
         {
-            return CellPrototypes[(tier, type)];
+            return LandscapeCellPrototypes[(tier, type)];
         }
         public MapTilesetDecorationPrototype GetDecorationPrototype(MapDecorationTier tier, MapDecorationTypes type)
         {
             return DecorationPrototypes[(tier, type)];
         }
 
-        public bool TryGetCellPrototype(MapCellTier tier, MapCellTypes type, out MapTilesetCellPrototype cellPrototype)
+        public bool TryGetLandscapeCellPrototype(MapLandscapeCellTier tier, MapLandscapeCellTypes type, out MapTilesetLandscapeCellPrototype cellPrototype)
         {
-            return CellPrototypes.TryGetValue((tier, type), out cellPrototype);
+            return LandscapeCellPrototypes.TryGetValue((tier, type), out cellPrototype);
         }
         public bool TryGetDecorationPrototype(MapDecorationTier tier, MapDecorationTypes type, out MapTilesetDecorationPrototype decorationPrototype)
         {

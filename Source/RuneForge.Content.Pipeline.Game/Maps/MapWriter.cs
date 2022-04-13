@@ -28,16 +28,16 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             {
                 writer.Write(tileset.TextureAtlasName);
 
-                writer.Write(tileset.CellPrototypes.Count);
-                foreach (MapTilesetCellPrototype cellPrototype in tileset.CellPrototypes)
+                writer.Write(tileset.LandscapeCellPrototypes.Count);
+                foreach (MapTilesetLandscapeCellPrototype landscapeCellPrototype in tileset.LandscapeCellPrototypes)
                 {
-                    writer.Write((int)cellPrototype.Tier);
-                    writer.Write((int)cellPrototype.Type);
+                    writer.Write((int)landscapeCellPrototype.Tier);
+                    writer.Write((int)landscapeCellPrototype.Type);
 
-                    writer.Write((int)cellPrototype.BuildingFlags);
-                    writer.Write((int)cellPrototype.MovementFlags);
+                    writer.Write((int)landscapeCellPrototype.BuildingFlags);
+                    writer.Write((int)landscapeCellPrototype.MovementFlags);
 
-                    writer.Write(cellPrototype.TextureRegionName);
+                    writer.Write(landscapeCellPrototype.TextureRegionName);
                 }
                 writer.Write(tileset.DecorationPrototypes.Count);
                 foreach (MapTilesetDecorationPrototype decorationPrototype in tileset.DecorationPrototypes)
@@ -52,15 +52,15 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 }
             }
 
-            List<MapCell> cells = map.Cells;
-            if (cells == null || cells.Count == 0 || cells.Count != map.Width * map.Height)
-                throw new InvalidOperationException("The map is empty or its cell data is corrupted.");
+            List<MapLandscapeCell> landscapeCells = map.LandscapeCells;
+            if (landscapeCells == null || landscapeCells.Count == 0 || landscapeCells.Count != map.Width * map.Height)
+                throw new InvalidOperationException("The map is empty or its landscape cell data is corrupted.");
             else
             {
-                foreach (MapCell cell in cells)
+                foreach (MapLandscapeCell landscapeCell in landscapeCells)
                 {
-                    writer.Write((int)cell.Tier);
-                    writer.Write((int)cell.Type);
+                    writer.Write((int)landscapeCell.Tier);
+                    writer.Write((int)landscapeCell.Type);
                 }
             }
             List<MapDecoration> decorations = map.Decorations;

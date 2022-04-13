@@ -14,9 +14,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlElement(ElementName = "Tileset")]
         public MapTileset Tileset { get; set; }
 
-        [XmlArray(ElementName = "Cells")]
-        [XmlArrayItem(ElementName = "Cell")]
-        public List<MapCell> Cells { get; set; }
+        [XmlArray(ElementName = "LandscapeCells")]
+        [XmlArrayItem(ElementName = "LandscapeCell")]
+        public List<MapLandscapeCell> LandscapeCells { get; set; }
 
         [XmlArray(ElementName = "Decorations")]
         [XmlArrayItem(ElementName = "Decoration")]

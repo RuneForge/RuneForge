@@ -4,11 +4,11 @@ using RuneForge.Game.Maps;
 
 namespace RuneForge.Content.Pipeline.Game.Maps
 {
-    public class MapCell
+    public class MapLandscapeCell
     {
         [XmlAttribute(AttributeName = "Tier")]
-        public MapCellTier Tier { get; set; }
+        public MapLandscapeCellTier Tier { get; set; }
         [XmlAttribute(AttributeName = "Type")]
-        public MapCellTypes Type { get; set; }
+        public MapLandscapeCellTypes Type { get; set; }
     }
 }

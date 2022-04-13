@@ -29,7 +29,7 @@ namespace RuneForge.Game.DependencyInjection
 
         public static IServiceCollection AddMapServices(this IServiceCollection services)
         {
-            services.AddScoped<IMapCellTypeResolver, MapCellTypeResolver>();
+            services.AddScoped<IMapLandscapeCellTypeResolver, MapLandscapeCellTypeResolver>();
             services.AddScoped<IMapDecorationTypeResolver, MapDecorationTypeResolver>();
             return services;
         }
