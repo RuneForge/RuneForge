@@ -4,17 +4,17 @@ using RuneForge.Game.Maps;
 
 namespace RuneForge.Content.Pipeline.Game.Maps
 {
-    public class MapTilesetDecorationPrototype
+    public class MapTilesetDecorationCellPrototype
     {
         [XmlAttribute(AttributeName = "Tier")]
-        public MapDecorationTier Tier { get; set; }
+        public MapDecorationCellTier Tier { get; set; }
         [XmlAttribute(AttributeName = "Type")]
-        public MapDecorationTypes Type { get; set; }
+        public MapDecorationCellTypes Type { get; set; }
 
         [XmlElement(ElementName = "MovementFlags")]
-        public MapDecorationMovementFlags MovementFlags { get; set; }
+        public MapDecorationCellMovementFlags MovementFlags { get; set; }
         [XmlElement(ElementName = "BuildingFlags")]
-        public MapDecorationBuildingFlags BuildingFlags { get; set; }
+        public MapDecorationCellBuildingFlags BuildingFlags { get; set; }
 
         [XmlElement(ElementName = "TextureRegionName")]
         public string TextureRegionName { get; set; }

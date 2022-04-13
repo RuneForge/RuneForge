@@ -39,16 +39,16 @@ namespace RuneForge.Content.Pipeline.Game.Maps
 
                     writer.Write(landscapeCellPrototype.TextureRegionName);
                 }
-                writer.Write(tileset.DecorationPrototypes.Count);
-                foreach (MapTilesetDecorationPrototype decorationPrototype in tileset.DecorationPrototypes)
+                writer.Write(tileset.DecorationCellPrototypes.Count);
+                foreach (MapTilesetDecorationCellPrototype decorationCellPrototype in tileset.DecorationCellPrototypes)
                 {
-                    writer.Write((int)decorationPrototype.Tier);
-                    writer.Write((int)decorationPrototype.Type);
+                    writer.Write((int)decorationCellPrototype.Tier);
+                    writer.Write((int)decorationCellPrototype.Type);
 
-                    writer.Write((int)decorationPrototype.BuildingFlags);
-                    writer.Write((int)decorationPrototype.MovementFlags);
+                    writer.Write((int)decorationCellPrototype.BuildingFlags);
+                    writer.Write((int)decorationCellPrototype.MovementFlags);
 
-                    writer.Write(decorationPrototype.TextureRegionName);
+                    writer.Write(decorationCellPrototype.TextureRegionName);
                 }
             }
 
@@ -63,15 +63,15 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     writer.Write((int)landscapeCell.Type);
                 }
             }
-            List<MapDecoration> decorations = map.Decorations;
-            if (decorations == null || decorations.Count == 0 || decorations.Count != map.Width * map.Height)
-                throw new InvalidOperationException("The map is empty or its decoration data is corrupted.");
+            List<MapDecorationCell> decorationCells = map.DecorationCells;
+            if (decorationCells == null || decorationCells.Count == 0 || decorationCells.Count != map.Width * map.Height)
+                throw new InvalidOperationException("The map is empty or its decoration cell data is corrupted.");
             else
             {
-                foreach (MapDecoration decoration in decorations)
+                foreach (MapDecorationCell decorationCell in decorationCells)
                 {
-                    writer.Write((int)decoration.Tier);
-                    writer.Write((int)decoration.Type);
+                    writer.Write((int)decorationCell.Tier);
+                    writer.Write((int)decorationCell.Type);
                 }
             }
         }

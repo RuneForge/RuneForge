@@ -3,7 +3,7 @@
 namespace RuneForge.Game.Maps
 {
     [Flags]
-    public enum MapDecorationMovementFlags
+    public enum MapDecorationCellMovementFlags
     {
         None = 0x00,
         LandMovementBlocked = 0x01,

@@ -24,17 +24,17 @@ namespace RuneForge.Game.Maps
 
                 landscapeCells.Add(new MapLandscapeCell(tier, type));
             }
-            int decorationsCount = width * height;
-            List<MapDecoration> decorations = new List<MapDecoration>();
-            for (int i = 0; i < decorationsCount; i++)
+            int decorationCellsCount = width * height;
+            List<MapDecorationCell> decorationCells = new List<MapDecorationCell>();
+            for (int i = 0; i < decorationCellsCount; i++)
             {
-                MapDecorationTier tier = (MapDecorationTier)reader.ReadInt32();
-                MapDecorationTypes type = (MapDecorationTypes)reader.ReadInt32();
+                MapDecorationCellTier tier = (MapDecorationCellTier)reader.ReadInt32();
+                MapDecorationCellTypes type = (MapDecorationCellTypes)reader.ReadInt32();
 
-                decorations.Add(new MapDecoration(tier, type));
+                decorationCells.Add(new MapDecorationCell(tier, type));
             }
 
-            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorations);
+            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells);
         }
 
         private MapTileset ReadTileset(ContentReader reader)
@@ -55,22 +55,22 @@ namespace RuneForge.Game.Maps
 
                 landscapeCellPrototypes.Add((tier, type), new MapTilesetLandscapeCellPrototype(movementFlags, buildingFlags, textureRegionName));
             }
-            int decorationPrototypesCount = reader.ReadInt32();
-            Dictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype> decorationPrototypes = new Dictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype>();
-            for (int i = 0; i < decorationPrototypesCount; i++)
+            int decorationCellPrototypesCount = reader.ReadInt32();
+            Dictionary<(MapDecorationCellTier, MapDecorationCellTypes), MapTilesetDecorationCellPrototype> decorationCellPrototypes = new Dictionary<(MapDecorationCellTier, MapDecorationCellTypes), MapTilesetDecorationCellPrototype>();
+            for (int i = 0; i < decorationCellPrototypesCount; i++)
             {
-                MapDecorationTier tier = (MapDecorationTier)reader.ReadInt32();
-                MapDecorationTypes type = (MapDecorationTypes)reader.ReadInt32();
+                MapDecorationCellTier tier = (MapDecorationCellTier)reader.ReadInt32();
+                MapDecorationCellTypes type = (MapDecorationCellTypes)reader.ReadInt32();
 
-                MapDecorationMovementFlags movementFlags = (MapDecorationMovementFlags)reader.ReadInt32();
-                MapDecorationBuildingFlags buildingFlags = (MapDecorationBuildingFlags)reader.ReadInt32();
+                MapDecorationCellMovementFlags movementFlags = (MapDecorationCellMovementFlags)reader.ReadInt32();
+                MapDecorationCellBuildingFlags buildingFlags = (MapDecorationCellBuildingFlags)reader.ReadInt32();
 
                 string textureRegionName = reader.ReadString();
 
-                decorationPrototypes.Add((tier, type), new MapTilesetDecorationPrototype(movementFlags, buildingFlags, textureRegionName));
+                decorationCellPrototypes.Add((tier, type), new MapTilesetDecorationCellPrototype(movementFlags, buildingFlags, textureRegionName));
             }
 
-            return new MapTileset(textureAtlasName, landscapeCellPrototypes, decorationPrototypes);
+            return new MapTileset(textureAtlasName, landscapeCellPrototypes, decorationCellPrototypes);
         }
     }
 }

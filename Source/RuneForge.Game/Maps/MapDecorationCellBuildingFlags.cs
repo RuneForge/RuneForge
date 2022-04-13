@@ -3,7 +3,7 @@
 namespace RuneForge.Game.Maps
 {
     [Flags]
-    public enum MapDecorationBuildingFlags
+    public enum MapDecorationCellBuildingFlags
     {
         None = 0x00,
         LandBuildingBlocked = 0x01,

@@ -11,7 +11,7 @@ namespace RuneForge.Game.Maps
         public const int CellHeight = 32;
 
         private readonly MapLandscapeCell[] m_landscapeCells;
-        private readonly MapDecoration[] m_decorations;
+        private readonly MapDecorationCell[] m_decorationCells;
 
         public string Name { get; }
 
@@ -20,10 +20,10 @@ namespace RuneForge.Game.Maps
 
         public MapTileset Tileset { get; }
 
-        public Map(string name, int width, int height, MapTileset tileset, IList<MapLandscapeCell> landscapeCells, IList<MapDecoration> decorations)
+        public Map(string name, int width, int height, MapTileset tileset, IList<MapLandscapeCell> landscapeCells, IList<MapDecorationCell> decorationCells)
         {
             m_landscapeCells = landscapeCells.ToArray();
-            m_decorations = decorations.ToArray();
+            m_decorationCells = decorationCells.ToArray();
 
             Name = name;
 
@@ -42,14 +42,14 @@ namespace RuneForge.Game.Maps
                     SetLandscapeCell(x, y, new MapLandscapeCell(m_landscapeCells[i].Tier, type));
             }
         }
-        public void ResolveMapDecorationTypes(IMapDecorationTypeResolver mapDecorationTypeResolver)
+        public void ResolveDecorationCellTypes(IMapDecorationCellTypeResolver decorationCellTypeResolver)
         {
             for (int i = 0; i < m_landscapeCells.Length; i++)
             {
                 GetCoordinatesByIndex(i, out int x, out int y);
-                if (!mapDecorationTypeResolver.TryResolveMapDecorationType(x, y, this, out MapDecorationTypes type))
-                    type = MapDecorationTypes.Destroyed;
-                SetDecoration(x, y, new MapDecoration(m_decorations[i].Tier, type));
+                if (!decorationCellTypeResolver.TryResolveDecorationCellType(x, y, this, out MapDecorationCellTypes type))
+                    type = MapDecorationCellTypes.Destroyed;
+                SetDecorationCell(x, y, new MapDecorationCell(m_decorationCells[i].Tier, type));
             }
         }
 
@@ -57,9 +57,9 @@ namespace RuneForge.Game.Maps
         {
             return m_landscapeCells[GetIndexByCoordinates(x, y)];
         }
-        public MapDecoration GetDecoration(int x, int y)
+        public MapDecorationCell GetDecorationCell(int x, int y)
         {
-            return m_decorations[GetIndexByCoordinates(x, y)];
+            return m_decorationCells[GetIndexByCoordinates(x, y)];
         }
 
         public MapLandscapeCellMovementFlags GetLandscapeCellMovementFlags(int x, int y)
@@ -74,26 +74,26 @@ namespace RuneForge.Game.Maps
             MapTilesetLandscapeCellPrototype cellPrototype = Tileset.GetLandscapeCellPrototype(cell.Tier, cell.Type);
             return cellPrototype.BuildingFlags;
         }
-        public MapDecorationMovementFlags GetDecorationMovementFlags(int x, int y)
+        public MapDecorationCellMovementFlags GetDecorationCellMovementFlags(int x, int y)
         {
-            MapDecoration decoration = GetDecoration(x, y);
-            MapTilesetDecorationPrototype decorationPrototype = Tileset.GetDecorationPrototype(decoration.Tier, decoration.Type);
-            return decorationPrototype.MovementFlags;
+            MapDecorationCell cell = GetDecorationCell(x, y);
+            MapTilesetDecorationCellPrototype cellPrototype = Tileset.GetDecorationCellPrototype(cell.Tier, cell.Type);
+            return cellPrototype.MovementFlags;
         }
-        public MapDecorationBuildingFlags GetDecorationBuildingFlags(int x, int y)
+        public MapDecorationCellBuildingFlags GetDecorationCellBuildingFlags(int x, int y)
         {
-            MapDecoration decoration = GetDecoration(x, y);
-            MapTilesetDecorationPrototype decorationPrototype = Tileset.GetDecorationPrototype(decoration.Tier, decoration.Type);
-            return decorationPrototype.BuildingFlags;
+            MapDecorationCell cell = GetDecorationCell(x, y);
+            MapTilesetDecorationCellPrototype cellPrototype = Tileset.GetDecorationCellPrototype(cell.Tier, cell.Type);
+            return cellPrototype.BuildingFlags;
         }
 
-        private void SetLandscapeCell(int x, int y, MapLandscapeCell mapCell)
+        private void SetLandscapeCell(int x, int y, MapLandscapeCell cell)
         {
-            m_landscapeCells[GetIndexByCoordinates(x, y)] = mapCell;
+            m_landscapeCells[GetIndexByCoordinates(x, y)] = cell;
         }
-        private void SetDecoration(int x, int y, MapDecoration mapDecoration)
+        private void SetDecorationCell(int x, int y, MapDecorationCell cell)
         {
-            m_decorations[GetIndexByCoordinates(x, y)] = mapDecoration;
+            m_decorationCells[GetIndexByCoordinates(x, y)] = cell;
         }
 
         private void GetCoordinatesByIndex(int index, out int x, out int y)
