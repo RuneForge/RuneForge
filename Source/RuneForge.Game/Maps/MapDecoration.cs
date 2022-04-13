@@ -1,14 +1,20 @@
 ﻿namespace RuneForge.Game.Maps
 {
-    public struct MapDecoration
+    public class MapDecoration
     {
-        public MapDecorationTier Tier { get; }
-        public MapDecorationTypes Type { get; }
+        public int Id { get; }
 
-        public MapDecoration(MapDecorationTier tier, MapDecorationTypes type)
+        public string Name { get; }
+
+        public int X { get; }
+        public int Y { get; }
+
+        public MapDecoration(int id, string name, int x, int y)
         {
-            Tier = tier;
-            Type = type;
+            Id = id;
+            Name = name;
+            X = x;
+            Y = y;
         }
     }
 }

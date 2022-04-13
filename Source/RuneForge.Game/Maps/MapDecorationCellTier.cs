@@ -1,6 +1,6 @@
 ﻿namespace RuneForge.Game.Maps
 {
-    public enum MapDecorationTier
+    public enum MapDecorationCellTier
     {
         None = 0,
         Rocks = 1,

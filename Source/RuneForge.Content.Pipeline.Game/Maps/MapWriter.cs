@@ -21,6 +21,18 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             writer.Write(map.Width);
             writer.Write(map.Height);
 
+            List<MapDecorationPrototype> decorationPrototypes = map.DecorationPrototypes;
+            if (decorationPrototypes == null)
+                throw new InvalidOperationException("The map should have at least an empty list of decoration prototypes.");
+            else
+            {
+                writer.Write(decorationPrototypes.Count);
+                foreach (MapDecorationPrototype decorationPrototype in decorationPrototypes)
+                {
+                    writer.Write(decorationPrototype.Name);
+                }
+            }
+
             MapTileset tileset = map.Tileset;
             if (tileset == null)
                 throw new InvalidOperationException("The map has no associated tileset.");
@@ -28,50 +40,52 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             {
                 writer.Write(tileset.TextureAtlasName);
 
-                writer.Write(tileset.CellPrototypes.Count);
-                foreach (MapTilesetCellPrototype cellPrototype in tileset.CellPrototypes)
+                writer.Write(tileset.LandscapeCellPrototypes.Count);
+                foreach (MapTilesetLandscapeCellPrototype landscapeCellPrototype in tileset.LandscapeCellPrototypes)
                 {
-                    writer.Write((int)cellPrototype.Tier);
-                    writer.Write((int)cellPrototype.Type);
+                    writer.Write((int)landscapeCellPrototype.Tier);
+                    writer.Write((int)landscapeCellPrototype.Type);
 
-                    writer.Write((int)cellPrototype.BuildingFlags);
-                    writer.Write((int)cellPrototype.MovementFlags);
+                    writer.Write((int)landscapeCellPrototype.BuildingFlags);
+                    writer.Write((int)landscapeCellPrototype.MovementFlags);
 
-                    writer.Write(cellPrototype.TextureRegionName);
+                    writer.Write(landscapeCellPrototype.TextureRegionName);
                 }
-                writer.Write(tileset.DecorationPrototypes.Count);
-                foreach (MapTilesetDecorationPrototype decorationPrototype in tileset.DecorationPrototypes)
+                writer.Write(tileset.DecorationCellPrototypes.Count);
+                foreach (MapTilesetDecorationCellPrototype decorationCellPrototype in tileset.DecorationCellPrototypes)
                 {
-                    writer.Write((int)decorationPrototype.Tier);
-                    writer.Write((int)decorationPrototype.Type);
+                    writer.Write((int)decorationCellPrototype.Tier);
+                    writer.Write((int)decorationCellPrototype.Type);
 
-                    writer.Write((int)decorationPrototype.BuildingFlags);
-                    writer.Write((int)decorationPrototype.MovementFlags);
+                    writer.Write((int)decorationCellPrototype.BuildingFlags);
+                    writer.Write((int)decorationCellPrototype.MovementFlags);
 
-                    writer.Write(decorationPrototype.TextureRegionName);
-                }
-            }
+                    writer.Write(decorationCellPrototype.PrototypeName);
 
-            List<MapCell> cells = map.Cells;
-            if (cells == null || cells.Count == 0 || cells.Count != map.Width * map.Height)
-                throw new InvalidOperationException("The map is empty or its cell data is corrupted.");
-            else
-            {
-                foreach (MapCell cell in cells)
-                {
-                    writer.Write((int)cell.Tier);
-                    writer.Write((int)cell.Type);
+                    writer.Write(decorationCellPrototype.TextureRegionName);
                 }
             }
-            List<MapDecoration> decorations = map.Decorations;
-            if (decorations == null || decorations.Count == 0 || decorations.Count != map.Width * map.Height)
-                throw new InvalidOperationException("The map is empty or its decoration data is corrupted.");
+
+            List<MapLandscapeCell> landscapeCells = map.LandscapeCells;
+            if (landscapeCells == null || landscapeCells.Count == 0 || landscapeCells.Count != map.Width * map.Height)
+                throw new InvalidOperationException("The map is empty or its landscape cell data is corrupted.");
             else
             {
-                foreach (MapDecoration decoration in decorations)
+                foreach (MapLandscapeCell landscapeCell in landscapeCells)
                 {
-                    writer.Write((int)decoration.Tier);
-                    writer.Write((int)decoration.Type);
+                    writer.Write((int)landscapeCell.Tier);
+                    writer.Write((int)landscapeCell.Type);
+                }
+            }
+            List<MapDecorationCell> decorationCells = map.DecorationCells;
+            if (decorationCells == null || decorationCells.Count == 0 || decorationCells.Count != map.Width * map.Height)
+                throw new InvalidOperationException("The map is empty or its decoration cell data is corrupted.");
+            else
+            {
+                foreach (MapDecorationCell decorationCell in decorationCells)
+                {
+                    writer.Write((int)decorationCell.Tier);
+                    writer.Write((int)decorationCell.Type);
                 }
             }
         }

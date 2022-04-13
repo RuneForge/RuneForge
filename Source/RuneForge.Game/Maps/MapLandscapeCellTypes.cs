@@ -3,7 +3,7 @@
 namespace RuneForge.Game.Maps
 {
     [Flags]
-    public enum MapDecorationTypes
+    public enum MapLandscapeCellTypes
     {
         Center = 0x0000,
         EdgeNorth = 0x0001,
@@ -18,7 +18,5 @@ namespace RuneForge.Game.Maps
         InnerCornerNorthEast = 0x0200,
         InnerCornerSouthWest = 0x0400,
         InnerCornerSouthEast = 0x0800,
-
-        Destroyed = 0x01000000,
     }
 }

@@ -52,9 +52,10 @@ namespace RuneForge
 
             services.AddAutoMapper(configuration =>
             {
-                configuration.AddProfile<PlayerProfile>();
+                configuration.AddProfile<MapDecorationProfile>();
                 configuration.AddProfile<UnitProfile>();
                 configuration.AddProfile<BuildingProfile>();
+                configuration.AddProfile<PlayerProfile>();
             });
 
             services.AddRuneForgeGame();
@@ -67,6 +68,8 @@ namespace RuneForge
 
             services.AddGameSessionContext();
             services.AddMapServices();
+            services.AddUnitServices();
+            services.AddBuildingServices();
             services.AddPlayerServices();
         }
     }

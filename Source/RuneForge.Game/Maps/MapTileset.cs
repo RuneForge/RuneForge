@@ -7,36 +7,36 @@ namespace RuneForge.Game.Maps
     {
         public string TextureAtlasName { get; }
 
-        public ReadOnlyDictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype> CellPrototypes { get; }
-        public ReadOnlyDictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype> DecorationPrototypes { get; }
+        public ReadOnlyDictionary<(MapLandscapeCellTier, MapLandscapeCellTypes), MapTilesetLandscapeCellPrototype> LandscapeCellPrototypes { get; }
+        public ReadOnlyDictionary<(MapDecorationCellTier, MapDecorationCellTypes), MapTilesetDecorationCellPrototype> DecorationCellPrototypes { get; }
 
         public MapTileset(
             string textureAtlasName,
-            IDictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype> cellPrototypes,
-            IDictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype> decorationPrototypes
+            IDictionary<(MapLandscapeCellTier, MapLandscapeCellTypes), MapTilesetLandscapeCellPrototype> landscapeCellPrototypes,
+            IDictionary<(MapDecorationCellTier, MapDecorationCellTypes), MapTilesetDecorationCellPrototype> decorationCellPrototypes
             )
         {
             TextureAtlasName = textureAtlasName;
-            CellPrototypes = new ReadOnlyDictionary<(MapCellTier, MapCellTypes), MapTilesetCellPrototype>(cellPrototypes);
-            DecorationPrototypes = new ReadOnlyDictionary<(MapDecorationTier, MapDecorationTypes), MapTilesetDecorationPrototype>(decorationPrototypes);
+            LandscapeCellPrototypes = new ReadOnlyDictionary<(MapLandscapeCellTier, MapLandscapeCellTypes), MapTilesetLandscapeCellPrototype>(landscapeCellPrototypes);
+            DecorationCellPrototypes = new ReadOnlyDictionary<(MapDecorationCellTier, MapDecorationCellTypes), MapTilesetDecorationCellPrototype>(decorationCellPrototypes);
         }
 
-        public MapTilesetCellPrototype GetCellPrototype(MapCellTier tier, MapCellTypes type)
+        public MapTilesetLandscapeCellPrototype GetLandscapeCellPrototype(MapLandscapeCellTier tier, MapLandscapeCellTypes type)
         {
-            return CellPrototypes[(tier, type)];
+            return LandscapeCellPrototypes[(tier, type)];
         }
-        public MapTilesetDecorationPrototype GetDecorationPrototype(MapDecorationTier tier, MapDecorationTypes type)
+        public MapTilesetDecorationCellPrototype GetDecorationCellPrototype(MapDecorationCellTier tier, MapDecorationCellTypes type)
         {
-            return DecorationPrototypes[(tier, type)];
+            return DecorationCellPrototypes[(tier, type)];
         }
 
-        public bool TryGetCellPrototype(MapCellTier tier, MapCellTypes type, out MapTilesetCellPrototype cellPrototype)
+        public bool TryGetLandscapeCellPrototype(MapLandscapeCellTier tier, MapLandscapeCellTypes type, out MapTilesetLandscapeCellPrototype cellPrototype)
         {
-            return CellPrototypes.TryGetValue((tier, type), out cellPrototype);
+            return LandscapeCellPrototypes.TryGetValue((tier, type), out cellPrototype);
         }
-        public bool TryGetDecorationPrototype(MapDecorationTier tier, MapDecorationTypes type, out MapTilesetDecorationPrototype decorationPrototype)
+        public bool TryGetDecorationCellPrototype(MapDecorationCellTier tier, MapDecorationCellTypes type, out MapTilesetDecorationCellPrototype decorationPrototype)
         {
-            return DecorationPrototypes.TryGetValue((tier, type), out decorationPrototype);
+            return DecorationCellPrototypes.TryGetValue((tier, type), out decorationPrototype);
         }
     }
 }

@@ -14,29 +14,42 @@ namespace RuneForge.Game.GameSessions
 {
     public class GameSessionContext : IGameSessionContext
     {
-        private readonly IMapCellTypeResolver m_mapCellTypeResolver;
-        private readonly IMapDecorationTypeResolver m_mapDecorationTypeResolver;
+        private readonly IMapLandscapeCellTypeResolver m_landscapeCellTypeResolver;
+        private readonly IMapDecorationCellTypeResolver m_decorationCellTypeResolver;
+        private readonly IMapDecorationFactory m_mapDecorationFactory;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
+        private readonly Lazy<IMapDecorationService> m_mapDecorationServiceProvider;
 
         public Map Map { get; private set; }
 
-        public Collection<Player> Players { get; }
+        public Collection<MapDecoration> MapDecorations { get; }
 
         public Collection<Unit> Units { get; }
         public Collection<Building> Buildings { get; }
 
+        public Collection<Player> Players { get; }
+
         public bool Initialized { get; private set; }
 
-        public GameSessionContext(IMapCellTypeResolver mapCellTypeResolver, IMapDecorationTypeResolver mapDecorationTypeResolver, Lazy<ContentManager> contentManagerProvider)
+        public GameSessionContext(
+            IMapLandscapeCellTypeResolver landscapeCellTypeResolver,
+            IMapDecorationCellTypeResolver decorationCellTypeResolver,
+            IMapDecorationFactory mapDecorationFactory,
+            Lazy<ContentManager> contentManagerProvider,
+            Lazy<IMapDecorationService> mapDecorationServiceProvider
+            )
         {
-            m_mapCellTypeResolver = mapCellTypeResolver;
-            m_mapDecorationTypeResolver = mapDecorationTypeResolver;
+            m_landscapeCellTypeResolver = landscapeCellTypeResolver;
+            m_decorationCellTypeResolver = decorationCellTypeResolver;
+            m_mapDecorationFactory = mapDecorationFactory;
             m_contentManagerProvider = contentManagerProvider;
+            m_mapDecorationServiceProvider = mapDecorationServiceProvider;
 
             Map = null;
-            Players = new Collection<Player>();
+            MapDecorations = new Collection<MapDecoration>();
             Units = new Collection<Unit>();
             Buildings = new Collection<Building>();
+            Players = new Collection<Player>();
             Initialized = false;
         }
 
@@ -47,9 +60,11 @@ namespace RuneForge.Game.GameSessions
             else
             {
                 ContentManager contentManager = m_contentManagerProvider.Value;
+                IMapDecorationService mapDecorationService = m_mapDecorationServiceProvider.Value;
                 Map map = contentManager.Load<Map>(parameters.MapAssetName);
-                map.ResolveMapCellTypes(m_mapCellTypeResolver);
-                map.ResolveMapDecorationTypes(m_mapDecorationTypeResolver);
+                map.ResolveLandscapeCellTypes(m_landscapeCellTypeResolver);
+                map.ResolveDecorationCellTypes(m_decorationCellTypeResolver);
+                map.CreateMapDecorations(m_mapDecorationFactory, mapDecorationService);
 
                 Map = map;
                 Initialized = true;
