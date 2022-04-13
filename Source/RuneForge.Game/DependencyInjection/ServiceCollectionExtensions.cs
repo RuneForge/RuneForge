@@ -2,6 +2,8 @@
 
 using RuneForge.Data.Buildings;
 using RuneForge.Data.Buildings.Interfaces;
+using RuneForge.Data.Maps;
+using RuneForge.Data.Maps.Interfaces;
 using RuneForge.Data.Players;
 using RuneForge.Data.Players.Interfaces;
 using RuneForge.Data.Units;
@@ -31,6 +33,10 @@ namespace RuneForge.Game.DependencyInjection
         {
             services.AddScoped<IMapLandscapeCellTypeResolver, MapLandscapeCellTypeResolver>();
             services.AddScoped<IMapDecorationCellTypeResolver, MapDecorationCellTypeResolver>();
+            services.AddScoped<IMapDecorationRepository, InMemoryMapDecorationRepository>();
+            services.AddScoped<IMapDecorationService, MapDecorationService>();
+            services.AddScoped<IMapDecorationFactory, MapDecorationFactory>();
+            services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IMapDecorationService>());
             return services;
         }
 
