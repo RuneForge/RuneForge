@@ -21,10 +21,12 @@ namespace RuneForge.Game.GameSessions
 
         public Map Map { get; private set; }
 
-        public Collection<Player> Players { get; }
+        public Collection<MapDecoration> MapDecorations { get; }
 
         public Collection<Unit> Units { get; }
         public Collection<Building> Buildings { get; }
+
+        public Collection<Player> Players { get; }
 
         public bool Initialized { get; private set; }
 
@@ -41,9 +43,10 @@ namespace RuneForge.Game.GameSessions
             m_contentManagerProvider = contentManagerProvider;
 
             Map = null;
-            Players = new Collection<Player>();
+            MapDecorations = new Collection<MapDecoration>();
             Units = new Collection<Unit>();
             Buildings = new Collection<Building>();
+            Players = new Collection<Player>();
             Initialized = false;
         }
 

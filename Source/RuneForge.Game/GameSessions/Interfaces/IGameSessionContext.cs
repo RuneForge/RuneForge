@@ -11,10 +11,12 @@ namespace RuneForge.Game.GameSessions.Interfaces
     {
         public Map Map { get; }
 
-        public Collection<Player> Players { get; }
+        public Collection<MapDecoration> MapDecorations { get; }
 
         public Collection<Unit> Units { get; }
         public Collection<Building> Buildings { get; }
+
+        public Collection<Player> Players { get; }
 
         public bool Initialized { get; }
 
