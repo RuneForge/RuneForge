@@ -52,6 +52,20 @@ namespace RuneForge.Game.Maps
                 SetDecorationCell(x, y, new MapDecorationCell(m_decorationCells[i].Tier, type));
             }
         }
+        public void CreateMapDecorations(IMapDecorationFactory mapDecorationFactory)
+        {
+            for (int i = 0; i < m_landscapeCells.Length; i++)
+            {
+                GetCoordinatesByIndex(i, out int x, out int y);
+                MapDecorationCell cell = GetDecorationCell(x, y);
+                if (Tileset.TryGetDecorationCellPrototype(cell.Tier, cell.Type, out MapTilesetDecorationCellPrototype cellPrototype))
+                {
+                    MapDecorationPrototype decorationPrototype = cellPrototype.EntityPrototype;
+                    MapDecoration decoration = mapDecorationFactory.CreateFromPrototype(x, y, decorationPrototype);
+                    SetDecorationCell(x, y, new MapDecorationCell(cell.Tier, cell.Type, decoration));
+                }
+            }
+        }
 
         public MapLandscapeCell GetLandscapeCell(int x, int y)
         {

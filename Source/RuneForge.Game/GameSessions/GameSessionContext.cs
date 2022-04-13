@@ -16,6 +16,7 @@ namespace RuneForge.Game.GameSessions
     {
         private readonly IMapLandscapeCellTypeResolver m_landscapeCellTypeResolver;
         private readonly IMapDecorationCellTypeResolver m_decorationCellTypeResolver;
+        private readonly IMapDecorationFactory m_mapDecorationFactory;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
 
         public Map Map { get; private set; }
@@ -27,10 +28,16 @@ namespace RuneForge.Game.GameSessions
 
         public bool Initialized { get; private set; }
 
-        public GameSessionContext(IMapLandscapeCellTypeResolver landscapeCellTypeResolver, IMapDecorationCellTypeResolver decorationCellTypeResolver, Lazy<ContentManager> contentManagerProvider)
+        public GameSessionContext(
+            IMapLandscapeCellTypeResolver landscapeCellTypeResolver,
+            IMapDecorationCellTypeResolver decorationCellTypeResolver,
+            IMapDecorationFactory mapDecorationFactory,
+            Lazy<ContentManager> contentManagerProvider
+            )
         {
             m_landscapeCellTypeResolver = landscapeCellTypeResolver;
             m_decorationCellTypeResolver = decorationCellTypeResolver;
+            m_mapDecorationFactory = mapDecorationFactory;
             m_contentManagerProvider = contentManagerProvider;
 
             Map = null;
@@ -50,6 +57,7 @@ namespace RuneForge.Game.GameSessions
                 Map map = contentManager.Load<Map>(parameters.MapAssetName);
                 map.ResolveLandscapeCellTypes(m_landscapeCellTypeResolver);
                 map.ResolveDecorationCellTypes(m_decorationCellTypeResolver);
+                map.CreateMapDecorations(m_mapDecorationFactory);
 
                 Map = map;
                 Initialized = true;
