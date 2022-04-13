@@ -16,6 +16,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlElement(ElementName = "BuildingFlags")]
         public MapDecorationCellBuildingFlags BuildingFlags { get; set; }
 
+        [XmlElement(ElementName = "PrototypeName")]
+        public string PrototypeName { get; set; }
+
         [XmlElement(ElementName = "TextureRegionName")]
         public string TextureRegionName { get; set; }
     }
