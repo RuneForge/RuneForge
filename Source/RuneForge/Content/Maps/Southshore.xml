@@ -321,14 +321,14 @@
       </DecorationCellPrototype>
     </DecorationCellPrototypes>
   </Tileset>
-  <Players>
-    <Player Id="EC376F66-FDC5-4F37-B7F9-BFF5F677048C" Name="Human Player">
+  <PlayerPrototypes>
+    <PlayerPrototype Id="EC376F66-FDC5-4F37-B7F9-BFF5F677048C" Name="Human Player">
       <Color MainColor="FF0000FF" EntityColorShadeA="FF0000FF" EntityColorShadeB="FF0000DF" EntityColorShadeC="FF0000BF" EntityColorShadeD="FF00009F" />
-    </Player>
-    <Player Id="D828CEB3-25EB-4E13-8723-F3D698C175E6" Name="Computer Player">
+    </PlayerPrototype>
+    <PlayerPrototype Id="D828CEB3-25EB-4E13-8723-F3D698C175E6" Name="Computer Player">
       <Color MainColor="FFFF0000" EntityColorShadeA="FFFF0000" EntityColorShadeB="FFDF0000" EntityColorShadeC="FFBF0000" EntityColorShadeD="FF9F0000" />
-    </Player>
-  </Players>
+    </PlayerPrototype>
+  </PlayerPrototypes>
   <DecorationPrototypes>
     <DecorationPrototype Name="Trees" />
     <DecorationPrototype Name="Trees-Destroyed" />
