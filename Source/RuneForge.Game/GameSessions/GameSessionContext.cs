@@ -8,6 +8,7 @@ using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Maps.Interfaces;
 using RuneForge.Game.Players;
+using RuneForge.Game.Players.Interfaces;
 using RuneForge.Game.Units;
 
 namespace RuneForge.Game.GameSessions
@@ -19,6 +20,7 @@ namespace RuneForge.Game.GameSessions
         private readonly IMapDecorationFactory m_mapDecorationFactory;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<IMapDecorationService> m_mapDecorationServiceProvider;
+        private readonly Lazy<IPlayerService> m_playerServiceProvider;
 
         public Map Map { get; private set; }
 
@@ -36,7 +38,8 @@ namespace RuneForge.Game.GameSessions
             IMapDecorationCellTypeResolver decorationCellTypeResolver,
             IMapDecorationFactory mapDecorationFactory,
             Lazy<ContentManager> contentManagerProvider,
-            Lazy<IMapDecorationService> mapDecorationServiceProvider
+            Lazy<IMapDecorationService> mapDecorationServiceProvider,
+            Lazy<IPlayerService> playerServiceProvider
             )
         {
             m_landscapeCellTypeResolver = landscapeCellTypeResolver;
@@ -44,6 +47,7 @@ namespace RuneForge.Game.GameSessions
             m_mapDecorationFactory = mapDecorationFactory;
             m_contentManagerProvider = contentManagerProvider;
             m_mapDecorationServiceProvider = mapDecorationServiceProvider;
+            m_playerServiceProvider = playerServiceProvider;
 
             Map = null;
             MapDecorations = new Collection<MapDecoration>();
@@ -65,10 +69,18 @@ namespace RuneForge.Game.GameSessions
                 map.ResolveLandscapeCellTypes(m_landscapeCellTypeResolver);
                 map.ResolveDecorationCellTypes(m_decorationCellTypeResolver);
                 map.CreateMapDecorations(m_mapDecorationFactory, mapDecorationService);
+                CreatePlayers(map);
 
                 Map = map;
                 Initialized = true;
             }
+        }
+
+        private void CreatePlayers(Map map)
+        {
+            IPlayerService playerService = m_playerServiceProvider.Value;
+            foreach (Player player in map.Players)
+                playerService.AddPlayer(player);
         }
     }
 }
