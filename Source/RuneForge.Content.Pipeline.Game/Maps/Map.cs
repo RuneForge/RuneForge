@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
+using RuneForge.Content.Pipeline.Game.Buildings;
 using RuneForge.Content.Pipeline.Game.Players;
 using RuneForge.Content.Pipeline.Game.Units;
 
@@ -28,6 +29,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlArray(ElementName = "UnitInstancePrototypes")]
         [XmlArrayItem(ElementName = "UnitInstancePrototype")]
         public List<UnitInstancePrototype> UnitInstancePrototypes { get; set; }
+        [XmlArray(ElementName = "BuildingInstancePrototypes")]
+        [XmlArrayItem(ElementName = "BuildingInstancePrototype")]
+        public List<BuildingInstancePrototype> BuildingInstancePrototypes { get; set; }
 
         [XmlArray(ElementName = "LandscapeCells")]
         [XmlArrayItem(ElementName = "LandscapeCell")]
