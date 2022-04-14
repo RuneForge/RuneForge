@@ -2,6 +2,7 @@
 using System.Xml.Serialization;
 
 using RuneForge.Content.Pipeline.Game.Players;
+using RuneForge.Content.Pipeline.Game.Units;
 
 namespace RuneForge.Content.Pipeline.Game.Maps
 {
@@ -23,6 +24,10 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlArray(ElementName = "DecorationPrototypes")]
         [XmlArrayItem(ElementName = "DecorationPrototype")]
         public List<MapDecorationPrototype> DecorationPrototypes { get; set; }
+
+        [XmlArray(ElementName = "UnitInstancePrototypes")]
+        [XmlArrayItem(ElementName = "UnitInstancePrototype")]
+        public List<UnitInstancePrototype> UnitInstancePrototypes { get; set; }
 
         [XmlArray(ElementName = "LandscapeCells")]
         [XmlArrayItem(ElementName = "LandscapeCell")]
