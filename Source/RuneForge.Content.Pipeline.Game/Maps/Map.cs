@@ -10,6 +10,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
     [XmlRoot(ElementName = "Map")]
     public class Map
     {
+        [XmlElement(ElementName = "Name")]
+        public string Name { get; set; }
+
         [XmlElement(ElementName = "Width")]
         public int Width { get; set; }
         [XmlElement(ElementName = "Height")]

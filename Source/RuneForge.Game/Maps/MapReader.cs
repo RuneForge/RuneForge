@@ -15,7 +15,7 @@ namespace RuneForge.Game.Maps
     {
         protected override Map Read(ContentReader reader, Map existingInstance)
         {
-            string mapAssetName = reader.AssetName;
+            string name = reader.ReadString();
 
             int width = reader.ReadInt32();
             int height = reader.ReadInt32();
@@ -32,7 +32,7 @@ namespace RuneForge.Game.Maps
             List<MapLandscapeCell> landscapeCells = ReadLandscapeCellData(reader, width, height);
             List<MapDecorationCell> decorationCells = ReadDecorationCellData(reader, width, height);
 
-            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells, playerPrototypes, unitInstancePrototypes, buildingInstancePrototypes);
+            return new Map(name, width, height, tileset, landscapeCells, decorationCells, playerPrototypes, unitInstancePrototypes, buildingInstancePrototypes);
         }
 
         private static List<PlayerPrototype> ReadPlayers(ContentReader reader)

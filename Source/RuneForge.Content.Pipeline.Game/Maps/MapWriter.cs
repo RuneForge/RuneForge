@@ -25,6 +25,8 @@ namespace RuneForge.Content.Pipeline.Game.Maps
 
         protected override void Write(ContentWriter writer, Map map)
         {
+            writer.Write(map.Name);
+
             writer.Write(map.Width);
             writer.Write(map.Height);
 
