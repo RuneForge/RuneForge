@@ -5,5 +5,7 @@ namespace RuneForge.Game.Units.Interfaces
     public interface IUnitFactory
     {
         public Unit CreateFromDto(UnitDto unit);
+
+        public Unit CreateFromInstancePrototype(UnitInstancePrototype instancePrototype);
     }
 }

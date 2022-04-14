@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace RuneForge.Content.Pipeline.Game.Players
 {
-    public class Player
+    public class PlayerPrototype
     {
         [XmlAttribute(AttributeName = "Id")]
         public Guid Id { get; set; }

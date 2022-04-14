@@ -44,6 +44,7 @@ namespace RuneForge.Game.DependencyInjection
         {
             services.AddScoped<IPlayerRepository, InMemoryPlayerRepository>();
             services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<IPlayerFactory, PlayerFactory>();
             services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IPlayerService>());
             return services;
         }
@@ -53,6 +54,8 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<IUnitRepository, InMemoryUnitRepository>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IUnitFactory, UnitFactory>();
+            services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IUnitService>());
+            services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IUnitFactory>());
             return services;
         }
 
@@ -61,6 +64,8 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<IBuildingRepository, InMemoryBuildingRepository>();
             services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<IBuildingFactory, BuildingFactory>();
+            services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IBuildingService>());
+            services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IBuildingFactory>());
             return services;
         }
     }

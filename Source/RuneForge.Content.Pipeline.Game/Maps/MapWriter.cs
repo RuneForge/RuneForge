@@ -6,7 +6,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
+using RuneForge.Content.Pipeline.Game.Buildings;
+using RuneForge.Content.Pipeline.Game.Extensions;
 using RuneForge.Content.Pipeline.Game.Players;
+using RuneForge.Content.Pipeline.Game.Units;
 
 namespace RuneForge.Content.Pipeline.Game.Maps
 {
@@ -22,32 +25,59 @@ namespace RuneForge.Content.Pipeline.Game.Maps
 
         protected override void Write(ContentWriter writer, Map map)
         {
+            writer.Write(map.Name);
+
             writer.Write(map.Width);
             writer.Write(map.Height);
 
-            List<Player> players = map.Players;
-            if (players == null || players.Count == 0)
-                throw new InvalidOperationException("The map should have at least 1 player.");
+            List<PlayerPrototype> playerPrototypes = map.PlayerPrototypes;
+            if (playerPrototypes == null || playerPrototypes.Count == 0)
+                throw new InvalidOperationException("The map should have at least 1 player prototype.");
             else
             {
-                writer.Write(players.Count);
-                foreach (Player player in players)
+                writer.Write(playerPrototypes.Count);
+                foreach (PlayerPrototype playerPrototype in playerPrototypes)
                 {
-                    writer.Write(player.Id.ToByteArray());
-                    writer.Write(player.Name);
+                    writer.Write(playerPrototype.Id);
+                    writer.Write(playerPrototype.Name);
 
-                    PlayerColor playerColor = player.Color;
+                    PlayerColor playerColor = playerPrototype.Color;
                     if (playerColor == null)
-                        throw new InvalidOperationException("Each player should have an assigned color.");
+                        throw new InvalidOperationException("Each player prototype should have an assigned color.");
                     else
                     {
-                        writer.Write(new Color(uint.Parse(player.Color.MainColor, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.MainColor, NumberStyles.HexNumber)));
 
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeA, NumberStyles.HexNumber)));
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeB, NumberStyles.HexNumber)));
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeC, NumberStyles.HexNumber)));
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeD, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeA, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeB, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeC, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeD, NumberStyles.HexNumber)));
                     }
+                }
+            }
+
+            List<UnitInstancePrototype> unitInstancePrototypes = map.UnitInstancePrototypes;
+            if (unitInstancePrototypes == null)
+                throw new InvalidOperationException("The map should have at least an empty list of unit instance prototypes.");
+            else
+            {
+                writer.Write(unitInstancePrototypes.Count);
+                foreach (UnitInstancePrototype unitInstancePrototype in unitInstancePrototypes)
+                {
+                    writer.Write(unitInstancePrototype.OwnerId);
+                    writer.Write(unitInstancePrototype.EntityPrototypeAssetName);
+                }
+            }
+            List<BuildingInstancePrototype> buildingInstancePrototypes = map.BuildingInstancePrototypes;
+            if (buildingInstancePrototypes == null)
+                throw new InvalidOperationException("The map should have at least an empty list of building instance prototypes.");
+            else
+            {
+                writer.Write(buildingInstancePrototypes.Count);
+                foreach (BuildingInstancePrototype buildingInstancePrototype in buildingInstancePrototypes)
+                {
+                    writer.Write(buildingInstancePrototype.OwnerId);
+                    writer.Write(buildingInstancePrototype.EntityPrototypeAssetName);
                 }
             }
 

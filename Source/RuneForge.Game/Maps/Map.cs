@@ -2,8 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using RuneForge.Game.Buildings;
 using RuneForge.Game.Maps.Interfaces;
 using RuneForge.Game.Players;
+using RuneForge.Game.Units;
 
 namespace RuneForge.Game.Maps
 {
@@ -22,7 +24,10 @@ namespace RuneForge.Game.Maps
 
         public MapTileset Tileset { get; }
 
-        public ReadOnlyCollection<Player> Players { get; }
+        public ReadOnlyCollection<PlayerPrototype> PlayerPrototypes { get; }
+
+        public ReadOnlyCollection<UnitInstancePrototype> UnitInstancePrototypes { get; }
+        public ReadOnlyCollection<BuildingInstancePrototype> BuildingInstancePrototypes { get; }
 
         public Map(
             string name,
@@ -31,7 +36,9 @@ namespace RuneForge.Game.Maps
             MapTileset tileset,
             IList<MapLandscapeCell> landscapeCells,
             IList<MapDecorationCell> decorationCells,
-            IList<Player> players
+            IList<PlayerPrototype> playerPrototypes,
+            IList<UnitInstancePrototype> unitInstancePrototypes,
+            IList<BuildingInstancePrototype> buildingInstancePrototypes
             )
         {
             m_landscapeCells = landscapeCells.ToArray();
@@ -41,7 +48,9 @@ namespace RuneForge.Game.Maps
             Width = width;
             Height = height;
             Tileset = tileset;
-            Players = new ReadOnlyCollection<Player>(players);
+            PlayerPrototypes = new ReadOnlyCollection<PlayerPrototype>(playerPrototypes);
+            UnitInstancePrototypes = new ReadOnlyCollection<UnitInstancePrototype>(unitInstancePrototypes);
+            BuildingInstancePrototypes = new ReadOnlyCollection<BuildingInstancePrototype>(buildingInstancePrototypes);
         }
 
         public void ResolveLandscapeCellTypes(IMapLandscapeCellTypeResolver landscapeCellTypeResolver)

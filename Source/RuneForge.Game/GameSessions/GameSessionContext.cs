@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework.Content;
 
 using RuneForge.Game.Buildings;
+using RuneForge.Game.Buildings.Interfaces;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Maps.Interfaces;
 using RuneForge.Game.Players;
 using RuneForge.Game.Players.Interfaces;
 using RuneForge.Game.Units;
+using RuneForge.Game.Units.Interfaces;
 
 namespace RuneForge.Game.GameSessions
 {
@@ -17,10 +19,15 @@ namespace RuneForge.Game.GameSessions
     {
         private readonly IMapLandscapeCellTypeResolver m_landscapeCellTypeResolver;
         private readonly IMapDecorationCellTypeResolver m_decorationCellTypeResolver;
+        private readonly IPlayerFactory m_playerFactory;
         private readonly IMapDecorationFactory m_mapDecorationFactory;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
-        private readonly Lazy<IMapDecorationService> m_mapDecorationServiceProvider;
+        private readonly Lazy<IUnitFactory> m_unitFactoryProvider;
+        private readonly Lazy<IBuildingFactory> m_buildingFactoryProvider;
         private readonly Lazy<IPlayerService> m_playerServiceProvider;
+        private readonly Lazy<IMapDecorationService> m_mapDecorationServiceProvider;
+        private readonly Lazy<IUnitService> m_unitServiceProvider;
+        private readonly Lazy<IBuildingService> m_buildingServiceProvider;
 
         public Map Map { get; private set; }
 
@@ -36,18 +43,28 @@ namespace RuneForge.Game.GameSessions
         public GameSessionContext(
             IMapLandscapeCellTypeResolver landscapeCellTypeResolver,
             IMapDecorationCellTypeResolver decorationCellTypeResolver,
+            IPlayerFactory playerFactory,
             IMapDecorationFactory mapDecorationFactory,
             Lazy<ContentManager> contentManagerProvider,
+            Lazy<IUnitFactory> unitFactoryProvider,
+            Lazy<IBuildingFactory> buildingFactoryProvider,
+            Lazy<IPlayerService> playerServiceProvider,
             Lazy<IMapDecorationService> mapDecorationServiceProvider,
-            Lazy<IPlayerService> playerServiceProvider
+            Lazy<IUnitService> unitServiceProvider,
+            Lazy<IBuildingService> buildingServiceProvider
             )
         {
             m_landscapeCellTypeResolver = landscapeCellTypeResolver;
             m_decorationCellTypeResolver = decorationCellTypeResolver;
+            m_playerFactory = playerFactory;
             m_mapDecorationFactory = mapDecorationFactory;
+            m_unitFactoryProvider = unitFactoryProvider;
+            m_buildingFactoryProvider = buildingFactoryProvider;
             m_contentManagerProvider = contentManagerProvider;
-            m_mapDecorationServiceProvider = mapDecorationServiceProvider;
             m_playerServiceProvider = playerServiceProvider;
+            m_mapDecorationServiceProvider = mapDecorationServiceProvider;
+            m_unitServiceProvider = unitServiceProvider;
+            m_buildingServiceProvider = buildingServiceProvider;
 
             Map = null;
             MapDecorations = new Collection<MapDecoration>();
@@ -70,6 +87,8 @@ namespace RuneForge.Game.GameSessions
                 map.ResolveDecorationCellTypes(m_decorationCellTypeResolver);
                 map.CreateMapDecorations(m_mapDecorationFactory, mapDecorationService);
                 CreatePlayers(map);
+                CreateUnits(map);
+                CreateBuildings(map);
 
                 Map = map;
                 Initialized = true;
@@ -79,8 +98,33 @@ namespace RuneForge.Game.GameSessions
         private void CreatePlayers(Map map)
         {
             IPlayerService playerService = m_playerServiceProvider.Value;
-            foreach (Player player in map.Players)
+            foreach (PlayerPrototype playerPrototype in map.PlayerPrototypes)
+            {
+                Player player = m_playerFactory.CreateFromPrototype(playerPrototype);
                 playerService.AddPlayer(player);
+            }
+        }
+
+        private void CreateUnits(Map map)
+        {
+            IUnitFactory unitFactory = m_unitFactoryProvider.Value;
+            IUnitService unitService = m_unitServiceProvider.Value;
+            foreach (UnitInstancePrototype unitInstancePrototype in map.UnitInstancePrototypes)
+            {
+                Unit unit = unitFactory.CreateFromInstancePrototype(unitInstancePrototype);
+                unitService.AddUnit(unit);
+            }
+        }
+
+        private void CreateBuildings(Map map)
+        {
+            IBuildingFactory buildingFactory = m_buildingFactoryProvider.Value;
+            IBuildingService buildingService = m_buildingServiceProvider.Value;
+            foreach (BuildingInstancePrototype buildingInstancePrototype in map.BuildingInstancePrototypes)
+            {
+                Building building = buildingFactory.CreateFromInstancePrototype(buildingInstancePrototype);
+                buildingService.AddBuilding(building);
+            }
         }
     }
 }

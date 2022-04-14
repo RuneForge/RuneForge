@@ -1,4 +1,3 @@
-
 #----------------------------- Global Properties ----------------------------#
 /outputDir:bin/$(Platform)
 /intermediateDir:obj/$(Platform)
@@ -12,6 +11,26 @@
 /reference:..\..\RuneForge.Content.Pipeline.Game\bin\Debug\netstandard2.1\RuneForge.Content.Pipeline.Game.dll
 
 #---------------------------------- Content ---------------------------------#
+#begin BuildingPrototypes/Barracks.xml
+/importer:BuildingPrototypeImporter
+/processor:PassThroughProcessor
+/build:BuildingPrototypes/Barracks.xml
+
+#begin BuildingPrototypes/Farm.xml
+/importer:BuildingPrototypeImporter
+/processor:PassThroughProcessor
+/build:BuildingPrototypes/Farm.xml
+
+#begin BuildingPrototypes/GoldMine.xml
+/importer:BuildingPrototypeImporter
+/processor:PassThroughProcessor
+/build:BuildingPrototypes/GoldMine.xml
+
+#begin BuildingPrototypes/TownHall.xml
+/importer:BuildingPrototypeImporter
+/processor:PassThroughProcessor
+/build:BuildingPrototypes/TownHall.xml
+
 #begin Fonts/Kingthings-Foundation.ttf
 /copy:Fonts/Kingthings-Foundation.ttf
 
@@ -93,3 +112,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Maps/SummerPlains.png
+
+#begin UnitPrototypes/Footman.xml
+/importer:UnitPrototypeImporter
+/processor:PassThroughProcessor
+/build:UnitPrototypes/Footman.xml
+
+#begin UnitPrototypes/Peasant.xml
+/importer:UnitPrototypeImporter
+/processor:PassThroughProcessor
+/build:UnitPrototypes/Peasant.xml
