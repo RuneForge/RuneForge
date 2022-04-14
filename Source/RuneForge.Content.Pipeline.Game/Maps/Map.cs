@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
+using RuneForge.Content.Pipeline.Game.Players;
+
 namespace RuneForge.Content.Pipeline.Game.Maps
 {
     [XmlRoot(ElementName = "Map")]
@@ -14,6 +16,10 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlElement(ElementName = "Tileset")]
         public MapTileset Tileset { get; set; }
 
+        [XmlArray(ElementName = "Players")]
+        [XmlArrayItem(ElementName = "Player")]
+        public List<Player> Players { get; set; }
+
         [XmlArray(ElementName = "DecorationPrototypes")]
         [XmlArrayItem(ElementName = "DecorationPrototype")]
         public List<MapDecorationPrototype> DecorationPrototypes { get; set; }
@@ -21,7 +27,6 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlArray(ElementName = "LandscapeCells")]
         [XmlArrayItem(ElementName = "LandscapeCell")]
         public List<MapLandscapeCell> LandscapeCells { get; set; }
-
         [XmlArray(ElementName = "DecorationCells")]
         [XmlArrayItem(ElementName = "DecorationCell")]
         public List<MapDecorationCell> DecorationCells { get; set; }
