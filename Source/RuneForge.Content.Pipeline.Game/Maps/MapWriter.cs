@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
+using RuneForge.Content.Pipeline.Game.Extensions;
 using RuneForge.Content.Pipeline.Game.Players;
 
 namespace RuneForge.Content.Pipeline.Game.Maps
@@ -33,7 +34,7 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 writer.Write(playerPrototypes.Count);
                 foreach (PlayerPrototype playerPrototype in playerPrototypes)
                 {
-                    writer.Write(playerPrototype.Id.ToByteArray());
+                    writer.Write(playerPrototype.Id);
                     writer.Write(playerPrototype.Name);
 
                     PlayerColor playerColor = playerPrototype.Color;
