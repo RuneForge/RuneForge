@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
+using RuneForge.Content.Pipeline.Game.Buildings;
 using RuneForge.Content.Pipeline.Game.Extensions;
 using RuneForge.Content.Pipeline.Game.Players;
 using RuneForge.Content.Pipeline.Game.Units;
@@ -63,6 +64,18 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 {
                     writer.Write(unitInstancePrototype.OwnerId);
                     writer.Write(unitInstancePrototype.EntityPrototypeAssetName);
+                }
+            }
+            List<BuildingInstancePrototype> buildingInstancePrototypes = map.BuildingInstancePrototypes;
+            if (buildingInstancePrototypes == null)
+                throw new InvalidOperationException("The map should have at least an empty list of building instance prototypes.");
+            else
+            {
+                writer.Write(buildingInstancePrototypes.Count);
+                foreach (BuildingInstancePrototype buildingInstancePrototype in buildingInstancePrototypes)
+                {
+                    writer.Write(buildingInstancePrototype.OwnerId);
+                    writer.Write(buildingInstancePrototype.EntityPrototypeAssetName);
                 }
             }
 
