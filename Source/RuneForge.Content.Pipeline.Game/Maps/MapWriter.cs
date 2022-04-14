@@ -25,28 +25,28 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             writer.Write(map.Width);
             writer.Write(map.Height);
 
-            List<Player> players = map.Players;
-            if (players == null || players.Count == 0)
-                throw new InvalidOperationException("The map should have at least 1 player.");
+            List<PlayerPrototype> playerPrototypes = map.PlayerPrototypes;
+            if (playerPrototypes == null || playerPrototypes.Count == 0)
+                throw new InvalidOperationException("The map should have at least 1 player prototype.");
             else
             {
-                writer.Write(players.Count);
-                foreach (Player player in players)
+                writer.Write(playerPrototypes.Count);
+                foreach (PlayerPrototype playerPrototype in playerPrototypes)
                 {
-                    writer.Write(player.Id.ToByteArray());
-                    writer.Write(player.Name);
+                    writer.Write(playerPrototype.Id.ToByteArray());
+                    writer.Write(playerPrototype.Name);
 
-                    PlayerColor playerColor = player.Color;
+                    PlayerColor playerColor = playerPrototype.Color;
                     if (playerColor == null)
-                        throw new InvalidOperationException("Each player should have an assigned color.");
+                        throw new InvalidOperationException("Each player prototype should have an assigned color.");
                     else
                     {
-                        writer.Write(new Color(uint.Parse(player.Color.MainColor, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.MainColor, NumberStyles.HexNumber)));
 
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeA, NumberStyles.HexNumber)));
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeB, NumberStyles.HexNumber)));
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeC, NumberStyles.HexNumber)));
-                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeD, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeA, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeB, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeC, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeD, NumberStyles.HexNumber)));
                     }
                 }
             }

@@ -17,9 +17,9 @@ namespace RuneForge.Game.Maps
             int width = reader.ReadInt32();
             int height = reader.ReadInt32();
 
-            int playersCount = reader.ReadInt32();
-            List<Player> players = new List<Player>();
-            for (int i = 0; i < playersCount; i++)
+            int playerPrototypesCount = reader.ReadInt32();
+            List<PlayerPrototype> playerPrototypes = new List<PlayerPrototype>();
+            for (int i = 0; i < playerPrototypesCount; i++)
             {
                 Guid id = new Guid(reader.ReadBytes(16));
                 string name = reader.ReadString();
@@ -32,7 +32,7 @@ namespace RuneForge.Game.Maps
                 Color entityColorShadeD = reader.ReadColor();
 
                 PlayerColor color = new PlayerColor(mainColor, entityColorShadeA, entityColorShadeB, entityColorShadeC, entityColorShadeD);
-                players.Add(new Player(id, name, color));
+                playerPrototypes.Add(new PlayerPrototype(id, name, color));
             }
 
             int decorationPrototypesCount = reader.ReadInt32();
@@ -65,7 +65,7 @@ namespace RuneForge.Game.Maps
                 decorationCells.Add(new MapDecorationCell(tier, type));
             }
 
-            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells, players);
+            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells, playerPrototypes);
         }
 
         private MapTileset ReadTileset(ContentReader reader, Dictionary<string, MapDecorationPrototype> decorationPrototypes)

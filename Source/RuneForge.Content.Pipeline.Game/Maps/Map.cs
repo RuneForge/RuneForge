@@ -16,9 +16,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         [XmlElement(ElementName = "Tileset")]
         public MapTileset Tileset { get; set; }
 
-        [XmlArray(ElementName = "Players")]
-        [XmlArrayItem(ElementName = "Player")]
-        public List<Player> Players { get; set; }
+        [XmlArray(ElementName = "PlayerPrototypes")]
+        [XmlArrayItem(ElementName = "PlayerPrototype")]
+        public List<PlayerPrototype> PlayerPrototypes { get; set; }
 
         [XmlArray(ElementName = "DecorationPrototypes")]
         [XmlArrayItem(ElementName = "DecorationPrototype")]
