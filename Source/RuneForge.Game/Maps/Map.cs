@@ -22,7 +22,7 @@ namespace RuneForge.Game.Maps
 
         public MapTileset Tileset { get; }
 
-        public ReadOnlyCollection<Player> Players { get; }
+        public ReadOnlyCollection<PlayerPrototype> PlayerPrototypes { get; }
 
         public Map(
             string name,
@@ -31,7 +31,7 @@ namespace RuneForge.Game.Maps
             MapTileset tileset,
             IList<MapLandscapeCell> landscapeCells,
             IList<MapDecorationCell> decorationCells,
-            IList<Player> players
+            IList<PlayerPrototype> playerPrototypes
             )
         {
             m_landscapeCells = landscapeCells.ToArray();
@@ -41,7 +41,7 @@ namespace RuneForge.Game.Maps
             Width = width;
             Height = height;
             Tileset = tileset;
-            Players = new ReadOnlyCollection<Player>(players);
+            PlayerPrototypes = new ReadOnlyCollection<PlayerPrototype>(playerPrototypes);
         }
 
         public void ResolveLandscapeCellTypes(IMapLandscapeCellTypeResolver landscapeCellTypeResolver)
