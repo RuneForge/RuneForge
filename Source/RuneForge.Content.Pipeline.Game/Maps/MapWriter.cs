@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 using RuneForge.Content.Pipeline.Game.Extensions;
 using RuneForge.Content.Pipeline.Game.Players;
+using RuneForge.Content.Pipeline.Game.Units;
 
 namespace RuneForge.Content.Pipeline.Game.Maps
 {
@@ -49,6 +50,19 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                         writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeC, NumberStyles.HexNumber)));
                         writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeD, NumberStyles.HexNumber)));
                     }
+                }
+            }
+
+            List<UnitInstancePrototype> unitInstancePrototypes = map.UnitInstancePrototypes;
+            if (unitInstancePrototypes == null)
+                throw new InvalidOperationException("The map should have at least an empty list of unit instance prototypes.");
+            else
+            {
+                writer.Write(unitInstancePrototypes.Count);
+                foreach (UnitInstancePrototype unitInstancePrototype in unitInstancePrototypes)
+                {
+                    writer.Write(unitInstancePrototype.OwnerId);
+                    writer.Write(unitInstancePrototype.EntityPrototypeAssetName);
                 }
             }
 
