@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
+
+using RuneForge.Content.Pipeline.Game.Players;
 
 namespace RuneForge.Content.Pipeline.Game.Maps
 {
@@ -20,6 +24,32 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         {
             writer.Write(map.Width);
             writer.Write(map.Height);
+
+            List<Player> players = map.Players;
+            if (players == null || players.Count == 0)
+                throw new InvalidOperationException("The map should have at least 1 player.");
+            else
+            {
+                writer.Write(players.Count);
+                foreach (Player player in players)
+                {
+                    writer.Write(player.Id.ToByteArray());
+                    writer.Write(player.Name);
+
+                    PlayerColor playerColor = player.Color;
+                    if (playerColor == null)
+                        throw new InvalidOperationException("Each player should have an assigned color.");
+                    else
+                    {
+                        writer.Write(new Color(uint.Parse(player.Color.MainColor, NumberStyles.HexNumber)));
+
+                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeA, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeB, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeC, NumberStyles.HexNumber)));
+                        writer.Write(new Color(uint.Parse(player.Color.EntityColorShadeD, NumberStyles.HexNumber)));
+                    }
+                }
+            }
 
             List<MapDecorationPrototype> decorationPrototypes = map.DecorationPrototypes;
             if (decorationPrototypes == null)

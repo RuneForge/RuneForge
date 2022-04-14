@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+
+using RuneForge.Game.Players;
 
 namespace RuneForge.Game.Maps
 {
@@ -12,6 +16,24 @@ namespace RuneForge.Game.Maps
 
             int width = reader.ReadInt32();
             int height = reader.ReadInt32();
+
+            int playersCount = reader.ReadInt32();
+            List<Player> players = new List<Player>();
+            for (int i = 0; i < playersCount; i++)
+            {
+                Guid id = new Guid(reader.ReadBytes(16));
+                string name = reader.ReadString();
+
+                Color mainColor = reader.ReadColor();
+
+                Color entityColorShadeA = reader.ReadColor();
+                Color entityColorShadeB = reader.ReadColor();
+                Color entityColorShadeC = reader.ReadColor();
+                Color entityColorShadeD = reader.ReadColor();
+
+                PlayerColor color = new PlayerColor(mainColor, entityColorShadeA, entityColorShadeB, entityColorShadeC, entityColorShadeD);
+                players.Add(new Player(id, name, color));
+            }
 
             int decorationPrototypesCount = reader.ReadInt32();
             Dictionary<string, MapDecorationPrototype> decorationPrototypes = new Dictionary<string, MapDecorationPrototype>();
@@ -43,7 +65,7 @@ namespace RuneForge.Game.Maps
                 decorationCells.Add(new MapDecorationCell(tier, type));
             }
 
-            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells);
+            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells, players);
         }
 
         private MapTileset ReadTileset(ContentReader reader, Dictionary<string, MapDecorationPrototype> decorationPrototypes)

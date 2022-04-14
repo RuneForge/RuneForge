@@ -44,6 +44,7 @@ namespace RuneForge.Game.DependencyInjection
         {
             services.AddScoped<IPlayerRepository, InMemoryPlayerRepository>();
             services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IPlayerService>());
             return services;
         }
 
