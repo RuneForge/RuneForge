@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 
 using RuneForge.Game.Extensions;
 using RuneForge.Game.Players;
+using RuneForge.Game.Units;
 
 namespace RuneForge.Game.Maps
 {
@@ -20,6 +21,8 @@ namespace RuneForge.Game.Maps
 
             List<PlayerPrototype> playerPrototypes = ReadPlayers(reader);
 
+            List<UnitInstancePrototype> unitInstancePrototypes = ReadUnitInstancePrototypes(reader);
+
             Dictionary<string, MapDecorationPrototype> decorationPrototypes = ReadDecorationPrototypes(reader);
 
             MapTileset tileset = ReadTileset(reader, decorationPrototypes);
@@ -27,7 +30,7 @@ namespace RuneForge.Game.Maps
             List<MapLandscapeCell> landscapeCells = ReadLandscapeCellData(reader, width, height);
             List<MapDecorationCell> decorationCells = ReadDecorationCellData(reader, width, height);
 
-            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells, playerPrototypes);
+            return new Map(mapAssetName, width, height, tileset, landscapeCells, decorationCells, playerPrototypes, unitInstancePrototypes);
         }
 
         private static List<PlayerPrototype> ReadPlayers(ContentReader reader)
@@ -51,6 +54,28 @@ namespace RuneForge.Game.Maps
             }
 
             return playerPrototypes;
+        }
+
+        private static List<UnitInstancePrototype> ReadUnitInstancePrototypes(ContentReader reader)
+        {
+            int unitInstancePrototypesCount = reader.ReadInt32();
+            List<UnitInstancePrototype> unitInstancePrototypes = new List<UnitInstancePrototype>();
+            Dictionary<string, UnitPrototype> unitPrototypes = new Dictionary<string, UnitPrototype>();
+            for (int i = 0; i < unitInstancePrototypesCount; i++)
+            {
+                Guid ownerId = reader.ReadGuid();
+                string entityPrototypeAssetName = reader.ReadString();
+
+                if (!unitPrototypes.TryGetValue(entityPrototypeAssetName, out UnitPrototype unitPrototype))
+                {
+                    unitPrototype = reader.ContentManager.Load<UnitPrototype>(entityPrototypeAssetName);
+                    unitPrototypes.Add(entityPrototypeAssetName, unitPrototype);
+                }
+
+                unitInstancePrototypes.Add(new UnitInstancePrototype(ownerId, unitPrototype));
+            }
+
+            return unitInstancePrototypes;
         }
 
         private static Dictionary<string, MapDecorationPrototype> ReadDecorationPrototypes(ContentReader reader)
