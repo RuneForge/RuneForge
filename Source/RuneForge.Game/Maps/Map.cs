@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using RuneForge.Game.Maps.Interfaces;
+using RuneForge.Game.Players;
 
 namespace RuneForge.Game.Maps
 {
@@ -20,17 +22,26 @@ namespace RuneForge.Game.Maps
 
         public MapTileset Tileset { get; }
 
-        public Map(string name, int width, int height, MapTileset tileset, IList<MapLandscapeCell> landscapeCells, IList<MapDecorationCell> decorationCells)
+        public ReadOnlyCollection<Player> Players { get; }
+
+        public Map(
+            string name,
+            int width,
+            int height,
+            MapTileset tileset,
+            IList<MapLandscapeCell> landscapeCells,
+            IList<MapDecorationCell> decorationCells,
+            IList<Player> players
+            )
         {
             m_landscapeCells = landscapeCells.ToArray();
             m_decorationCells = decorationCells.ToArray();
 
             Name = name;
-
             Width = width;
             Height = height;
-
             Tileset = tileset;
+            Players = new ReadOnlyCollection<Player>(players);
         }
 
         public void ResolveLandscapeCellTypes(IMapLandscapeCellTypeResolver landscapeCellTypeResolver)
