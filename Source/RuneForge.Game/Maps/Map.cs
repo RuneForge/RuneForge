@@ -4,6 +4,7 @@ using System.Linq;
 
 using RuneForge.Game.Maps.Interfaces;
 using RuneForge.Game.Players;
+using RuneForge.Game.Units;
 
 namespace RuneForge.Game.Maps
 {
@@ -24,6 +25,8 @@ namespace RuneForge.Game.Maps
 
         public ReadOnlyCollection<PlayerPrototype> PlayerPrototypes { get; }
 
+        public ReadOnlyCollection<UnitInstancePrototype> UnitInstancePrototypes { get; }
+
         public Map(
             string name,
             int width,
@@ -31,7 +34,8 @@ namespace RuneForge.Game.Maps
             MapTileset tileset,
             IList<MapLandscapeCell> landscapeCells,
             IList<MapDecorationCell> decorationCells,
-            IList<PlayerPrototype> playerPrototypes
+            IList<PlayerPrototype> playerPrototypes,
+            IList<UnitInstancePrototype> unitInstancePrototypes
             )
         {
             m_landscapeCells = landscapeCells.ToArray();
@@ -42,6 +46,7 @@ namespace RuneForge.Game.Maps
             Height = height;
             Tileset = tileset;
             PlayerPrototypes = new ReadOnlyCollection<PlayerPrototype>(playerPrototypes);
+            UnitInstancePrototypes = new ReadOnlyCollection<UnitInstancePrototype>(unitInstancePrototypes);
         }
 
         public void ResolveLandscapeCellTypes(IMapLandscapeCellTypeResolver landscapeCellTypeResolver)
