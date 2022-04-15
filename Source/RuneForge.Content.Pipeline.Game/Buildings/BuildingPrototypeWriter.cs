@@ -1,5 +1,11 @@
-﻿using Microsoft.Xna.Framework.Content.Pipeline;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
+
+using RuneForge.Content.Pipeline.Game.Entities;
+using RuneForge.Content.Pipeline.Game.Extensions;
 
 namespace RuneForge.Content.Pipeline.Game.Buildings
 {
@@ -16,6 +22,16 @@ namespace RuneForge.Content.Pipeline.Game.Buildings
         protected override void Write(ContentWriter writer, BuildingPrototype buildingPrototype)
         {
             writer.Write(buildingPrototype.Name);
+
+            List<ComponentPrototype> componentPrototypes = buildingPrototype.ComponentPrototypes;
+            if (componentPrototypes == null)
+                throw new InvalidOperationException("The building prototype should have at least an empty list of component prototypes.");
+            else
+            {
+                writer.Write(componentPrototypes.Count);
+                foreach (ComponentPrototype componentPrototype in componentPrototypes)
+                    writer.Write(componentPrototype);
+            }
         }
     }
 }

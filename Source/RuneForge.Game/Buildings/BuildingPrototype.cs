@@ -1,12 +1,20 @@
-﻿namespace RuneForge.Game.Buildings
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+using RuneForge.Game.Entities;
+
+namespace RuneForge.Game.Buildings
 {
     public class BuildingPrototype
     {
         public string Name { get; }
 
-        public BuildingPrototype(string name)
+        public ReadOnlyCollection<ComponentPrototype> ComponentPrototypes { get; }
+
+        public BuildingPrototype(string name, IList<ComponentPrototype> componentPrototypes)
         {
             Name = name;
+            ComponentPrototypes = new ReadOnlyCollection<ComponentPrototype>(componentPrototypes);
         }
     }
 }

@@ -1,12 +1,20 @@
-﻿namespace RuneForge.Game.Units
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+using RuneForge.Game.Entities;
+
+namespace RuneForge.Game.Units
 {
     public class UnitPrototype
     {
         public string Name { get; }
 
-        public UnitPrototype(string name)
+        public ReadOnlyCollection<ComponentPrototype> ComponentPrototypes { get; }
+
+        public UnitPrototype(string name, IList<ComponentPrototype> componentPrototypes)
         {
             Name = name;
+            ComponentPrototypes = new ReadOnlyCollection<ComponentPrototype>(componentPrototypes);
         }
     }
 }

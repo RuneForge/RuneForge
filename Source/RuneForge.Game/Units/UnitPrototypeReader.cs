@@ -1,4 +1,9 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework.Content;
+
+using RuneForge.Game.Entities;
+using RuneForge.Game.Extensions;
 
 namespace RuneForge.Game.Units
 {
@@ -8,7 +13,15 @@ namespace RuneForge.Game.Units
         {
             string name = reader.ReadString();
 
-            return new UnitPrototype(name);
+            int componentPrototypesCount = reader.ReadInt32();
+            List<ComponentPrototype> componentPrototypes = new List<ComponentPrototype>();
+            for (int i = 0; i < componentPrototypesCount; i++)
+            {
+                ComponentPrototype componentPrototype = reader.ReadComponentPrototype();
+                componentPrototypes.Add(componentPrototype);
+            }
+
+            return new UnitPrototype(name, componentPrototypes);
         }
     }
 }
