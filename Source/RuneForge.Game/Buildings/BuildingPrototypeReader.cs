@@ -1,4 +1,9 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework.Content;
+
+using RuneForge.Game.Entities;
+using RuneForge.Game.Extensions;
 
 namespace RuneForge.Game.Buildings
 {
@@ -8,7 +13,15 @@ namespace RuneForge.Game.Buildings
         {
             string name = reader.ReadString();
 
-            return new BuildingPrototype(name);
+            int componentPrototypesCount = reader.ReadInt32();
+            List<ComponentPrototype> componentPrototypes = new List<ComponentPrototype>();
+            for (int i = 0; i < componentPrototypesCount; i++)
+            {
+                ComponentPrototype componentPrototype = reader.ReadComponentPrototype();
+                componentPrototypes.Add(componentPrototype);
+            }
+
+            return new BuildingPrototype(name, componentPrototypes);
         }
     }
 }
