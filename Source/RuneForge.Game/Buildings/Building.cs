@@ -1,8 +1,12 @@
-﻿using RuneForge.Game.Players;
+﻿using System.Collections.Generic;
+
+using RuneForge.Game.Entities;
+using RuneForge.Game.Entities.Interfaces;
+using RuneForge.Game.Players;
 
 namespace RuneForge.Game.Buildings
 {
-    public class Building
+    public class Building : Entity
     {
         public int Id { get; }
 
@@ -10,7 +14,8 @@ namespace RuneForge.Game.Buildings
 
         public Player Owner { get; }
 
-        public Building(int id, string name, Player owner)
+        public Building(int id, string name, Player owner, IList<IComponent> components)
+            : base(components)
         {
             Id = id;
             Name = name;
