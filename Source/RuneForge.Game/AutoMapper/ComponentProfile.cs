@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using RuneForge.Data.Components;
+using RuneForge.Game.Entities.Components;
 using RuneForge.Game.Entities.Interfaces;
 
 namespace RuneForge.Game.AutoMapper
@@ -12,7 +13,10 @@ namespace RuneForge.Game.AutoMapper
             SourceMemberNamingConvention = new ExactMatchNamingConvention();
             DestinationMemberNamingConvention = new ExactMatchNamingConvention();
 
-            CreateMap<IComponent, ComponentDto>();
+            CreateMap<IComponent, ComponentDto>()
+                .Include<LocationComponent, LocationComponentDto>();
+
+            CreateMap<LocationComponent, LocationComponentDto>();
         }
     }
 }
