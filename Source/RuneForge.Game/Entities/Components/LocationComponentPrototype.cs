@@ -1,8 +1,10 @@
 ﻿using RuneForge.Game.Entities.Attributes;
+using RuneForge.Game.Entities.ComponentFactories;
 using RuneForge.Game.Entities.ComponentReaders;
 
 namespace RuneForge.Game.Entities.Components
 {
+    [ComponentFactory(typeof(LocationComponentFactory))]
     [ComponentPrototypeReader(typeof(LocationComponentPrototypeReader))]
     public class LocationComponentPrototype : ComponentPrototype
     {
