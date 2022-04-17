@@ -56,6 +56,7 @@ namespace RuneForge
                 configuration.AddProfile<UnitProfile>();
                 configuration.AddProfile<BuildingProfile>();
                 configuration.AddProfile<PlayerProfile>();
+                configuration.AddProfile<ComponentProfile>();
             });
 
             services.AddRuneForgeGame();
