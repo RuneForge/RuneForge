@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+using RuneForge.Game.Entities;
 
 namespace RuneForge.Game.Units
 {
@@ -8,10 +12,13 @@ namespace RuneForge.Game.Units
 
         public UnitPrototype EntityPrototype { get; }
 
-        public UnitInstancePrototype(Guid ownerId, UnitPrototype entityPrototype)
+        public ReadOnlyCollection<ComponentPrototype> ComponentPrototypeOverrides { get; }
+
+        public UnitInstancePrototype(Guid ownerId, UnitPrototype entityPrototype, IList<ComponentPrototype> componentPrototypeOverrides)
         {
             OwnerId = ownerId;
             EntityPrototype = entityPrototype;
+            ComponentPrototypeOverrides = new ReadOnlyCollection<ComponentPrototype>(componentPrototypeOverrides);
         }
     }
 }
