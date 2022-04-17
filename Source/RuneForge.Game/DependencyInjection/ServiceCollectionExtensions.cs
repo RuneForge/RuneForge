@@ -10,6 +10,7 @@ using RuneForge.Data.Units;
 using RuneForge.Data.Units.Interfaces;
 using RuneForge.Game.Buildings;
 using RuneForge.Game.Buildings.Interfaces;
+using RuneForge.Game.Entities.ComponentFactories;
 using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
@@ -66,6 +67,12 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<IBuildingFactory, BuildingFactory>();
             services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IBuildingService>());
             services.AddScoped(serviceProvider => serviceProvider.GetLazyInitializedService<IBuildingFactory>());
+            return services;
+        }
+
+        public static IServiceCollection AddEntityComponentSystemServices(this IServiceCollection services)
+        {
+            services.AddScoped<LocationComponentFactory>();
             return services;
         }
     }
