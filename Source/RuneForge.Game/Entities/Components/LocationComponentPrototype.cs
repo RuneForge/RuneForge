@@ -1,5 +1,9 @@
-﻿namespace RuneForge.Game.Entities.Components
+﻿using RuneForge.Game.Entities.Attributes;
+using RuneForge.Game.Entities.ComponentReaders;
+
+namespace RuneForge.Game.Entities.Components
 {
+    [ComponentPrototypeReader(typeof(LocationComponentPrototypeReader))]
     public class LocationComponentPrototype : ComponentPrototype
     {
         public int XCells { get; }
