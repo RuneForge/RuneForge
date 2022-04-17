@@ -336,100 +336,136 @@
   <UnitInstancePrototypes>
     <!-- Red Peasants and Footmen -->
     <UnitInstancePrototype>
-      <!-- X:5 Y:5 W:1 H:1 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="5" Y="5" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
-      <!-- X:4 Y:6 W:1 H:1 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="4" Y="6" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
-      <!-- X:12 Y:2 W:1 H:1 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="12" Y="2" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
-      <!-- X:12 Y:3 W:1 H:1 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="12" Y="3" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <!-- Blue Peasants and Footmen -->
     <UnitInstancePrototype>
-      <!-- X:58 Y:5 W:1 H:1 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="58" Y="5" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
-      <!-- X:59 Y:6 W:1 H:1 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="59" Y="6" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
-      <!-- X:51 Y:2 W:1 H:1 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="51" Y="2" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
-      <!-- X:51 Y:3 W:1 H:1 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="51" Y="3" />
+      </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
   </UnitInstancePrototypes>
   <BuildingInstancePrototypes>
     <!-- Gold Mines -->
     <BuildingInstancePrototype>
-      <!-- X:1 Y:1 W:3 H:3 -->
       <OwnerId>3501414E-B369-49F9-9CE0-B9F5BAF83589</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/GoldMine</EntityPrototypeAssetName>
-    </BuildingInstancePrototype>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="1" Y="1" />
+      </ComponentPrototypeOverrides>
+  </BuildingInstancePrototype>
     <BuildingInstancePrototype>
-      <!-- X:60 Y:1 W:3 H:3 -->
       <OwnerId>3501414E-B369-49F9-9CE0-B9F5BAF83589</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/GoldMine</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="60" Y="1" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <!-- Red Town Hall, Barracks and 2 Farms -->
     <BuildingInstancePrototype>
-      <!-- X:7 Y:7 W:4 H:4 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/TownHall</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="7" Y="7" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
-      <!-- X:7 Y:1 W:3 H:3 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Barracks</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="7" Y="1" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
-      <!-- X:1 Y:7 W:2 H:2 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Farm</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="1" Y="7" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
-      <!-- X:1 Y:9 W:2 H:2 -->
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Farm</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="1" Y="9" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <!-- Blue Town Hall, Barracks and 2 Farms -->
     <BuildingInstancePrototype>
-      <!-- X:53 Y:7 W:4 H:4 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/TownHall</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="53" Y="7" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
-      <!-- X:54 Y:1 W:3 H:3 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Barracks</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="54" Y="1" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
-      <!-- X:61 Y:7 W:2 H:2 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Farm</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="61" Y="7" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
-      <!-- X:61 Y:9 W:2 H:2 -->
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Farm</EntityPrototypeAssetName>
+      <ComponentPrototypeOverrides>
+        <LocationComponentPrototype X="61" Y="9" />
+      </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
   </BuildingInstancePrototypes>
   <DecorationPrototypes>
