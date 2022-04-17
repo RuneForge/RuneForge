@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
 using RuneForge.Game.Buildings;
+using RuneForge.Game.Entities;
+using RuneForge.Game.Entities.Extensions;
 using RuneForge.Game.Extensions;
 using RuneForge.Game.Players;
 using RuneForge.Game.Units;
@@ -67,14 +69,21 @@ namespace RuneForge.Game.Maps
             {
                 Guid ownerId = reader.ReadGuid();
                 string entityPrototypeAssetName = reader.ReadString();
-
                 if (!unitPrototypes.TryGetValue(entityPrototypeAssetName, out UnitPrototype unitPrototype))
                 {
                     unitPrototype = reader.ContentManager.Load<UnitPrototype>(entityPrototypeAssetName);
                     unitPrototypes.Add(entityPrototypeAssetName, unitPrototype);
                 }
 
-                unitInstancePrototypes.Add(new UnitInstancePrototype(ownerId, unitPrototype));
+                int componentPrototypeOverridesCount = reader.ReadInt32();
+                List<ComponentPrototype> componentPrototypeOverrides = new List<ComponentPrototype>();
+                for (int j = 0; j < componentPrototypeOverridesCount; j++)
+                {
+                    ComponentPrototype componentPrototypeOverride = reader.ReadComponentPrototype();
+                    componentPrototypeOverrides.Add(componentPrototypeOverride);
+                }
+
+                unitInstancePrototypes.Add(new UnitInstancePrototype(ownerId, unitPrototype, componentPrototypeOverrides));
             }
 
             return unitInstancePrototypes;
@@ -88,14 +97,21 @@ namespace RuneForge.Game.Maps
             {
                 Guid ownerId = reader.ReadGuid();
                 string entityPrototypeAssetName = reader.ReadString();
-
                 if (!buildingPrototypes.TryGetValue(entityPrototypeAssetName, out BuildingPrototype buildingPrototype))
                 {
                     buildingPrototype = reader.ContentManager.Load<BuildingPrototype>(entityPrototypeAssetName);
                     buildingPrototypes.Add(entityPrototypeAssetName, buildingPrototype);
                 }
 
-                buildingInstancePrototypes.Add(new BuildingInstancePrototype(ownerId, buildingPrototype));
+                int componentPrototypeOverridesCount = reader.ReadInt32();
+                List<ComponentPrototype> componentPrototypeOverrides = new List<ComponentPrototype>();
+                for (int j = 0; j < componentPrototypeOverridesCount; j++)
+                {
+                    ComponentPrototype componentPrototypeOverride = reader.ReadComponentPrototype();
+                    componentPrototypeOverrides.Add(componentPrototypeOverride);
+                }
+
+                buildingInstancePrototypes.Add(new BuildingInstancePrototype(ownerId, buildingPrototype, componentPrototypeOverrides));
             }
 
             return buildingInstancePrototypes;

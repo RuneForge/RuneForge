@@ -3,11 +3,10 @@ using System.Linq;
 
 using Microsoft.Xna.Framework.Content;
 
-using RuneForge.Game.Entities;
 using RuneForge.Game.Entities.Attributes;
 using RuneForge.Game.Entities.Interfaces;
 
-namespace RuneForge.Game.Extensions
+namespace RuneForge.Game.Entities.Extensions
 {
     public static class ContentReaderExtensions
     {

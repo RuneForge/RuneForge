@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 using RuneForge.Content.Pipeline.Game.Buildings;
+using RuneForge.Content.Pipeline.Game.Entities;
 using RuneForge.Content.Pipeline.Game.Extensions;
 using RuneForge.Content.Pipeline.Game.Players;
 using RuneForge.Content.Pipeline.Game.Units;
@@ -30,6 +31,21 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             writer.Write(map.Width);
             writer.Write(map.Height);
 
+            WritePlayerPrototypes(writer, map);
+
+            WriteUnitInstancePrototypes(writer, map);
+            WriteBuildingInstancePrototypes(writer, map);
+
+            WriteDecorationPrototypes(writer, map);
+
+            WriteTileset(writer, map);
+
+            WriteLandscapeCellData(writer, map);
+            WriteDecorationCellData(writer, map);
+        }
+
+        private static void WritePlayerPrototypes(ContentWriter writer, Map map)
+        {
             List<PlayerPrototype> playerPrototypes = map.PlayerPrototypes;
             if (playerPrototypes == null || playerPrototypes.Count == 0)
                 throw new InvalidOperationException("The map should have at least 1 player prototype.");
@@ -55,7 +71,10 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     }
                 }
             }
+        }
 
+        private static void WriteUnitInstancePrototypes(ContentWriter writer, Map map)
+        {
             List<UnitInstancePrototype> unitInstancePrototypes = map.UnitInstancePrototypes;
             if (unitInstancePrototypes == null)
                 throw new InvalidOperationException("The map should have at least an empty list of unit instance prototypes.");
@@ -66,8 +85,22 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 {
                     writer.Write(unitInstancePrototype.OwnerId);
                     writer.Write(unitInstancePrototype.EntityPrototypeAssetName);
+
+                    List<ComponentPrototype> componentPrototypeOverrides = unitInstancePrototype.ComponentPrototypeOverrides;
+                    if (componentPrototypeOverrides == null)
+                        throw new InvalidOperationException("The unit instance prototype should have at least an empty list of component prototype overrides.");
+                    else
+                    {
+                        writer.Write(componentPrototypeOverrides.Count);
+                        foreach (ComponentPrototype componentPrototypeOverride in componentPrototypeOverrides)
+                            writer.Write(componentPrototypeOverride);
+                    }
                 }
             }
+        }
+
+        private static void WriteBuildingInstancePrototypes(ContentWriter writer, Map map)
+        {
             List<BuildingInstancePrototype> buildingInstancePrototypes = map.BuildingInstancePrototypes;
             if (buildingInstancePrototypes == null)
                 throw new InvalidOperationException("The map should have at least an empty list of building instance prototypes.");
@@ -78,9 +111,22 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 {
                     writer.Write(buildingInstancePrototype.OwnerId);
                     writer.Write(buildingInstancePrototype.EntityPrototypeAssetName);
+
+                    List<ComponentPrototype> componentPrototypeOverrides = buildingInstancePrototype.ComponentPrototypeOverrides;
+                    if (componentPrototypeOverrides == null)
+                        throw new InvalidOperationException("The building instance prototype should have at least an empty list of component prototype overrides.");
+                    else
+                    {
+                        writer.Write(componentPrototypeOverrides.Count);
+                        foreach (ComponentPrototype componentPrototypeOverride in componentPrototypeOverrides)
+                            writer.Write(componentPrototypeOverride);
+                    }
                 }
             }
+        }
 
+        private static void WriteDecorationPrototypes(ContentWriter writer, Map map)
+        {
             List<MapDecorationPrototype> decorationPrototypes = map.DecorationPrototypes;
             if (decorationPrototypes == null)
                 throw new InvalidOperationException("The map should have at least an empty list of decoration prototypes.");
@@ -92,7 +138,10 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     writer.Write(decorationPrototype.Name);
                 }
             }
+        }
 
+        private static void WriteTileset(ContentWriter writer, Map map)
+        {
             MapTileset tileset = map.Tileset;
             if (tileset == null)
                 throw new InvalidOperationException("The map has no associated tileset.");
@@ -125,7 +174,10 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     writer.Write(decorationCellPrototype.TextureRegionName);
                 }
             }
+        }
 
+        private static void WriteLandscapeCellData(ContentWriter writer, Map map)
+        {
             List<MapLandscapeCell> landscapeCells = map.LandscapeCells;
             if (landscapeCells == null || landscapeCells.Count == 0 || landscapeCells.Count != map.Width * map.Height)
                 throw new InvalidOperationException("The map is empty or its landscape cell data is corrupted.");
@@ -137,6 +189,10 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     writer.Write((int)landscapeCell.Type);
                 }
             }
+        }
+
+        private static void WriteDecorationCellData(ContentWriter writer, Map map)
+        {
             List<MapDecorationCell> decorationCells = map.DecorationCells;
             if (decorationCells == null || decorationCells.Count == 0 || decorationCells.Count != map.Width * map.Height)
                 throw new InvalidOperationException("The map is empty or its decoration cell data is corrupted.");

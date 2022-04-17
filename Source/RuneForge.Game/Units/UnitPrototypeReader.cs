@@ -3,7 +3,7 @@
 using Microsoft.Xna.Framework.Content;
 
 using RuneForge.Game.Entities;
-using RuneForge.Game.Extensions;
+using RuneForge.Game.Entities.Extensions;
 
 namespace RuneForge.Game.Units
 {
