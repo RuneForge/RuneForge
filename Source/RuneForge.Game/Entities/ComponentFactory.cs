@@ -10,11 +10,11 @@ namespace RuneForge.Game.Entities
         {
         }
 
-        public abstract TComponent CreateComponentFromPrototype(TComponentPrototype componentPrototype);
+        public abstract TComponent CreateComponentFromPrototype(TComponentPrototype componentPrototype, TComponentPrototype componentPrototypeOverride);
 
-        public IComponent CreateComponentFromPrototype(ComponentPrototype componentPrototype)
+        public IComponent CreateComponentFromPrototype(ComponentPrototype componentPrototype, ComponentPrototype componentPrototypeOverride)
         {
-            return CreateComponentFromPrototype((TComponentPrototype)componentPrototype);
+            return CreateComponentFromPrototype((TComponentPrototype)componentPrototype, (TComponentPrototype)componentPrototypeOverride);
         }
     }
 }
