@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 using RuneForge.Content.Pipeline.Game.Buildings;
+using RuneForge.Content.Pipeline.Game.Entities;
 using RuneForge.Content.Pipeline.Game.Extensions;
 using RuneForge.Content.Pipeline.Game.Players;
 using RuneForge.Content.Pipeline.Game.Units;
@@ -84,6 +85,16 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 {
                     writer.Write(unitInstancePrototype.OwnerId);
                     writer.Write(unitInstancePrototype.EntityPrototypeAssetName);
+
+                    List<ComponentPrototype> componentPrototypeOverrides = unitInstancePrototype.ComponentPrototypeOverrides;
+                    if (componentPrototypeOverrides == null)
+                        throw new InvalidOperationException("The unit instance prototype should have at least an empty list of component prototype overrides.");
+                    else
+                    {
+                        writer.Write(componentPrototypeOverrides.Count);
+                        foreach (ComponentPrototype componentPrototypeOverride in componentPrototypeOverrides)
+                            writer.Write(componentPrototypeOverride);
+                    }
                 }
             }
         }
@@ -100,6 +111,16 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                 {
                     writer.Write(buildingInstancePrototype.OwnerId);
                     writer.Write(buildingInstancePrototype.EntityPrototypeAssetName);
+
+                    List<ComponentPrototype> componentPrototypeOverrides = buildingInstancePrototype.ComponentPrototypeOverrides;
+                    if (componentPrototypeOverrides == null)
+                        throw new InvalidOperationException("The building instance prototype should have at least an empty list of component prototype overrides.");
+                    else
+                    {
+                        writer.Write(componentPrototypeOverrides.Count);
+                        foreach (ComponentPrototype componentPrototypeOverride in componentPrototypeOverrides)
+                            writer.Write(componentPrototypeOverride);
+                    }
                 }
             }
         }
