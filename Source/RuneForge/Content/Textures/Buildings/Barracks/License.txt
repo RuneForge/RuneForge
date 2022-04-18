@@ -1,0 +1,9 @@
+﻿Graphics assets have been taken from the 'Timeless Tales' project for demonstration purposes.
+
+See:
+https://github.com/Wargus/Timeless-Tales
+
+Text of the original asset's licenses:
+
+Barracks Asset - Copyright Paolo D'Inca.
+ConstructionSite Asset - Copyright Paolo D'Inca.
