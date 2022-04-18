@@ -11,6 +11,16 @@
 /reference:..\..\RuneForge.Content.Pipeline.Game\bin\Release\netstandard2.1\RuneForge.Content.Pipeline.Game.dll
 
 #---------------------------------- Content ---------------------------------#
+#begin AnimationAtlases/Units/Footman.xml
+/importer:AnimationAtlasImporter
+/processor:PassThroughProcessor
+/build:AnimationAtlases/Units/Footman.xml
+
+#begin AnimationAtlases/Units/Peasant.xml
+/importer:AnimationAtlasImporter
+/processor:PassThroughProcessor
+/build:AnimationAtlases/Units/Peasant.xml
+
 #begin BuildingPrototypes/Barracks.xml
 /importer:BuildingPrototypeImporter
 /processor:PassThroughProcessor
@@ -59,6 +69,26 @@
 /processor:PassThroughProcessor
 /build:Maps/Southshore.xml
 
+#begin TextureAtlases/Buildings/Barracks.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Buildings/Barracks.xml
+
+#begin TextureAtlases/Buildings/Farm.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Buildings/Farm.xml
+
+#begin TextureAtlases/Buildings/GoldMine.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Buildings/GoldMine.xml
+
+#begin TextureAtlases/Buildings/TownHall.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Buildings/TownHall.xml
+
 #begin TextureAtlases/Interface/Controls/Button.xml
 /importer:TextureAtlasImporter
 /processor:PassThroughProcessor
@@ -73,6 +103,217 @@
 /importer:TextureAtlasImporter
 /processor:PassThroughProcessor
 /build:TextureAtlases/Maps/SummerPlains.xml
+
+#begin TextureAtlases/Units/Footman.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Units/Footman.xml
+
+#begin TextureAtlases/Units/Peasant.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Units/Peasant.xml
+
+#begin Textures/Buildings/Barracks/Barracks.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Barracks/Barracks.png
+
+#begin Textures/Buildings/Barracks/Barracks-EntityColorShadeA.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Barracks/Barracks-EntityColorShadeA.png
+
+#begin Textures/Buildings/Barracks/Barracks-EntityColorShadeB.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Barracks/Barracks-EntityColorShadeB.png
+
+#begin Textures/Buildings/Barracks/Barracks-EntityColorShadeC.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Barracks/Barracks-EntityColorShadeC.png
+
+#begin Textures/Buildings/Barracks/Barracks-EntityColorShadeD.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Barracks/Barracks-EntityColorShadeD.png
+
+#begin Textures/Buildings/Barracks/License.txt
+/copy:Textures/Buildings/Barracks/License.txt
+
+#begin Textures/Buildings/Farm/Farm.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Farm/Farm.png
+
+#begin Textures/Buildings/Farm/Farm-EntityColorShadeA.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Farm/Farm-EntityColorShadeA.png
+
+#begin Textures/Buildings/Farm/Farm-EntityColorShadeB.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Farm/Farm-EntityColorShadeB.png
+
+#begin Textures/Buildings/Farm/Farm-EntityColorShadeC.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Farm/Farm-EntityColorShadeC.png
+
+#begin Textures/Buildings/Farm/Farm-EntityColorShadeD.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/Farm/Farm-EntityColorShadeD.png
+
+#begin Textures/Buildings/Farm/License.txt
+/copy:Textures/Buildings/Farm/License.txt
+
+#begin Textures/Buildings/GoldMine/GoldMine.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/GoldMine/GoldMine.png
+
+#begin Textures/Buildings/TownHall/License.txt
+/copy:Textures/Buildings/TownHall/License.txt
+
+#begin Textures/Buildings/TownHall/TownHall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/TownHall/TownHall.png
+
+#begin Textures/Buildings/TownHall/TownHall-EntityColorShadeA.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/TownHall/TownHall-EntityColorShadeA.png
+
+#begin Textures/Buildings/TownHall/TownHall-EntityColorShadeB.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/TownHall/TownHall-EntityColorShadeB.png
+
+#begin Textures/Buildings/TownHall/TownHall-EntityColorShadeC.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/TownHall/TownHall-EntityColorShadeC.png
+
+#begin Textures/Buildings/TownHall/TownHall-EntityColorShadeD.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Buildings/TownHall/TownHall-EntityColorShadeD.png
 
 #begin Textures/Interface/Controls/Button.png
 /importer:TextureImporter
@@ -112,6 +353,132 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Maps/SummerPlains.png
+
+#begin Textures/Units/Footman/Footman.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Footman/Footman.png
+
+#begin Textures/Units/Footman/Footman-EntityColorShadeA.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Footman/Footman-EntityColorShadeA.png
+
+#begin Textures/Units/Footman/Footman-EntityColorShadeB.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Footman/Footman-EntityColorShadeB.png
+
+#begin Textures/Units/Footman/Footman-EntityColorShadeC.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Footman/Footman-EntityColorShadeC.png
+
+#begin Textures/Units/Footman/Footman-EntityColorShadeD.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Footman/Footman-EntityColorShadeD.png
+
+#begin Textures/Units/Footman/License.txt
+/copy:Textures/Units/Footman/License.txt
+
+#begin Textures/Units/Peasant/License.txt
+/copy:Textures/Units/Peasant/License.txt
+
+#begin Textures/Units/Peasant/Peasant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Peasant/Peasant.png
+
+#begin Textures/Units/Peasant/Peasant-EntityColorShadeA.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Peasant/Peasant-EntityColorShadeA.png
+
+#begin Textures/Units/Peasant/Peasant-EntityColorShadeB.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Peasant/Peasant-EntityColorShadeB.png
+
+#begin Textures/Units/Peasant/Peasant-EntityColorShadeC.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Peasant/Peasant-EntityColorShadeC.png
+
+#begin Textures/Units/Peasant/Peasant-EntityColorShadeD.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Units/Peasant/Peasant-EntityColorShadeD.png
 
 #begin UnitPrototypes/Footman.xml
 /importer:UnitPrototypeImporter
