@@ -17,6 +17,7 @@ namespace RuneForge.Content.Pipeline.Game.Units
 
         [XmlArray(ElementName = "ComponentPrototypeOverrides")]
         [XmlArrayItem(ElementName = "LocationComponentPrototype", Type = typeof(LocationComponentPrototype))]
+        [XmlArrayItem(ElementName = "DirectionComponentPrototype", Type = typeof(DirectionComponentPrototype))]
         public List<ComponentPrototype> ComponentPrototypeOverrides { get; set; }
     }
 }
