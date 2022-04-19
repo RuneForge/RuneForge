@@ -1,5 +1,9 @@
-﻿namespace RuneForge.Game.Entities.Components
+﻿using RuneForge.Game.Entities.Attributes;
+using RuneForge.Game.Entities.ComponentReaders;
+
+namespace RuneForge.Game.Entities.Components
 {
+    [ComponentPrototypeReader(typeof(TextureAtlasComponentPrototypeReader))]
     public class TextureAtlasComponentPrototype : ComponentPrototype
     {
         public string TextureAtlasAssetName { get; }
