@@ -9,5 +9,13 @@ namespace RuneForge.Content.Pipeline.Game.Extensions
         {
             binaryWriter.Write(value.ToByteArray());
         }
+
+        public static void Write<T>(this BinaryWriter binaryWriter, T? nullableValue, ValueTypeWriterMethod<T> structContentsWriterAction)
+            where T : struct
+        {
+            binaryWriter.Write(nullableValue.HasValue);
+            if (nullableValue.HasValue)
+                structContentsWriterAction(binaryWriter, nullableValue.Value);
+        }
     }
 }

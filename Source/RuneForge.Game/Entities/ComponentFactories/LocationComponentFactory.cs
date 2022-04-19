@@ -6,11 +6,17 @@ namespace RuneForge.Game.Entities.ComponentFactories
     {
         public override LocationComponent CreateComponentFromPrototype(LocationComponentPrototype componentPrototype, LocationComponentPrototype componentPrototypeOverride)
         {
-            int xCells = componentPrototypeOverride.XCells;
-            int yCells = componentPrototypeOverride.YCells;
-            int widthCells = componentPrototype.WidthCells;
-            int heightCells = componentPrototype.HeightCells;
-            return LocationComponent.CreateFromCellLocation(xCells, yCells, widthCells, heightCells);
+            int? xCells = componentPrototype.XCells;
+            int? yCells = componentPrototype.YCells;
+            int widthCells = (int)componentPrototype.WidthCells;
+            int heightCells = (int)componentPrototype.HeightCells;
+
+            if (componentPrototypeOverride.XCells.HasValue)
+                xCells = (int)componentPrototypeOverride.XCells;
+            if (componentPrototypeOverride.YCells.HasValue)
+                yCells = (int)componentPrototypeOverride.YCells;
+
+            return LocationComponent.CreateFromCellLocation((int)xCells, (int)yCells, widthCells, heightCells);
         }
     }
 }

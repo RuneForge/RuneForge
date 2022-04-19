@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
 using RuneForge.Game.Entities.Components;
+using RuneForge.Game.Extensions;
 
 namespace RuneForge.Game.Entities.ComponentReaders
 {
@@ -8,10 +9,10 @@ namespace RuneForge.Game.Entities.ComponentReaders
     {
         public override LocationComponentPrototype ReadTypedComponentPrototype(ContentReader contentReader)
         {
-            int xCells = contentReader.ReadInt32();
-            int yCells = contentReader.ReadInt32();
-            int widthCells = contentReader.ReadInt32();
-            int heightCells = contentReader.ReadInt32();
+            int? xCells = contentReader.ReadNullable(contentReader => contentReader.ReadInt32());
+            int? yCells = contentReader.ReadNullable(contentReader => contentReader.ReadInt32());
+            int? widthCells = contentReader.ReadNullable(contentReader => contentReader.ReadInt32());
+            int? heightCells = contentReader.ReadNullable(contentReader => contentReader.ReadInt32());
             return new LocationComponentPrototype(xCells, yCells, widthCells, heightCells);
         }
     }
