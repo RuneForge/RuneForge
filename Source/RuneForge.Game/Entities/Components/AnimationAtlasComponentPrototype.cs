@@ -1,8 +1,10 @@
 ﻿using RuneForge.Game.Entities.Attributes;
+using RuneForge.Game.Entities.ComponentFactories;
 using RuneForge.Game.Entities.ComponentReaders;
 
 namespace RuneForge.Game.Entities.Components
 {
+    [ComponentFactory(typeof(AnimationAtlasComponentFactory))]
     [ComponentPrototypeReader(typeof(AnimationAtlasComponentPrototypeReader))]
     public class AnimationAtlasComponentPrototype : ComponentPrototype
     {
