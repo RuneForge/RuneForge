@@ -11,10 +11,13 @@ namespace RuneForge.Game.Entities.ComponentFactories
             int widthCells = (int)componentPrototype.WidthCells;
             int heightCells = (int)componentPrototype.HeightCells;
 
-            if (componentPrototypeOverride.XCells.HasValue)
-                xCells = (int)componentPrototypeOverride.XCells;
-            if (componentPrototypeOverride.YCells.HasValue)
-                yCells = (int)componentPrototypeOverride.YCells;
+            if (componentPrototypeOverride != null)
+            {
+                if (componentPrototypeOverride.XCells.HasValue)
+                    xCells = (int)componentPrototypeOverride.XCells;
+                if (componentPrototypeOverride.YCells.HasValue)
+                    yCells = (int)componentPrototypeOverride.YCells;
+            }
 
             return LocationComponent.CreateFromCellLocation((int)xCells, (int)yCells, widthCells, heightCells);
         }
