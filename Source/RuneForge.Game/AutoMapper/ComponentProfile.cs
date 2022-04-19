@@ -14,9 +14,11 @@ namespace RuneForge.Game.AutoMapper
             DestinationMemberNamingConvention = new ExactMatchNamingConvention();
 
             CreateMap<IComponent, ComponentDto>()
-                .Include<LocationComponent, LocationComponentDto>();
+                .Include<LocationComponent, LocationComponentDto>()
+                .Include<DirectionComponent, DirectionComponentDto>();
 
             CreateMap<LocationComponent, LocationComponentDto>();
+            CreateMap<DirectionComponent, DirectionComponentDto>();
         }
     }
 }

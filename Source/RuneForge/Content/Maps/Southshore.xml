@@ -340,6 +340,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="5" Y="5" />
+        <DirectionComponentPrototype Direction="NorthWest" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
@@ -347,6 +348,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="4" Y="6" />
+        <DirectionComponentPrototype Direction="NorthWest" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
@@ -354,6 +356,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="12" Y="2" />
+        <DirectionComponentPrototype Direction="East" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
@@ -361,6 +364,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="12" Y="3" />
+        <DirectionComponentPrototype Direction="South" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <!-- Blue Peasants and Footmen -->
@@ -369,6 +373,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="58" Y="5" />
+        <DirectionComponentPrototype Direction="NorthEast" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
@@ -376,6 +381,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Peasant</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="59" Y="6" />
+        <DirectionComponentPrototype Direction="NorthEast" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
@@ -383,6 +389,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="51" Y="2" />
+        <DirectionComponentPrototype Direction="West" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
     <UnitInstancePrototype>
@@ -390,6 +397,7 @@
       <EntityPrototypeAssetName>UnitPrototypes/Footman</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
         <LocationComponentPrototype X="51" Y="3" />
+        <DirectionComponentPrototype Direction="South" />
       </ComponentPrototypeOverrides>
     </UnitInstancePrototype>
   </UnitInstancePrototypes>

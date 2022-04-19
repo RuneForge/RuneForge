@@ -73,6 +73,7 @@ namespace RuneForge.Game.DependencyInjection
         public static IServiceCollection AddEntityComponentSystemServices(this IServiceCollection services)
         {
             services.AddScoped<LocationComponentFactory>();
+            services.AddScoped<DirectionComponentFactory>();
             return services;
         }
     }
