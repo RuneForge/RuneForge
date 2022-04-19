@@ -9,5 +9,15 @@ namespace RuneForge.Game.Extensions
         {
             return new Guid(binaryReader.ReadBytes(16));
         }
+
+        public static T? ReadNullable<T>(this BinaryReader binaryReader, StructContentsReaderAction<T> structContentsReaderAction)
+            where T : struct
+        {
+            bool hasValue = binaryReader.ReadBoolean();
+            if (!hasValue)
+                return new T?();
+            else
+                return new T?(structContentsReaderAction(binaryReader));
+        }
     }
 }
