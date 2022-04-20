@@ -17,6 +17,7 @@ namespace RuneForge.Game.Buildings
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly IMapper m_mapper;
         private readonly Dictionary<int, int> m_buildingsByIds;
+        private readonly HashSet<int> m_changedBuildingIds;
 
         public BuildingService(IBuildingRepository buildingRepository, IGameSessionContext gameSessionContext, IMapper mapper)
         {
@@ -24,6 +25,7 @@ namespace RuneForge.Game.Buildings
             m_gameSessionContext = gameSessionContext;
             m_mapper = mapper;
             m_buildingsByIds = new Dictionary<int, int>();
+            m_changedBuildingIds = new HashSet<int>();
         }
 
         public Building GetBuilding(int buildingId)
@@ -61,9 +63,31 @@ namespace RuneForge.Game.Buildings
                 for (int i = buildingIndex; i < m_gameSessionContext.Buildings.Count; i++)
                     m_buildingsByIds[m_gameSessionContext.Buildings[i].Id] = i;
                 m_buildingRepository.RemoveBuilding(buildingId);
+                if (m_changedBuildingIds.Contains(buildingId))
+                    m_changedBuildingIds.Remove(buildingId);
             }
             else
                 throw new KeyNotFoundException("No building was found by the specified Id.");
+        }
+
+        public void RegisterBuildingChanges(int buildingId)
+        {
+            if (m_buildingsByIds.ContainsKey(buildingId))
+            {
+                m_changedBuildingIds.Add(buildingId);
+            }
+            else
+                throw new KeyNotFoundException("No building was found by the specified Id.");
+        }
+
+        public void CommitChanges()
+        {
+            foreach (int buildingId in m_changedBuildingIds)
+            {
+                Building building = GetBuilding(buildingId);
+                m_buildingRepository.SaveBuilding(m_mapper.Map<Building, BuildingDto>(building));
+            }
+            m_changedBuildingIds.Clear();
         }
     }
 }

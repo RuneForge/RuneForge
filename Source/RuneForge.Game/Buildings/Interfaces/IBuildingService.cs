@@ -11,5 +11,9 @@ namespace RuneForge.Game.Buildings.Interfaces
         public void AddBuilding(Building building);
 
         public void RemoveBuilding(int buildingId);
+
+        public void RegisterBuildingChanges(int buildingId);
+
+        public void CommitChanges();
     }
 }
