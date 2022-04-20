@@ -76,6 +76,7 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<AnimationAtlasComponentFactory>();
             services.AddScoped<LocationComponentFactory>();
             services.AddScoped<DirectionComponentFactory>();
+            services.AddScoped<MovementComponentFactory>();
             return services;
         }
     }
