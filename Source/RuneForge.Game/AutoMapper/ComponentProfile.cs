@@ -15,10 +15,12 @@ namespace RuneForge.Game.AutoMapper
 
             CreateMap<IComponent, ComponentDto>()
                 .Include<TextureAtlasComponent, TextureAtlasComponentDto>()
+                .Include<AnimationAtlasComponent, AnimationAtlasComponentDto>()
                 .Include<LocationComponent, LocationComponentDto>()
                 .Include<DirectionComponent, DirectionComponentDto>();
 
             CreateMap<TextureAtlasComponent, TextureAtlasComponentDto>();
+            CreateMap<AnimationAtlasComponent, AnimationAtlasComponentDto>();
             CreateMap<LocationComponent, LocationComponentDto>();
             CreateMap<DirectionComponent, DirectionComponentDto>();
         }
