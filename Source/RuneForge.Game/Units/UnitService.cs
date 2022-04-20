@@ -17,6 +17,7 @@ namespace RuneForge.Game.Units
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly IMapper m_mapper;
         private readonly Dictionary<int, int> m_unitsByIds;
+        private readonly HashSet<int> m_changedUnitIds;
 
         public UnitService(IUnitRepository unitRepository, IGameSessionContext gameSessionContext, IMapper mapper)
         {
@@ -24,6 +25,7 @@ namespace RuneForge.Game.Units
             m_gameSessionContext = gameSessionContext;
             m_mapper = mapper;
             m_unitsByIds = new Dictionary<int, int>();
+            m_changedUnitIds = new HashSet<int>();
         }
 
         public Unit GetUnit(int unitId)
@@ -64,6 +66,26 @@ namespace RuneForge.Game.Units
             }
             else
                 throw new KeyNotFoundException("No unit was found by the specified Id.");
+        }
+
+        public void RegisterUnitChanges(int unitId)
+        {
+            if (m_unitsByIds.ContainsKey(unitId))
+            {
+                m_changedUnitIds.Add(unitId);
+            }
+            else
+                throw new KeyNotFoundException("No unit was found by the specified Id.");
+        }
+
+        public void CommitChanges()
+        {
+            foreach (int unitId in m_changedUnitIds)
+            {
+                Unit unit = GetUnit(unitId);
+                m_unitRepository.SaveUnit(m_mapper.Map<Unit, UnitDto>(unit));
+            }
+            m_changedUnitIds.Clear();
         }
     }
 }

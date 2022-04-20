@@ -11,5 +11,9 @@ namespace RuneForge.Game.Units.Interfaces
         public void AddUnit(Unit unit);
 
         public void RemoveUnit(int unitId);
+
+        public void RegisterUnitChanges(int unitId);
+
+        public void CommitChanges();
     }
 }
