@@ -17,6 +17,8 @@ using RuneForge.Game.Maps;
 using RuneForge.Game.Maps.Interfaces;
 using RuneForge.Game.Players;
 using RuneForge.Game.Players.Interfaces;
+using RuneForge.Game.Systems.Implementations;
+using RuneForge.Game.Systems.Interfaces;
 using RuneForge.Game.Units;
 using RuneForge.Game.Units.Interfaces;
 
@@ -77,6 +79,7 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<LocationComponentFactory>();
             services.AddScoped<DirectionComponentFactory>();
             services.AddScoped<MovementComponentFactory>();
+            services.AddScoped<ISystem, MovementSystem>();
             return services;
         }
     }
