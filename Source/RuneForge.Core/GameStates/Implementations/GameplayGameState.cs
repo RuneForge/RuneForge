@@ -25,6 +25,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly Camera2D m_camera;
         private readonly Camera2DParameters m_cameraParameters;
         private readonly MapRenderer m_mapRenderer;
+        private readonly EntityRenderer m_entityRenderer;
         private readonly CameraController m_cameraController;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
 
@@ -35,6 +36,7 @@ namespace RuneForge.Core.GameStates.Implementations
             Camera2D camera,
             Camera2DParameters cameraParameters,
             MapRenderer mapRenderer,
+            EntityRenderer entityRenderer,
             CameraController cameraController,
             Lazy<GraphicsDevice> graphicsDeviceProvider
             )
@@ -45,6 +47,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_camera = camera;
             m_cameraParameters = cameraParameters;
             m_mapRenderer = mapRenderer;
+            m_entityRenderer = entityRenderer;
             m_cameraController = cameraController;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
         }
@@ -73,6 +76,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_cameraParameters.Viewport = graphicsDevice.Viewport;
 
             m_mapRenderer.LoadContent();
+            m_entityRenderer.LoadContent();
 
             base.LoadContent();
         }
@@ -86,6 +90,7 @@ namespace RuneForge.Core.GameStates.Implementations
             SpriteBatch worldSpriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
             worldSpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: m_camera.GetWorldToScreenTransformationMatrix());
             m_mapRenderer.Draw();
+            m_entityRenderer.Draw();
             worldSpriteBatch.End();
 
             base.Draw(gameTime);

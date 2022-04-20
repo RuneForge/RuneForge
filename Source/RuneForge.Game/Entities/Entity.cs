@@ -47,7 +47,7 @@ namespace RuneForge.Game.Entities
             return m_componentsByTypes[componentType];
         }
         public TComponent GetComponentOfType<TComponent>()
-            where TComponent : IComponent
+            where TComponent : class, IComponent
         {
             Type type = typeof(TComponent);
             return (TComponent)GetComponentOfType(type);
@@ -57,11 +57,14 @@ namespace RuneForge.Game.Entities
         {
             return m_componentsByTypes.TryGetValue(componentType, out component);
         }
-        public bool TryGetComponentOfType<TComponent>(out IComponent component)
-            where TComponent : IComponent
+        public bool TryGetComponentOfType<TComponent>(out TComponent component)
+            where TComponent : class, IComponent
         {
             Type type = typeof(TComponent);
-            return TryGetComponentOfType(type, out component);
+
+            bool returnValue;
+            (component, returnValue) = TryGetComponentOfType(type, out IComponent componentToAssign) ? ((TComponent)componentToAssign, true) : ((TComponent)null, false);
+            return returnValue;
         }
 
         public bool HasComponentOfType(Type componentType)
@@ -69,7 +72,7 @@ namespace RuneForge.Game.Entities
             return m_componentsByTypes.ContainsKey(componentType);
         }
         public bool HasComponentOfType<TComponent>()
-            where TComponent : IComponent
+            where TComponent : class, IComponent
         {
             Type type = typeof(TComponent);
             return HasComponentOfType(type);
@@ -106,7 +109,7 @@ namespace RuneForge.Game.Entities
             }
         }
         protected void RemoveComponentOfType<TComponent>()
-            where TComponent : IComponent
+            where TComponent : class, IComponent
         {
             Type type = typeof(TComponent);
             RemoveComponentOfType(type);
