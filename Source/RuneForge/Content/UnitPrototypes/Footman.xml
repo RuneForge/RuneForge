@@ -1,6 +1,8 @@
 ﻿<UnitPrototype xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Footman</Name>
   <ComponentPrototypes>
+    <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Units\Footman" HasPlayerColor="true" />
+    <AnimationAtlasComponentPrototype AnimationAtlasAssetName="AnimationAtlases\Units\Footman" HasPlayerColor="true" />
     <LocationComponentPrototype Width="1" Height="1" />
     <DirectionComponentPrototype Direction="North" />
   </ComponentPrototypes>

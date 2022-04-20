@@ -1,0 +1,8 @@
+﻿Graphics assets have been taken from the 'Timeless Tales' project for demonstration purposes.
+
+See:
+https://github.com/Wargus/Timeless-Tales
+
+Text of the original asset's license:
+
+Copyright by Adam Podeszfa 2002.

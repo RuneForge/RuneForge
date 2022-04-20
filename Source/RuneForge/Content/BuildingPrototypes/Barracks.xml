@@ -1,6 +1,7 @@
 ﻿<BuildingPrototype xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Barracks</Name>
   <ComponentPrototypes>
+    <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Buildings\Barracks" HasPlayerColor="true" />
     <LocationComponentPrototype Width="3" Height="3" />
   </ComponentPrototypes>
 </BuildingPrototype>
