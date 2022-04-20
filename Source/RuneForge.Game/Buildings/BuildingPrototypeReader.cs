@@ -2,8 +2,8 @@
 
 using Microsoft.Xna.Framework.Content;
 
-using RuneForge.Game.Entities;
-using RuneForge.Game.Entities.Extensions;
+using RuneForge.Game.Components;
+using RuneForge.Game.Components.Extensions;
 
 namespace RuneForge.Game.Buildings
 {

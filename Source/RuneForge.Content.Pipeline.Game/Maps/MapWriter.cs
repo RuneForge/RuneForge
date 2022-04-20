@@ -7,7 +7,8 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 using RuneForge.Content.Pipeline.Game.Buildings;
-using RuneForge.Content.Pipeline.Game.Entities;
+using RuneForge.Content.Pipeline.Game.Components;
+using RuneForge.Content.Pipeline.Game.Components.Extensions;
 using RuneForge.Content.Pipeline.Game.Extensions;
 using RuneForge.Content.Pipeline.Game.Players;
 using RuneForge.Content.Pipeline.Game.Units;

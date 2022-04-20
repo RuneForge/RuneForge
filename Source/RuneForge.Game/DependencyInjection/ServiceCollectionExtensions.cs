@@ -10,7 +10,7 @@ using RuneForge.Data.Units;
 using RuneForge.Data.Units.Interfaces;
 using RuneForge.Game.Buildings;
 using RuneForge.Game.Buildings.Interfaces;
-using RuneForge.Game.Entities.ComponentFactories;
+using RuneForge.Game.Components.Factories;
 using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
