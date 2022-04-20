@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using RuneForge.Game.Entities;
+using RuneForge.Game.Components;
 
 namespace RuneForge.Game.Buildings
 {

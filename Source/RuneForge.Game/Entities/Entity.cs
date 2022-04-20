@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+using RuneForge.Game.Components.Interfaces;
 using RuneForge.Game.Entities.Interfaces;
 
 namespace RuneForge.Game.Entities

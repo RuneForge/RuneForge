@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 
 using RuneForge.Data.Components;
-using RuneForge.Game.Entities.Components;
-using RuneForge.Game.Entities.Interfaces;
+using RuneForge.Game.Components.Implementations;
+using RuneForge.Game.Components.Interfaces;
 
 namespace RuneForge.Game.AutoMapper
 {

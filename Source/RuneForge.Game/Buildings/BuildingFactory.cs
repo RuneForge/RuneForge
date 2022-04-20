@@ -3,8 +3,8 @@ using System.Collections.ObjectModel;
 
 using RuneForge.Data.Buildings;
 using RuneForge.Game.Buildings.Interfaces;
-using RuneForge.Game.Entities;
-using RuneForge.Game.Entities.Interfaces;
+using RuneForge.Game.Components;
+using RuneForge.Game.Components.Interfaces;
 using RuneForge.Game.Players;
 using RuneForge.Game.Players.Interfaces;
 
@@ -23,7 +23,7 @@ namespace RuneForge.Game.Buildings
             m_nextUnitId = 1;
         }
 
-        #warning Add support for restoring the component collection from a DTO object.
+#warning Add support for restoring the component collection from a DTO object.
         public Building CreateFromDto(BuildingDto building)
         {
             Player owner = m_playerService.GetPlayer(building.OwnerId);

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-using RuneForge.Content.Pipeline.Game.Entities;
-using RuneForge.Content.Pipeline.Game.Entities.Components;
+using RuneForge.Content.Pipeline.Game.Components;
+using RuneForge.Content.Pipeline.Game.Components.Implementations;
 
 namespace RuneForge.Content.Pipeline.Game.Buildings
 {

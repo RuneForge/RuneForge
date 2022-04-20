@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
+using RuneForge.Game.Components.Interfaces;
+
 namespace RuneForge.Game.Entities.Interfaces
 {
     public interface IEntity

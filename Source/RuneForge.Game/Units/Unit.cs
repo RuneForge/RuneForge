@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using RuneForge.Game.Components.Interfaces;
 using RuneForge.Game.Entities;
-using RuneForge.Game.Entities.Interfaces;
 using RuneForge.Game.Players;
 
 namespace RuneForge.Game.Units

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
-using RuneForge.Content.Pipeline.Game.Entities;
+using RuneForge.Content.Pipeline.Game.Components;
+using RuneForge.Content.Pipeline.Game.Components.Extensions;
 using RuneForge.Content.Pipeline.Game.Extensions;
 
 namespace RuneForge.Content.Pipeline.Game.Units

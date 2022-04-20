@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 
 using RuneForge.Data.Units;
-using RuneForge.Game.Entities;
-using RuneForge.Game.Entities.Interfaces;
+using RuneForge.Game.Components;
+using RuneForge.Game.Components.Interfaces;
 using RuneForge.Game.Players;
 using RuneForge.Game.Players.Interfaces;
 using RuneForge.Game.Units.Interfaces;
@@ -23,7 +23,7 @@ namespace RuneForge.Game.Units
             m_nextUnitId = 1;
         }
 
-        #warning Add support for restoring the component collection from a DTO object.
+#warning Add support for restoring the component collection from a DTO object.
         public Unit CreateFromDto(UnitDto unit)
         {
             Player owner = m_playerService.GetPlayer(unit.OwnerId);
