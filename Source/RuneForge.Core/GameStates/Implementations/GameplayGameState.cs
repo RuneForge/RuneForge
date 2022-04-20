@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 using Microsoft.Xna.Framework;
@@ -12,6 +13,7 @@ using RuneForge.Core.Rendering;
 using RuneForge.Core.Rendering.Interfaces;
 using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
+using RuneForge.Game.Systems.Interfaces;
 
 namespace RuneForge.Core.GameStates.Implementations
 {
@@ -22,6 +24,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
         private readonly IKeyboardEventProvider m_keyboardEventProvider;
+        private readonly IEnumerable<ISystem> m_systems;
         private readonly Camera2D m_camera;
         private readonly Camera2DParameters m_cameraParameters;
         private readonly MapRenderer m_mapRenderer;
@@ -33,6 +36,7 @@ namespace RuneForge.Core.GameStates.Implementations
             IGameSessionContext gameSessionContext,
             ISpriteBatchProvider spriteBatchProvider,
             IKeyboardEventProvider keyboardEventProvider,
+            IEnumerable<ISystem> systems,
             Camera2D camera,
             Camera2DParameters cameraParameters,
             MapRenderer mapRenderer,
@@ -44,6 +48,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_gameSessionContext = gameSessionContext;
             m_spriteBatchProvider = spriteBatchProvider;
             m_keyboardEventProvider = keyboardEventProvider;
+            m_systems = systems;
             m_camera = camera;
             m_cameraParameters = cameraParameters;
             m_mapRenderer = mapRenderer;
@@ -83,6 +88,12 @@ namespace RuneForge.Core.GameStates.Implementations
 
         public override void Update(GameTime gameTime)
         {
+            foreach (ISystem system in m_systems)
+            {
+                if (system.Enabled)
+                    system.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
