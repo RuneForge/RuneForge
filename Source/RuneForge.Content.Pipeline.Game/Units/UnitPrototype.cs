@@ -13,6 +13,7 @@ namespace RuneForge.Content.Pipeline.Game.Units
         public string Name { get; set; }
 
         [XmlArray(ElementName = "ComponentPrototypes")]
+        [XmlArrayItem(ElementName = "TextureAtlasComponentPrototype", Type = typeof(TextureAtlasComponentPrototype))]
         [XmlArrayItem(ElementName = "LocationComponentPrototype", Type = typeof(LocationComponentPrototype))]
         [XmlArrayItem(ElementName = "DirectionComponentPrototype", Type = typeof(DirectionComponentPrototype))]
         public List<ComponentPrototype> ComponentPrototypes { get; set; }
