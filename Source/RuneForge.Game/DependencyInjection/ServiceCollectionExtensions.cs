@@ -76,6 +76,7 @@ namespace RuneForge.Game.DependencyInjection
         {
             services.AddScoped<TextureAtlasComponentFactory>();
             services.AddScoped<AnimationAtlasComponentFactory>();
+            services.AddScoped<OrderQueueComponentFactory>();
             services.AddScoped<LocationComponentFactory>();
             services.AddScoped<DirectionComponentFactory>();
             services.AddScoped<MovementComponentFactory>();
