@@ -1,10 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 
+using RuneForge.Game.Components.Entities;
+
 namespace RuneForge.Game.Components.Implementations
 {
     public class MovementComponent : Component
     {
         public float MovementSpeed { get; }
+
+        public MovementFlags MovementType { get; }
 
         public int OriginCellX { get; set; }
         public int OriginCellY { get; set; }
@@ -16,9 +20,10 @@ namespace RuneForge.Game.Components.Implementations
         public bool MovementInProgress { get; set; }
         public bool PathBlocked { get; set; }
 
-        public MovementComponent(float movementSpeed)
+        public MovementComponent(float movementSpeed, MovementFlags movementType)
         {
             MovementSpeed = movementSpeed;
+            MovementType = movementType;
             OriginCellX = -1;
             OriginCellY = -1;
             DestinationCellX = -1;
