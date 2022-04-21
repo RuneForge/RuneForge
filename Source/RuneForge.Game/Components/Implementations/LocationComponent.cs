@@ -144,8 +144,8 @@ namespace RuneForge.Game.Components.Implementations
             List<Point> occupiedCells = new List<Point>(WidthCells * HeightCells);
             for (int i = 0; i < occupiedCells.Capacity; i++)
             {
-                int xCells = i % WidthCells;
-                int yCells = i % HeightCells;
+                int xCells = XCells + (i % WidthCells);
+                int yCells = YCells +  (i / HeightCells);
                 occupiedCells.Add(new Point(xCells, yCells));
             }
             m_cacheInvalidated = false;
