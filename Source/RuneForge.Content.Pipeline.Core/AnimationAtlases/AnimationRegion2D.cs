@@ -7,6 +7,6 @@ namespace RuneForge.Content.Pipeline.Core.AnimationAtlases
     public class AnimationRegion2D : TextureRegion2D
     {
         [XmlAttribute(AttributeName = "FrameTimeMilliseconds")]
-        public int FrameTimeMilliseconds { get; set; }
+        public float FrameTimeMilliseconds { get; set; }
     }
 }
