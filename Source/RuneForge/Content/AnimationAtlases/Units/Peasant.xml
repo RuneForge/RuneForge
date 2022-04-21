@@ -46,82 +46,82 @@
     <!-- Move Animations -->
     <Animation Name="Move-North" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-North-0" X="0" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-North-1" X="0" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-North-2" X="0" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-North-3" X="0" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-North-4" X="0" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-North-5" X="0" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-North-0" X="0" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-North-1" X="0" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-North-2" X="0" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-North-3" X="0" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-North-4" X="0" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-North-5" X="0" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Move-South" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-South-0" X="72" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-South-1" X="72" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-South-2" X="72" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-South-3" X="72" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-South-4" X="72" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-South-5" X="72" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-South-0" X="72" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-South-1" X="72" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-South-2" X="72" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-South-3" X="72" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-South-4" X="72" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-South-5" X="72" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Move-West" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-West-0" X="144" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-West-1" X="144" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-West-2" X="144" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-West-3" X="144" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-West-4" X="144" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-West-5" X="144" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-West-0" X="144" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-West-1" X="144" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-West-2" X="144" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-West-3" X="144" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-West-4" X="144" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-West-5" X="144" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Move-East" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-East-0" X="216" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-East-1" X="216" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-East-2" X="216" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-East-3" X="216" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-East-4" X="216" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-East-5" X="216" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-East-0" X="216" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-East-1" X="216" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-East-2" X="216" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-East-3" X="216" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-East-4" X="216" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-East-5" X="216" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Move-NorthWest" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-NorthWest-0" X="288" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthWest-1" X="288" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthWest-2" X="288" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-NorthWest-3" X="288" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthWest-4" X="288" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthWest-5" X="288" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-NorthWest-0" X="288" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthWest-1" X="288" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthWest-2" X="288" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-NorthWest-3" X="288" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthWest-4" X="288" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthWest-5" X="288" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Move-NorthEast" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-NorthEast-0" X="360" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthEast-1" X="360" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthEast-2" X="360" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-NorthEast-3" X="360" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthEast-4" X="360" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-NorthEast-5" X="360" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-NorthEast-0" X="360" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthEast-1" X="360" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthEast-2" X="360" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-NorthEast-3" X="360" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthEast-4" X="360" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-NorthEast-5" X="360" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Move-SouthWest" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-SouthWest-0" X="432" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthWest-1" X="432" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthWest-2" X="432" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-SouthWest-3" X="432" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthWest-4" X="432" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthWest-5" X="432" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-SouthWest-0" X="432" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthWest-1" X="432" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthWest-2" X="432" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-SouthWest-3" X="432" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthWest-4" X="432" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthWest-5" X="432" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Move-SouthEast" Looped="true" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Move-SouthEast-0" X="504" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthEast-1" X="504" Y="72" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthEast-2" X="504" Y="144" Width="72" Height="72" FrameTimeMilliseconds="16" />
-        <AnimationRegion Name="Move-SouthEast-3" X="504" Y="0" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthEast-4" X="504" Y="216" Width="72" Height="72" FrameTimeMilliseconds="32" />
-        <AnimationRegion Name="Move-SouthEast-5" X="504" Y="288" Width="72" Height="72" FrameTimeMilliseconds="16" />
+        <AnimationRegion Name="Move-SouthEast-0" X="504" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthEast-1" X="504" Y="72" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthEast-2" X="504" Y="144" Width="72" Height="72" FrameTimeMilliseconds="52" />
+        <AnimationRegion Name="Move-SouthEast-3" X="504" Y="0" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthEast-4" X="504" Y="216" Width="72" Height="72" FrameTimeMilliseconds="104" />
+        <AnimationRegion Name="Move-SouthEast-5" X="504" Y="288" Width="72" Height="72" FrameTimeMilliseconds="52" />
       </AnimationRegions>
     </Animation>
     <!-- Attack Animations -->
