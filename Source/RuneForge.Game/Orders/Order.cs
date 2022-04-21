@@ -16,7 +16,7 @@ namespace RuneForge.Game.Orders
             State = OrderState.Scheduled;
         }
 
-        public virtual void Run()
+        public virtual void Execute()
         {
             State = OrderState.InProgress;
         }
