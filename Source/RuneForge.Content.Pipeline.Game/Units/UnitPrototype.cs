@@ -15,6 +15,7 @@ namespace RuneForge.Content.Pipeline.Game.Units
         [XmlArray(ElementName = "ComponentPrototypes")]
         [XmlArrayItem(ElementName = "TextureAtlasComponentPrototype", Type = typeof(TextureAtlasComponentPrototype))]
         [XmlArrayItem(ElementName = "AnimationAtlasComponentPrototype", Type = typeof(AnimationAtlasComponentPrototype))]
+        [XmlArrayItem(ElementName = "AnimationStateComponentPrototype", Type = typeof(AnimationStateComponentPrototype))]
         [XmlArrayItem(ElementName = "OrderQueueComponentPrototype", Type = typeof(OrderQueueComponentPrototype))]
         [XmlArrayItem(ElementName = "LocationComponentPrototype", Type = typeof(LocationComponentPrototype))]
         [XmlArrayItem(ElementName = "DirectionComponentPrototype", Type = typeof(DirectionComponentPrototype))]
