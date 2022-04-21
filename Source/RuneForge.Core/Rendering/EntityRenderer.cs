@@ -24,6 +24,7 @@ namespace RuneForge.Core.Rendering
     {
         private const string c_defaultBuildingTextureName = "DefaultState";
 
+        private static readonly TimeSpan s_animationCacheResetPeriod = TimeSpan.FromSeconds(120);
         private static readonly List<(string, PlayerColorProviderMethod)> s_playerColorShades = new List<(string, PlayerColorProviderMethod)>()
         {
             (nameof(PlayerColor.EntityColorShadeA), playerColor => playerColor.EntityColorShadeA),
@@ -40,6 +41,8 @@ namespace RuneForge.Core.Rendering
         private readonly Dictionary<string, TextureAtlas> m_textureAtlasesByAssetNames;
         private readonly Dictionary<string, AnimationAtlas> m_animationAtlasesByAssetNames;
         private readonly Dictionary<string, Texture2D> m_externalTexturesByAssetNames;
+        private readonly Dictionary<Entity, Animation2D> m_animationCache;
+        private TimeSpan m_timeSincePreviousCacheReset;
         private bool m_visible;
         private int m_drawOrder;
 
@@ -59,6 +62,8 @@ namespace RuneForge.Core.Rendering
             m_textureAtlasesByAssetNames = new Dictionary<string, TextureAtlas>();
             m_animationAtlasesByAssetNames = new Dictionary<string, AnimationAtlas>();
             m_externalTexturesByAssetNames = new Dictionary<string, Texture2D>();
+            m_animationCache = new Dictionary<Entity, Animation2D>();
+            m_timeSincePreviousCacheReset = TimeSpan.Zero;
             m_visible = true;
             m_drawOrder = 0;
         }
@@ -97,7 +102,7 @@ namespace RuneForge.Core.Rendering
             (int minVisibleX, int minVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(viewportBounds.Left, viewportBounds.Top)).ToPoint();
             (int maxVisibleX, int maxVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(viewportBounds.Right, viewportBounds.Bottom)).ToPoint();
 
-            foreach (Entity entity in m_gameSessionContext.Units.Concat<Entity>(m_gameSessionContext.Buildings))
+            foreach (Entity entity in m_gameSessionContext.Buildings.Concat<Entity>(m_gameSessionContext.Units))
             {
                 if (!entity.TryGetComponentOfType(out LocationComponent locationComponent))
                     continue;
@@ -110,59 +115,19 @@ namespace RuneForge.Core.Rendering
                 if (minX >= maxVisibleX || minY >= maxVisibleY || maxX <= minVisibleX || maxY <= minVisibleY)
                     continue;
 
-                if (entity.TryGetComponentOfType(out TextureAtlasComponent textureAtlasComponent))
-                {
-                    ContentManager contentManager = m_contentManagerProvider.Value;
-                    string textureAtlasAssetName = textureAtlasComponent.TextureAtlasAssetName;
-                    if (!m_textureAtlasesByAssetNames.TryGetValue(textureAtlasAssetName, out TextureAtlas textureAtlas))
-                    {
-                        textureAtlas = contentManager.Load<TextureAtlas>(textureAtlasAssetName);
-                        m_textureAtlasesByAssetNames.Add(textureAtlasAssetName, textureAtlas);
-                    }
+                if (entity.HasComponentOfType<AnimationAtlasComponent>()
+                    && entity.TryGetComponentOfType(out AnimationStateComponent animationStateComponent)
+                    && !string.IsNullOrEmpty(animationStateComponent.AnimationName))
+                    DrawAnimation(entity);
+                else if (entity.HasComponentOfType<TextureAtlasComponent>())
+                    DrawTextureRegion(entity);
+            }
 
-                    string textureRegionName = c_defaultBuildingTextureName;
-                    if (entity.TryGetComponentOfType(out DirectionComponent directionComponent))
-                        textureRegionName = $"{textureRegionName}-{directionComponent.Direction}";
-
-                    TextureRegion2D mainTextureRegion = textureAtlas.TextureRegions[textureRegionName];
-                    Rectangle buildingRectange = new Rectangle(minX, minY, locationComponent.Width, locationComponent.Height);
-                    Rectangle drawingRectangle = new Rectangle(
-                        buildingRectange.Center.X - (mainTextureRegion.Width / 2),
-                        buildingRectange.Center.Y - (mainTextureRegion.Height / 2),
-                        mainTextureRegion.Width,
-                        mainTextureRegion.Height
-                        );
-
-                    SpriteBatch spriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
-                    spriteBatch.Draw(mainTextureRegion, drawingRectangle, Color.White);
-
-                    if (!textureAtlasComponent.HasPlayerColor)
-                        continue;
-
-                    Player entityOwner = entity switch
-                    {
-                        Unit unit => unit.Owner,
-                        Building building => building.Owner,
-                        _ => null,
-                    };
-
-                    if (entityOwner == null)
-                        continue;
-
-                    PlayerColor playerColor = entityOwner.Color;
-                    foreach ((string externalTextureAssetNameSuffix, PlayerColorProviderMethod playerColorProviderMethod) in s_playerColorShades)
-                    {
-                        string externalTextureAssetName = $"{textureAtlas.Texture.Name}-{externalTextureAssetNameSuffix}";
-                        if (!m_externalTexturesByAssetNames.TryGetValue(externalTextureAssetName, out Texture2D externalTexture))
-                        {
-                            externalTexture = contentManager.Load<Texture2D>(externalTextureAssetName);
-                            m_externalTexturesByAssetNames.Add(externalTextureAssetName, externalTexture);
-                        }
-
-                        Color maskColor = playerColorProviderMethod(playerColor);
-                        spriteBatch.DrawTextureRegionUsingExternalTexture(mainTextureRegion, externalTexture, drawingRectangle, maskColor);
-                    }
-                }
+            m_timeSincePreviousCacheReset += gameTime.ElapsedGameTime;
+            if (m_timeSincePreviousCacheReset > s_animationCacheResetPeriod)
+            {
+                m_timeSincePreviousCacheReset = TimeSpan.Zero;
+                ClearAnimationCache();
             }
         }
 
@@ -246,6 +211,144 @@ namespace RuneForge.Core.Rendering
         protected virtual void OnDrawOrderChanged(EventArgs e)
         {
             DrawOrderChanged?.Invoke(this, e);
+        }
+
+        private void DrawAnimation(Entity entity)
+        {
+            AnimationAtlasComponent animationAtlasComponent = entity.GetComponentOfType<AnimationAtlasComponent>();
+            AnimationStateComponent animationStateComponent = entity.GetComponentOfType<AnimationStateComponent>();
+            LocationComponent locationComponent = entity.GetComponentOfType<LocationComponent>();
+
+            ContentManager contentManager = m_contentManagerProvider.Value;
+            string animationAtlasAssetName = animationAtlasComponent.AnimationAtlasAssetName;
+            if (!m_animationAtlasesByAssetNames.TryGetValue(animationAtlasAssetName, out AnimationAtlas animationAtlas))
+            {
+                animationAtlas = contentManager.Load<AnimationAtlas>(animationAtlasAssetName);
+                m_animationAtlasesByAssetNames.Add(animationAtlasAssetName, animationAtlas);
+            }
+
+            string animationName = animationStateComponent.AnimationName;
+            if (entity.TryGetComponentOfType(out DirectionComponent directionComponent))
+                animationName = $"{animationName}-{directionComponent.Direction}";
+
+            if (!m_animationCache.TryGetValue(entity, out Animation2D animation) || animation.Name != animationName)
+            {
+                animation = animationAtlas.Animations[animationName].CreateUpdateableCopy();
+                m_animationCache[entity] = animation;
+            }
+
+            if (animationStateComponent.ResetRequested)
+                animation.Reset();
+            animation.Update(new GameTime(TimeSpan.Zero, animationStateComponent.ElapsedTime));
+
+            AnimationRegion2D mainAnimationRegion = animation.GetCurrentAnimationRegion();
+            Rectangle buildingRectange = new Rectangle((int)locationComponent.X, (int)locationComponent.Y, locationComponent.Width, locationComponent.Height);
+            Rectangle drawingRectangle = new Rectangle(
+                buildingRectange.Center.X - mainAnimationRegion.Width / 2,
+                buildingRectange.Center.Y - (mainAnimationRegion.Height / 2),
+                mainAnimationRegion.Width,
+                mainAnimationRegion.Height
+                );
+
+            SpriteBatch spriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
+            spriteBatch.Draw(animation, drawingRectangle, Color.White);
+
+            if (!animationAtlasComponent.HasPlayerColor)
+                return;
+
+            Player entityOwner = entity switch
+            {
+                Unit unit => unit.Owner,
+                Building building => building.Owner,
+                _ => null,
+            };
+
+            if (entityOwner == null)
+                return;
+
+            PlayerColor playerColor = entityOwner.Color;
+            foreach ((string externalTextureAssetNameSuffix, PlayerColorProviderMethod playerColorProviderMethod) in s_playerColorShades)
+            {
+                string externalTextureAssetName = $"{animationAtlas.Texture.Name}-{externalTextureAssetNameSuffix}";
+                if (!m_externalTexturesByAssetNames.TryGetValue(externalTextureAssetName, out Texture2D externalTexture))
+                {
+                    externalTexture = contentManager.Load<Texture2D>(externalTextureAssetName);
+                    m_externalTexturesByAssetNames.Add(externalTextureAssetName, externalTexture);
+                }
+
+                Color maskColor = playerColorProviderMethod(playerColor);
+                spriteBatch.DrawTextureRegionUsingExternalTexture(mainAnimationRegion, externalTexture, drawingRectangle, maskColor);
+            }
+        }
+
+        private void DrawTextureRegion(Entity entity)
+        {
+            LocationComponent locationComponent = entity.GetComponentOfType<LocationComponent>();
+            TextureAtlasComponent textureAtlasComponent = entity.GetComponentOfType<TextureAtlasComponent>();
+
+            ContentManager contentManager = m_contentManagerProvider.Value;
+            string textureAtlasAssetName = textureAtlasComponent.TextureAtlasAssetName;
+            if (!m_textureAtlasesByAssetNames.TryGetValue(textureAtlasAssetName, out TextureAtlas textureAtlas))
+            {
+                textureAtlas = contentManager.Load<TextureAtlas>(textureAtlasAssetName);
+                m_textureAtlasesByAssetNames.Add(textureAtlasAssetName, textureAtlas);
+            }
+
+            string textureRegionName = c_defaultBuildingTextureName;
+            if (entity.TryGetComponentOfType(out DirectionComponent directionComponent))
+                textureRegionName = $"{textureRegionName}-{directionComponent.Direction}";
+
+            TextureRegion2D mainTextureRegion = textureAtlas.TextureRegions[textureRegionName];
+            Rectangle buildingRectange = new Rectangle((int)locationComponent.X, (int)locationComponent.Y, locationComponent.Width, locationComponent.Height);
+            Rectangle drawingRectangle = new Rectangle(
+                buildingRectange.Center.X - (mainTextureRegion.Width / 2),
+                buildingRectange.Center.Y - (mainTextureRegion.Height / 2),
+                mainTextureRegion.Width,
+                mainTextureRegion.Height
+                );
+
+            SpriteBatch spriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
+            spriteBatch.Draw(mainTextureRegion, drawingRectangle, Color.White);
+
+            if (!textureAtlasComponent.HasPlayerColor)
+                return;
+
+            Player entityOwner = entity switch
+            {
+                Unit unit => unit.Owner,
+                Building building => building.Owner,
+                _ => null,
+            };
+
+            if (entityOwner == null)
+                return;
+
+            PlayerColor playerColor = entityOwner.Color;
+            foreach ((string externalTextureAssetNameSuffix, PlayerColorProviderMethod playerColorProviderMethod) in s_playerColorShades)
+            {
+                string externalTextureAssetName = $"{textureAtlas.Texture.Name}-{externalTextureAssetNameSuffix}";
+                if (!m_externalTexturesByAssetNames.TryGetValue(externalTextureAssetName, out Texture2D externalTexture))
+                {
+                    externalTexture = contentManager.Load<Texture2D>(externalTextureAssetName);
+                    m_externalTexturesByAssetNames.Add(externalTextureAssetName, externalTexture);
+                }
+
+                Color maskColor = playerColorProviderMethod(playerColor);
+                spriteBatch.DrawTextureRegionUsingExternalTexture(mainTextureRegion, externalTexture, drawingRectangle, maskColor);
+            }
+        }
+
+        private void ClearAnimationCache()
+        {
+            List<Entity> entitiesToRemove = new List<Entity>();
+            HashSet<Entity> existingEntities = m_gameSessionContext.Units.Concat<Entity>(m_gameSessionContext.Buildings).ToHashSet();
+            foreach (Entity entity in m_animationCache.Keys)
+            {
+                if (!existingEntities.Contains(entity))
+                    entitiesToRemove.Add(entity);
+            }
+            foreach (Entity entity in entitiesToRemove)
+                m_animationCache.Remove(entity);
         }
 
         private delegate Color PlayerColorProviderMethod(PlayerColor playerColor);
