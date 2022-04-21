@@ -2,6 +2,7 @@
 
 using RuneForge.Data.Orders;
 using RuneForge.Game.Orders;
+using RuneForge.Game.Orders.Implementations;
 
 namespace RuneForge.Game.AutoMapper
 {
@@ -12,7 +13,10 @@ namespace RuneForge.Game.AutoMapper
             SourceMemberNamingConvention = new ExactMatchNamingConvention();
             DestinationMemberNamingConvention = new ExactMatchNamingConvention();
 
-            CreateMap<Order, OrderDto>();
+            CreateMap<Order, OrderDto>()
+                .Include<MoveOrder, MoveOrderDto>();
+
+            CreateMap<MoveOrder, MoveOrderDto>();
         }
     }
 }
