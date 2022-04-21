@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
+using RuneForge.Game.Components.Entities;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.PrototypeReaders
@@ -9,7 +10,8 @@ namespace RuneForge.Game.Components.PrototypeReaders
         public override MovementComponentPrototype ReadTypedComponentPrototype(ContentReader contentReader)
         {
             float movementSpeed = contentReader.ReadSingle();
-            return new MovementComponentPrototype(movementSpeed);
+            MovementFlags movementType = (MovementFlags)contentReader.ReadInt32();
+            return new MovementComponentPrototype(movementSpeed, movementType);
         }
     }
 }
