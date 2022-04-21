@@ -11,18 +11,16 @@ using RuneForge.Core.Rendering.Extensions;
 using RuneForge.Core.Rendering.Interfaces;
 using RuneForge.Core.TextureAtlases;
 using RuneForge.Game.Buildings;
-using RuneForge.Game.Buildings.Interfaces;
 using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.Entities;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Players;
 using RuneForge.Game.Units;
-using RuneForge.Game.Units.Interfaces;
 
 namespace RuneForge.Core.Rendering
 {
-    public class EntityRenderer
+    public class EntityRenderer : IRenderer
     {
         private const string c_defaultBuildingTextureName = "DefaultState";
 
@@ -34,8 +32,6 @@ namespace RuneForge.Core.Rendering
             (nameof(PlayerColor.EntityColorShadeD), playerColor => playerColor.EntityColorShadeD),
         };
 
-        private readonly IBuildingService m_buildingService;
-        private readonly IUnitService m_unitService;
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
         private readonly Camera2D m_camera;
@@ -44,10 +40,10 @@ namespace RuneForge.Core.Rendering
         private readonly Dictionary<string, TextureAtlas> m_textureAtlasesByAssetNames;
         private readonly Dictionary<string, AnimationAtlas> m_animationAtlasesByAssetNames;
         private readonly Dictionary<string, Texture2D> m_externalTexturesByAssetNames;
+        private bool m_visible;
+        private int m_drawOrder;
 
         public EntityRenderer(
-            IBuildingService buildingService,
-            IUnitService unitService,
             IGameSessionContext gameSessionContext,
             ISpriteBatchProvider spriteBatchProvider,
             Camera2D camera,
@@ -55,8 +51,6 @@ namespace RuneForge.Core.Rendering
             Lazy<ContentManager> contentManagerProvider
             )
         {
-            m_buildingService = buildingService;
-            m_unitService = unitService;
             m_gameSessionContext = gameSessionContext;
             m_spriteBatchProvider = spriteBatchProvider;
             m_camera = camera;
@@ -65,9 +59,39 @@ namespace RuneForge.Core.Rendering
             m_textureAtlasesByAssetNames = new Dictionary<string, TextureAtlas>();
             m_animationAtlasesByAssetNames = new Dictionary<string, AnimationAtlas>();
             m_externalTexturesByAssetNames = new Dictionary<string, Texture2D>();
+            m_visible = true;
+            m_drawOrder = 0;
         }
 
-        public void Draw()
+        public bool Visible
+        {
+            get => m_visible;
+            set
+            {
+                if (m_visible != value)
+                {
+                    m_visible = value;
+                    OnVisibleChanged(EventArgs.Empty);
+                }
+            }
+        }
+        public int DrawOrder
+        {
+            get => m_drawOrder;
+            set
+            {
+                if (m_drawOrder != value)
+                {
+                    m_drawOrder = value;
+                    OnDrawOrderChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+        public event EventHandler<EventArgs> VisibleChanged;
+        public event EventHandler<EventArgs> DrawOrderChanged;
+
+        public void Draw(GameTime gameTime)
         {
             Rectangle viewportBounds = m_cameraParameters.Viewport.Bounds;
             (int minVisibleX, int minVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(viewportBounds.Left, viewportBounds.Top)).ToPoint();
@@ -213,6 +237,15 @@ namespace RuneForge.Core.Rendering
                     }
                 }
             }
+        }
+
+        protected virtual void OnVisibleChanged(EventArgs e)
+        {
+            VisibleChanged?.Invoke(this, e);
+        }
+        protected virtual void OnDrawOrderChanged(EventArgs e)
+        {
+            DrawOrderChanged?.Invoke(this, e);
         }
 
         private delegate Color PlayerColorProviderMethod(PlayerColor playerColor);
