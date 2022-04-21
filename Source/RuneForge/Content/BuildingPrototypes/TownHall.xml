@@ -2,6 +2,7 @@
   <Name>Town Hall</Name>
   <ComponentPrototypes>
     <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Buildings\TownHall" HasPlayerColor="true" />
+    <OrderQueueComponentPrototype />
     <LocationComponentPrototype Width="4" Height="4" />
   </ComponentPrototypes>
 </BuildingPrototype>

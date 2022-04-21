@@ -3,6 +3,7 @@
   <ComponentPrototypes>
     <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Units\Peasant" HasPlayerColor="true" />
     <AnimationAtlasComponentPrototype AnimationAtlasAssetName="AnimationAtlases\Units\Peasant" HasPlayerColor="true" />
+    <OrderQueueComponentPrototype />
     <LocationComponentPrototype Width="1" Height="1" />
     <DirectionComponentPrototype Direction="North" />
     <MovementComponentPrototype MovementSpeed="0.5" />
