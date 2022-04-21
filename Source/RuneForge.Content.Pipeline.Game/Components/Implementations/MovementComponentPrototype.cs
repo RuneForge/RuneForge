@@ -2,6 +2,7 @@
 
 using RuneForge.Content.Pipeline.Game.Components.Attributes;
 using RuneForge.Content.Pipeline.Game.Components.PrototypeWriters;
+using RuneForge.Game.Components.Entities;
 
 namespace RuneForge.Content.Pipeline.Game.Components.Implementations
 {
@@ -12,6 +13,9 @@ namespace RuneForge.Content.Pipeline.Game.Components.Implementations
 
         [XmlAttribute(AttributeName = "MovementSpeed")]
         public float MovementSpeed { get; set; }
+
+        [XmlAttribute(AttributeName = "MovementType")]
+        public MovementFlags MovementType { get; set; }
 
         public override string GetRuntimeTypeName()
         {
