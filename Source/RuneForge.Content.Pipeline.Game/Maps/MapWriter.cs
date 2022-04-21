@@ -156,8 +156,8 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     writer.Write((int)landscapeCellPrototype.Tier);
                     writer.Write((int)landscapeCellPrototype.Type);
 
-                    writer.Write((int)landscapeCellPrototype.BuildingFlags);
                     writer.Write((int)landscapeCellPrototype.MovementFlags);
+                    writer.Write((int)landscapeCellPrototype.BuildingFlags);
 
                     writer.Write(landscapeCellPrototype.TextureRegionName);
                 }
@@ -167,8 +167,8 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                     writer.Write((int)decorationCellPrototype.Tier);
                     writer.Write((int)decorationCellPrototype.Type);
 
-                    writer.Write((int)decorationCellPrototype.BuildingFlags);
                     writer.Write((int)decorationCellPrototype.MovementFlags);
+                    writer.Write((int)decorationCellPrototype.BuildingFlags);
 
                     writer.Write(decorationCellPrototype.PrototypeName);
 
