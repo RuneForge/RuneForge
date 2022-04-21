@@ -33,7 +33,7 @@ namespace RuneForge.Core.AnimationAtlases
 
                     Rectangle animationRegionBounds = new Rectangle(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
 
-                    TimeSpan animationRegionFrameTime = TimeSpan.FromMilliseconds(reader.ReadInt32());
+                    TimeSpan animationRegionFrameTime = TimeSpan.FromMilliseconds(reader.ReadSingle());
 
                     animationRegions.Add(new AnimationRegion2D(animationRegionName, texture, animationRegionBounds, animationRegionFrameTime));
                 }

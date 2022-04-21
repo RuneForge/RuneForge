@@ -60,8 +60,8 @@ namespace RuneForge.Core.DependencyInjection
             services.AddScoped<ISpriteBatchProvider, SpriteBatchProvider>();
             services.AddScoped<Camera2D>();
             services.AddScoped<Camera2DParameters>();
-            services.AddScoped<MapRenderer>();
-            services.AddScoped<EntityRenderer>();
+            services.AddScoped<IRenderer, MapRenderer>();
+            services.AddScoped<IRenderer, EntityRenderer>();
             return services;
         }
 

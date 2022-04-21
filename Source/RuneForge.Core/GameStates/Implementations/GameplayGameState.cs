@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,10 +26,9 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
         private readonly IKeyboardEventProvider m_keyboardEventProvider;
         private readonly IEnumerable<ISystem> m_systems;
+        private readonly IEnumerable<IRenderer> m_renderers;
         private readonly Camera2D m_camera;
         private readonly Camera2DParameters m_cameraParameters;
-        private readonly MapRenderer m_mapRenderer;
-        private readonly EntityRenderer m_entityRenderer;
         private readonly CameraController m_cameraController;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
 
@@ -37,10 +37,9 @@ namespace RuneForge.Core.GameStates.Implementations
             ISpriteBatchProvider spriteBatchProvider,
             IKeyboardEventProvider keyboardEventProvider,
             IEnumerable<ISystem> systems,
+            IEnumerable<IRenderer> renderers,
             Camera2D camera,
             Camera2DParameters cameraParameters,
-            MapRenderer mapRenderer,
-            EntityRenderer entityRenderer,
             CameraController cameraController,
             Lazy<GraphicsDevice> graphicsDeviceProvider
             )
@@ -49,10 +48,9 @@ namespace RuneForge.Core.GameStates.Implementations
             m_spriteBatchProvider = spriteBatchProvider;
             m_keyboardEventProvider = keyboardEventProvider;
             m_systems = systems;
+            m_renderers = renderers;
             m_camera = camera;
             m_cameraParameters = cameraParameters;
-            m_mapRenderer = mapRenderer;
-            m_entityRenderer = entityRenderer;
             m_cameraController = cameraController;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
         }
@@ -68,6 +66,24 @@ namespace RuneForge.Core.GameStates.Implementations
             base.Stop();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            foreach (ISystem system in m_systems.Where(system => system.Enabled))
+                system.Update(gameTime);
+
+            base.Update(gameTime);
+        }
+        public override void Draw(GameTime gameTime)
+        {
+            SpriteBatch worldSpriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
+            worldSpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: m_camera.GetWorldToScreenTransformationMatrix());
+            foreach (IRenderer renderer in m_renderers.Where(renderer => renderer.Visible))
+                renderer.Draw(gameTime);
+            worldSpriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
         public override void LoadContent()
         {
             GameSessionParameters parameters = new GameSessionParameters() { MapAssetName = s_defaultMapAssetName };
@@ -80,31 +96,10 @@ namespace RuneForge.Core.GameStates.Implementations
 
             m_cameraParameters.Viewport = graphicsDevice.Viewport;
 
-            m_mapRenderer.LoadContent();
-            m_entityRenderer.LoadContent();
+            foreach (IRenderer renderer in m_renderers)
+                renderer.LoadContent();
 
             base.LoadContent();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            foreach (ISystem system in m_systems)
-            {
-                if (system.Enabled)
-                    system.Update(gameTime);
-            }
-
-            base.Update(gameTime);
-        }
-        public override void Draw(GameTime gameTime)
-        {
-            SpriteBatch worldSpriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
-            worldSpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: m_camera.GetWorldToScreenTransformationMatrix());
-            m_mapRenderer.Draw();
-            m_entityRenderer.Draw();
-            worldSpriteBatch.End();
-
-            base.Draw(gameTime);
         }
 
         private void SubscribeToKeyboardEvents()

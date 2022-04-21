@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
@@ -11,6 +12,8 @@ namespace RuneForge.Game.Orders.Implementations
 {
     public class MoveOrder : Order
     {
+        private const string c_moveAnimationName = "Move";
+
         private readonly IPathGenerator m_pathGenerator;
 
         public int DestinationX { get; }
@@ -37,6 +40,8 @@ namespace RuneForge.Game.Orders.Implementations
                 if (CancellationRequested && (!movementComponent.MovementScheduled || movementComponent.PathBlocked))
                 {
                     base.Cancel();
+                    StopMoveAnimation();
+                    stateChanged = true;
                 }
                 if (!movementComponent.MovementScheduled || movementComponent.PathBlocked)
                 {
@@ -45,6 +50,7 @@ namespace RuneForge.Game.Orders.Implementations
                     if (pathType == PathType.NoPath || path.Count == 0)
                     {
                         base.Complete();
+                        StopMoveAnimation();
                         stateChanged = true;
                     }
                     else
@@ -54,9 +60,12 @@ namespace RuneForge.Game.Orders.Implementations
                         movementComponent.MovementScheduled = true;
                         movementComponent.MovementInProgress = false;
                         movementComponent.PathBlocked = false;
+                        StartMoveAnimation(false);
                         stateChanged = true;
                     }
                 }
+                if ((movementComponent.MovementScheduled && !movementComponent.PathBlocked) || movementComponent.MovementInProgress)
+                    UpdateMoveAnimation(gameTime.ElapsedGameTime);
             }
 
             base.Update(gameTime, out bool stateChangedInternal);
@@ -70,6 +79,29 @@ namespace RuneForge.Game.Orders.Implementations
 
         public override void Complete()
         {
+        }
+
+        private void StartMoveAnimation(bool requestReset)
+        {
+            if (!Entity.TryGetComponentOfType(out AnimationStateComponent animationStateComponent))
+                return;
+            animationStateComponent.AnimationName = c_moveAnimationName;
+            animationStateComponent.ElapsedTime = TimeSpan.Zero;
+            animationStateComponent.ResetRequested = requestReset;
+        }
+        private void UpdateMoveAnimation(TimeSpan elapsedTime)
+        {
+            if (!Entity.TryGetComponentOfType(out AnimationStateComponent animationStateComponent))
+                return;
+            animationStateComponent.ElapsedTime = elapsedTime;
+        }
+        private void StopMoveAnimation()
+        {
+            if (!Entity.TryGetComponentOfType(out AnimationStateComponent animationStateComponent))
+                return;
+            animationStateComponent.AnimationName = null;
+            animationStateComponent.ElapsedTime = TimeSpan.Zero;
+            animationStateComponent.ResetRequested = true;
         }
     }
 }
