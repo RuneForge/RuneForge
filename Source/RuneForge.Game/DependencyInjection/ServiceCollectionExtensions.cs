@@ -15,6 +15,8 @@ using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Maps.Interfaces;
+using RuneForge.Game.PathGenerators;
+using RuneForge.Game.PathGenerators.Interfaces;
 using RuneForge.Game.Players;
 using RuneForge.Game.Players.Interfaces;
 using RuneForge.Game.Systems.Implementations;
@@ -34,6 +36,7 @@ namespace RuneForge.Game.DependencyInjection
 
         public static IServiceCollection AddMapServices(this IServiceCollection services)
         {
+            services.AddTransient<IPathGenerator, BreadthFirstPathGenerator>();
             services.AddScoped<IMapLandscapeCellTypeResolver, MapLandscapeCellTypeResolver>();
             services.AddScoped<IMapDecorationCellTypeResolver, MapDecorationCellTypeResolver>();
             services.AddScoped<IMapDecorationRepository, InMemoryMapDecorationRepository>();
