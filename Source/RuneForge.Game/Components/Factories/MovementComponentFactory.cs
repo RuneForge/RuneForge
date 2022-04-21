@@ -6,7 +6,7 @@ namespace RuneForge.Game.Components.Factories
     {
         public override MovementComponent CreateComponentFromPrototype(MovementComponentPrototype componentPrototype, MovementComponentPrototype componentPrototypeOverride)
         {
-            return new MovementComponent(componentPrototype.MovementSpeed);
+            return new MovementComponent(componentPrototype.MovementSpeed, componentPrototype.MovementType);
         }
     }
 }

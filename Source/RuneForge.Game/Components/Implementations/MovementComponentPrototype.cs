@@ -1,4 +1,5 @@
 ﻿using RuneForge.Game.Components.Attributes;
+using RuneForge.Game.Components.Entities;
 using RuneForge.Game.Components.Factories;
 using RuneForge.Game.Components.PrototypeReaders;
 
@@ -10,9 +11,12 @@ namespace RuneForge.Game.Components.Implementations
     {
         public float MovementSpeed { get; }
 
-        public MovementComponentPrototype(float movementSpeed)
+        public MovementFlags MovementType { get; }
+
+        public MovementComponentPrototype(float movementSpeed, MovementFlags movementType)
         {
             MovementSpeed = movementSpeed;
+            MovementType = movementType;
         }
     }
 }

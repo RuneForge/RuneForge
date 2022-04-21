@@ -9,6 +9,7 @@ namespace RuneForge.Content.Pipeline.Game.Components.PrototypeWriters
         public override void WriteComponentPrototype(ContentWriter contentWriter, MovementComponentPrototype componentPrototype)
         {
             contentWriter.Write(componentPrototype.MovementSpeed);
+            contentWriter.Write((int)componentPrototype.MovementType);
         }
     }
 }
