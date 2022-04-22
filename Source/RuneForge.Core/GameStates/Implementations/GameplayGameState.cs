@@ -76,10 +76,16 @@ namespace RuneForge.Core.GameStates.Implementations
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch worldSpriteBatch = m_spriteBatchProvider.WorldSpriteBatch;
+            SpriteBatch onDisplayInterfaceSpriteBatch = m_spriteBatchProvider.OnDisplayInterfaceSpriteBatch;
+
             worldSpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: m_camera.GetWorldToScreenTransformationMatrix());
+            onDisplayInterfaceSpriteBatch.Begin(transformMatrix: m_camera.GetWorldToScreenTransformationMatrix());
+
             foreach (IRenderer renderer in m_renderers.Where(renderer => renderer.Visible))
                 renderer.Draw(gameTime);
+
             worldSpriteBatch.End();
+            onDisplayInterfaceSpriteBatch.End();
 
             base.Draw(gameTime);
         }
@@ -92,7 +98,9 @@ namespace RuneForge.Core.GameStates.Implementations
             GraphicsDevice graphicsDevice = m_graphicsDeviceProvider.Value;
 
             SpriteBatch worldSpriteBatch = new SpriteBatch(graphicsDevice);
+            SpriteBatch onDisplayInterfaceSpriteBatch = new SpriteBatch(graphicsDevice);
             m_spriteBatchProvider.WorldSpriteBatch = worldSpriteBatch;
+            m_spriteBatchProvider.OnDisplayInterfaceSpriteBatch = onDisplayInterfaceSpriteBatch;
 
             m_cameraParameters.Viewport = graphicsDevice.Viewport;
 
