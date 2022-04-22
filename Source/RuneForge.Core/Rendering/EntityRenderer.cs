@@ -20,7 +20,7 @@ using RuneForge.Game.Units;
 
 namespace RuneForge.Core.Rendering
 {
-    public class EntityRenderer : IRenderer
+    public class EntityRenderer : Renderer
     {
         private const string c_defaultBuildingTextureName = "DefaultState";
 
@@ -43,8 +43,6 @@ namespace RuneForge.Core.Rendering
         private readonly Dictionary<string, Texture2D> m_externalTexturesByAssetNames;
         private readonly Dictionary<Entity, Animation2D> m_animationCache;
         private TimeSpan m_timeSincePreviousCacheReset;
-        private bool m_visible;
-        private int m_drawOrder;
 
         public EntityRenderer(
             IGameSessionContext gameSessionContext,
@@ -64,39 +62,9 @@ namespace RuneForge.Core.Rendering
             m_externalTexturesByAssetNames = new Dictionary<string, Texture2D>();
             m_animationCache = new Dictionary<Entity, Animation2D>();
             m_timeSincePreviousCacheReset = TimeSpan.Zero;
-            m_visible = true;
-            m_drawOrder = 0;
         }
 
-        public bool Visible
-        {
-            get => m_visible;
-            set
-            {
-                if (m_visible != value)
-                {
-                    m_visible = value;
-                    OnVisibleChanged(EventArgs.Empty);
-                }
-            }
-        }
-        public int DrawOrder
-        {
-            get => m_drawOrder;
-            set
-            {
-                if (m_drawOrder != value)
-                {
-                    m_drawOrder = value;
-                    OnDrawOrderChanged(EventArgs.Empty);
-                }
-            }
-        }
-
-        public event EventHandler<EventArgs> VisibleChanged;
-        public event EventHandler<EventArgs> DrawOrderChanged;
-
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             Rectangle viewportBounds = m_cameraParameters.Viewport.Bounds;
             (int minVisibleX, int minVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(viewportBounds.Left, viewportBounds.Top)).ToPoint();
@@ -131,7 +99,7 @@ namespace RuneForge.Core.Rendering
             }
         }
 
-        public void LoadContent()
+        public override void LoadContent()
         {
             Map map = m_gameSessionContext.Map;
             ContentManager contentManager = m_contentManagerProvider.Value;
@@ -202,15 +170,6 @@ namespace RuneForge.Core.Rendering
                     }
                 }
             }
-        }
-
-        protected virtual void OnVisibleChanged(EventArgs e)
-        {
-            VisibleChanged?.Invoke(this, e);
-        }
-        protected virtual void OnDrawOrderChanged(EventArgs e)
-        {
-            DrawOrderChanged?.Invoke(this, e);
         }
 
         private void DrawAnimation(Entity entity)
