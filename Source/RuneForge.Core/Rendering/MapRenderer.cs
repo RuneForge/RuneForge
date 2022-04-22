@@ -11,7 +11,7 @@ using RuneForge.Game.Maps;
 
 namespace RuneForge.Core.Rendering
 {
-    public class MapRenderer : IRenderer
+    public class MapRenderer : Renderer
     {
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
@@ -19,8 +19,6 @@ namespace RuneForge.Core.Rendering
         private readonly Camera2D m_camera;
         private readonly Camera2DParameters m_cameraParameters;
         private TextureAtlas m_textureAtlas;
-        private bool m_visible;
-        private int m_drawOrder;
 
         public MapRenderer(
             IGameSessionContext gameSessionContext,
@@ -36,39 +34,9 @@ namespace RuneForge.Core.Rendering
             m_camera = camera;
             m_cameraParameters = cameraParameters;
             m_textureAtlas = null;
-            m_visible = true;
-            m_drawOrder = 0;
         }
 
-        public bool Visible
-        {
-            get => m_visible;
-            set
-            {
-                if (m_visible != value)
-                {
-                    m_visible = value;
-                    OnVisibleChanged(EventArgs.Empty);
-                }
-            }
-        }
-        public int DrawOrder
-        {
-            get => m_drawOrder;
-            set
-            {
-                if (m_drawOrder != value)
-                {
-                    m_drawOrder = value;
-                    OnDrawOrderChanged(EventArgs.Empty);
-                }
-            }
-        }
-
-        public event EventHandler<EventArgs> VisibleChanged;
-        public event EventHandler<EventArgs> DrawOrderChanged;
-
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             Rectangle viewportBounds = m_cameraParameters.Viewport.Bounds;
             (int minVisibleX, int minVisibleY) = m_camera.TranslateScreenToWorld(new Vector2(viewportBounds.Left, viewportBounds.Top)).ToPoint();
@@ -108,20 +76,11 @@ namespace RuneForge.Core.Rendering
             }
         }
 
-        public void LoadContent()
+        public override void LoadContent()
         {
             Map map = m_gameSessionContext.Map;
             ContentManager contentManager = m_contentManagerProvider.Value;
             m_textureAtlas = contentManager.Load<TextureAtlas>(map.Tileset.TextureAtlasName);
-        }
-
-        protected virtual void OnVisibleChanged(EventArgs e)
-        {
-            VisibleChanged?.Invoke(this, e);
-        }
-        protected virtual void OnDrawOrderChanged(EventArgs e)
-        {
-            DrawOrderChanged?.Invoke(this, e);
         }
     }
 }
