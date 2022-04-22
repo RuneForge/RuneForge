@@ -62,6 +62,7 @@ namespace RuneForge.Core.DependencyInjection
             services.AddScoped<Camera2DParameters>();
             services.AddScoped<IRenderer, MapRenderer>();
             services.AddScoped<IRenderer, EntityRenderer>();
+            services.AddScoped<IRenderer, OnDisplayInterfaceRenderer>();
             return services;
         }
 
