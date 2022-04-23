@@ -33,11 +33,6 @@ namespace RuneForge.Core.GameStates
         }
         public void RunGameState(IServiceScope serviceScope, GameState gameState, bool unloadContent)
         {
-            if (serviceScope == null)
-                throw new ArgumentNullException(nameof(serviceScope));
-            if (gameState == null)
-                throw new ArgumentNullException(nameof(gameState));
-
             OnGameStateChanging(EventArgs.Empty);
 
             if (CurrentGameState != null)
@@ -52,8 +47,8 @@ namespace RuneForge.Core.GameStates
                 CurrentServiceScope.Dispose();
             }
 
-            CurrentServiceScope = serviceScope;
-            CurrentGameState = gameState;
+            CurrentServiceScope = serviceScope ?? throw new ArgumentNullException(nameof(serviceScope));
+            CurrentGameState = gameState ?? throw new ArgumentNullException(nameof(gameState));
             if (CurrentGameState != null)
             {
                 if (m_globalContentLoaded)
