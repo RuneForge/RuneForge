@@ -32,6 +32,8 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             writer.Write(map.Width);
             writer.Write(map.Height);
 
+            writer.Write(map.HumanPlayerId);
+
             WritePlayerPrototypes(writer, map);
 
             WriteUnitInstancePrototypes(writer, map);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -22,6 +23,8 @@ namespace RuneForge.Game.Maps
         public int Width { get; }
         public int Height { get; }
 
+        public Guid HumanPlayerId { get; }
+
         public MapTileset Tileset { get; }
 
         public ReadOnlyCollection<PlayerPrototype> PlayerPrototypes { get; }
@@ -33,6 +36,7 @@ namespace RuneForge.Game.Maps
             string name,
             int width,
             int height,
+            Guid humanPlayerId,
             MapTileset tileset,
             IList<MapLandscapeCell> landscapeCells,
             IList<MapDecorationCell> decorationCells,
@@ -47,6 +51,7 @@ namespace RuneForge.Game.Maps
             Name = name;
             Width = width;
             Height = height;
+            HumanPlayerId = humanPlayerId;
             Tileset = tileset;
             PlayerPrototypes = new ReadOnlyCollection<PlayerPrototype>(playerPrototypes);
             UnitInstancePrototypes = new ReadOnlyCollection<UnitInstancePrototype>(unitInstancePrototypes);
