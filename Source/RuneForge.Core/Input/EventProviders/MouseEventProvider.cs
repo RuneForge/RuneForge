@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -36,6 +37,8 @@ namespace RuneForge.Core.Input.EventProviders
         public int UpdateOrder { get; }
 
         public TimeSpan DoubleClickTimeSpan => m_configuration.DoubleClickTimeSpan;
+
+        public int DoubleClickDistanceThreshold => m_configuration.DoubleClickDistanceThreshold;
 
         public int DragDistanceThreshold => m_configuration.DragDistanceThreshold;
 
@@ -162,7 +165,10 @@ namespace RuneForge.Core.Input.EventProviders
                     MouseDragFinished?.Invoke(this, CreateMouseEventArgs(m_extendedState, m_previousMouseButtonPressedArgs.Button));
                     m_draggingInProgress = false;
                 }
-                if (m_previousMouseButtonClickedArgs != null && mouseButton == m_previousMouseButtonClickedArgs.Button && gameTime.TotalGameTime - m_previousMouseButtonClickedTime <= DoubleClickTimeSpan)
+                if (m_previousMouseButtonClickedArgs != null
+                    && mouseButton == m_previousMouseButtonClickedArgs.Button
+                    && gameTime.TotalGameTime - m_previousMouseButtonClickedTime <= DoubleClickTimeSpan
+                    && CalculateManhattanDistance(mouseEventArgs.Location, m_previousMouseButtonClickedArgs.Location) <= DoubleClickDistanceThreshold)
                 {
                     MouseButtonDoubleClicked?.Invoke(this, mouseEventArgs);
                     m_doubleClickPerformed = true;

@@ -31,6 +31,7 @@ namespace RuneForge.Core.DependencyInjection
             services.Configure(delegate (MouseEventProviderConfiguration configuration)
             {
                 configuration.DoubleClickTimeSpan = MouseEventProviderConfiguration.DefaultDoubleClickTimeSpan;
+                configuration.DoubleClickDistanceThreshold = MouseEventProviderConfiguration.DefaultDoubleClickDistanceThreshold;
                 configuration.DragDistanceThreshold = MouseEventProviderConfiguration.DefaultDragDistanceThreshold;
             });
             services.AddSingleton<IKeyboardEventProvider, KeyboardEventProvider>();
