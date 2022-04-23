@@ -3,6 +3,7 @@
   <Name>Southshore</Name>
   <Width>64</Width>
   <Height>64</Height>
+  <HumanPlayerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</HumanPlayerId>
   <Tileset>
     <TextureAtlasName>TextureAtlases/Maps/SummerPlains</TextureAtlasName>
     <LandscapeCellPrototypes>
