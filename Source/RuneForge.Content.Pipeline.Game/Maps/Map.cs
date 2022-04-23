@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 using RuneForge.Content.Pipeline.Game.Buildings;
@@ -17,6 +18,9 @@ namespace RuneForge.Content.Pipeline.Game.Maps
         public int Width { get; set; }
         [XmlElement(ElementName = "Height")]
         public int Height { get; set; }
+
+        [XmlElement(ElementName = "HumanPlayerId")]
+        public Guid HumanPlayerId { get; set; }
 
         [XmlElement(ElementName = "Tileset")]
         public MapTileset Tileset { get; set; }
