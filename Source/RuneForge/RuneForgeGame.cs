@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Input;
 using RuneForge.Configuration;
 using RuneForge.Core.GameStates;
 using RuneForge.Core.GameStates.Interfaces;
+using RuneForge.Core.Input;
+using RuneForge.Core.Input.EventProviders.Interfaces;
 
 using XnaGame = Microsoft.Xna.Framework.Game;
 
@@ -17,6 +19,7 @@ namespace RuneForge
     public class RuneForgeGame : XnaGame
     {
         private readonly IGameStateService m_gameStateService;
+        private readonly IKeyboardEventProvider m_keyboardEventProvider;
         private readonly Lazy<GraphicsDeviceManager> m_graphicsDeviceManagerProvider;
         private readonly GraphicsConfiguration m_graphicsConfiguration;
 
@@ -24,6 +27,7 @@ namespace RuneForge
             IServiceProvider serviceProvider,
             GameWindow gameWindow,
             IGameStateService gameStateService,
+            IKeyboardEventProvider keyboardEventProvider,
             Lazy<GraphicsDeviceManager> graphicsDeviceManagerProvider,
             IOptions<GraphicsConfiguration> graphicsConfigurationOptions,
             IEnumerable<IGameComponent> gameComponents
@@ -31,6 +35,7 @@ namespace RuneForge
             : base(serviceProvider, gameWindow)
         {
             m_gameStateService = gameStateService;
+            m_keyboardEventProvider = keyboardEventProvider;
             m_graphicsDeviceManagerProvider = graphicsDeviceManagerProvider;
             m_graphicsConfiguration = graphicsConfigurationOptions.Value;
 
@@ -50,7 +55,6 @@ namespace RuneForge
             graphicsDeviceManager.IsFullScreen = m_graphicsConfiguration.UseFullScreen;
             graphicsDeviceManager.HardwareModeSwitch = m_graphicsConfiguration.UseHardwareFullScreen;
             graphicsDeviceManager.ApplyChanges();
-
             base.Initialize();
         }
 
@@ -64,7 +68,8 @@ namespace RuneForge
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Key.Escape))
+            KeyboardStateEx keyboardState = m_keyboardEventProvider.GetState();
+            if (keyboardState.WasKeyJustPressed(Key.Q) && (keyboardState.GetModifierKeys() & ModifierKeys.Control) == ModifierKeys.Control)
                 Exit();
             base.Update(gameTime);
         }

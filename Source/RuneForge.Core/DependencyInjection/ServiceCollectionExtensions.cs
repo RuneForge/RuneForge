@@ -31,6 +31,7 @@ namespace RuneForge.Core.DependencyInjection
             services.Configure(delegate (MouseEventProviderConfiguration configuration)
             {
                 configuration.DoubleClickTimeSpan = MouseEventProviderConfiguration.DefaultDoubleClickTimeSpan;
+                configuration.DoubleClickDistanceThreshold = MouseEventProviderConfiguration.DefaultDoubleClickDistanceThreshold;
                 configuration.DragDistanceThreshold = MouseEventProviderConfiguration.DefaultDragDistanceThreshold;
             });
             services.AddSingleton<IKeyboardEventProvider, KeyboardEventProvider>();
@@ -69,7 +70,10 @@ namespace RuneForge.Core.DependencyInjection
 
         public static IServiceCollection AddControllers(this IServiceCollection services)
         {
+            services.AddScoped<IEntitySelector, EntitySelector>();
+            services.AddScoped<IOrderTypeResolver, OrderTypeResolver>();
             services.AddScoped<IEntitySelectionContext, EntitySelectionContext>();
+            services.AddScoped<UnitController>();
             services.AddScoped<CameraController>();
             return services;
         }
