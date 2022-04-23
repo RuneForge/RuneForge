@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 
 using RuneForge.Core.Controllers;
+using RuneForge.Core.Controllers.Interfaces;
 using RuneForge.Core.GameStates;
 using RuneForge.Core.GameStates.Components;
 using RuneForge.Core.GameStates.Implementations;
@@ -68,6 +69,7 @@ namespace RuneForge.Core.DependencyInjection
 
         public static IServiceCollection AddControllers(this IServiceCollection services)
         {
+            services.AddScoped<IEntitySelectionContext, EntitySelectionContext>();
             services.AddScoped<CameraController>();
             return services;
         }

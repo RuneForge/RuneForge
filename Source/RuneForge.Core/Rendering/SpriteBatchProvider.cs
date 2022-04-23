@@ -9,13 +9,18 @@ namespace RuneForge.Core.Rendering
     public class SpriteBatchProvider : ISpriteBatchProvider, IDisposable
     {
         private SpriteBatch m_worldSpriteBatch;
+        private SpriteBatch m_onDisplayInterfaceSpriteBatch;
         private bool m_worldSpriteBatchInitialized;
+        private bool m_onDisplayInterfaceSpriteBatchInitialized;
         private bool m_disposed;
 
         public SpriteBatchProvider()
         {
             m_worldSpriteBatch = null;
+            m_onDisplayInterfaceSpriteBatch = null;
             m_worldSpriteBatchInitialized = false;
+            m_onDisplayInterfaceSpriteBatchInitialized = false;
+            m_disposed = false;
         }
 
         public SpriteBatch WorldSpriteBatch
@@ -41,6 +46,29 @@ namespace RuneForge.Core.Rendering
             }
         }
 
+        public SpriteBatch OnDisplayInterfaceSpriteBatch
+        {
+            get
+            {
+                if (m_onDisplayInterfaceSpriteBatchInitialized)
+                    return m_onDisplayInterfaceSpriteBatch;
+                else
+                    throw new InvalidOperationException("Unable to use the HUD-rendering sprite batch before it is initialized.");
+            }
+            set
+            {
+                if (m_onDisplayInterfaceSpriteBatchInitialized)
+                    throw new InvalidOperationException("Unable to change the HUD-rendering sprite batch  once it has been initialized.");
+                else if (value == null)
+                    throw new InvalidOperationException("Unable to initialize the HUD-rendering sprite batch with a 'null' value.");
+                else
+                {
+                    m_onDisplayInterfaceSpriteBatch = value;
+                    m_onDisplayInterfaceSpriteBatchInitialized = true;
+                }
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -55,6 +83,7 @@ namespace RuneForge.Core.Rendering
                 if (disposing)
                 {
                     WorldSpriteBatch?.Dispose();
+                    OnDisplayInterfaceSpriteBatch?.Dispose();
                 }
             }
         }
