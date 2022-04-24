@@ -42,14 +42,20 @@ namespace RuneForge.Core.Controllers
                 return false;
             }
 
-            if (worldPoint.X < 0 || worldPoint.Y < 0 || worldPoint.X >= m_gameSessionContext.Map.Width * Map.CellWidth || worldPoint.Y >= m_gameSessionContext.Map.Height * Map.CellHeight)
+            if (entity is Unit)
             {
+                if (worldPoint.X >= 0 && worldPoint.Y >= 0 && worldPoint.X < m_gameSessionContext.Map.Width * Map.CellWidth && worldPoint.Y < m_gameSessionContext.Map.Height * Map.CellHeight)
+                {
+                    orderType = typeof(MoveOrder);
+                    return true;
+                }
+
                 orderType = typeof(MoveOrder);
                 return true;
             }
 
-            orderType = typeof(MoveOrder);
-            return true;
+            orderType = null;
+            return false;
         }
     }
 }
