@@ -138,6 +138,36 @@ namespace RuneForge.Core.Interface.Controls
             m_shadowColor = Color.Transparent;
         }
 
+        public void ResizeToFitText(bool resizeHorizontally, bool resizeVertically)
+        {
+            if (m_spriteFont == null)
+                throw new InvalidOperationException("It is not possible to resize a label with no SpriteFont set to it.");
+
+            Point newSize = m_spriteFont.MeasureString(Text).ToPoint();
+            if (resizeHorizontally)
+            {
+                X += (TextAlignment & (Alignment.Left | Alignment.Right)) switch
+                {
+                    Alignment.Left => 0,
+                    Alignment.Right => Width - newSize.X,
+                    Alignment.Center => (Width - newSize.X) / 2,
+                    _ => 0,
+                };
+                Width = newSize.X;
+            }
+            if (resizeVertically)
+            {
+                Y += (TextAlignment & (Alignment.Top | Alignment.Bottom)) switch
+                {
+                    Alignment.Top => 0,
+                    Alignment.Bottom => Height - newSize.Y,
+                    Alignment.Center => (Height - newSize.Y) / 2,
+                    _ => 0,
+                };
+                Height = newSize.Y;
+            }
+        }
+
         protected virtual void OnTextChanged(EventArgs e)
         {
             InvalidateRenderCache();
