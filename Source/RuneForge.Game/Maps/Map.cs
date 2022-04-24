@@ -24,6 +24,7 @@ namespace RuneForge.Game.Maps
         public int Height { get; }
 
         public Guid HumanPlayerId { get; }
+        public Guid NeutralPassivePlayerId { get; }
 
         public MapTileset Tileset { get; }
 
@@ -37,6 +38,7 @@ namespace RuneForge.Game.Maps
             int width,
             int height,
             Guid humanPlayerId,
+            Guid neutralPassivePlayerId,
             MapTileset tileset,
             IList<MapLandscapeCell> landscapeCells,
             IList<MapDecorationCell> decorationCells,
@@ -52,6 +54,7 @@ namespace RuneForge.Game.Maps
             Width = width;
             Height = height;
             HumanPlayerId = humanPlayerId;
+            NeutralPassivePlayerId = neutralPassivePlayerId;
             Tileset = tileset;
             PlayerPrototypes = new ReadOnlyCollection<PlayerPrototype>(playerPrototypes);
             UnitInstancePrototypes = new ReadOnlyCollection<UnitInstancePrototype>(unitInstancePrototypes);
