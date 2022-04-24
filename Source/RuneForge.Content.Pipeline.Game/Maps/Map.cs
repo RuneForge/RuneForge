@@ -21,6 +21,8 @@ namespace RuneForge.Content.Pipeline.Game.Maps
 
         [XmlElement(ElementName = "HumanPlayerId")]
         public Guid HumanPlayerId { get; set; }
+        [XmlElement(ElementName = "NeutralPassivePlayerId")]
+        public Guid NeutralPassivePlayerId { get; set; }
 
         [XmlElement(ElementName = "Tileset")]
         public MapTileset Tileset { get; set; }
