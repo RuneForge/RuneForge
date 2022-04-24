@@ -47,7 +47,14 @@ namespace RuneForge.Core.Rendering
 
                 Color selectionFrameColor = Color.Gray;
                 if (entityOwner != null)
-                    selectionFrameColor = entityOwner.Id == m_gameSessionContext.Map.HumanPlayerId ? Color.LimeGreen : Color.Red;
+                {
+                    if (entityOwner.Id == m_gameSessionContext.Map.HumanPlayerId)
+                        selectionFrameColor = Color.LimeGreen;
+                    else if (entityOwner.Id == m_gameSessionContext.Map.NeutralPassivePlayerId)
+                        selectionFrameColor = Color.Yellow;
+                    else
+                        selectionFrameColor = Color.Red;
+                }
 
                 Rectangle rectangle = new Rectangle((int)locationComponent.X, (int)locationComponent.Y, locationComponent.Width, locationComponent.Height);
                 SpriteBatch spriteBatch = m_spriteBatchProvider.OnDisplayInterfaceSpriteBatch;
