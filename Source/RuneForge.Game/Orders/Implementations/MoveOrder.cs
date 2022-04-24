@@ -53,7 +53,7 @@ namespace RuneForge.Game.Orders.Implementations
                         StopMoveAnimation();
                         stateChanged = true;
                     }
-                    else
+                    else if (!CancellationRequested)
                     {
                         movementComponent.OriginCell = locationComponent.LocationCells;
                         movementComponent.DestinationCell = path.Dequeue();
