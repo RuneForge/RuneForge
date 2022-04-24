@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -11,8 +12,12 @@ using RuneForge.Core.Controllers;
 using RuneForge.Core.Controllers.Interfaces;
 using RuneForge.Core.Input;
 using RuneForge.Core.Input.EventProviders.Interfaces;
+using RuneForge.Core.Interface.Controls;
+using RuneForge.Core.Interface.Interfaces;
+using RuneForge.Core.Interface.Windows;
 using RuneForge.Core.Rendering;
 using RuneForge.Core.Rendering.Interfaces;
+using RuneForge.Game.Buildings;
 using RuneForge.Game.Entities;
 using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
@@ -25,12 +30,16 @@ namespace RuneForge.Core.GameStates.Implementations
 {
     public class GameplayGameState : GameState
     {
+        private const int c_interfaceWindowsOffset = 4;
+
         private static readonly string s_defaultMapAssetName = Path.Combine("Maps", "Southshore");
 
         private readonly IGameSessionContext m_gameSessionContext;
+        private readonly IGraphicsInterfaceService m_graphicsInterfaceService;
         private readonly IKeyboardEventProvider m_keyboardEventProvider;
         private readonly IMouseEventProvider m_mouseEventProvider;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
+        private readonly ISpriteFontProvider m_spriteFontProvider;
         private readonly IEntitySelectionContext m_entitySelectionContext;
         private readonly IEntitySelector m_entitySelector;
         private readonly IOrderTypeResolver m_orderTypeResolver;
@@ -40,13 +49,20 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly Camera2DParameters m_cameraParameters;
         private readonly CameraController m_cameraController;
         private readonly UnitController m_unitController;
+        private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
+        private SpriteBatch m_interfaceSpriteBatch;
+        private EntityDetailsWindow m_entityDetailsWindow;
+        private OrderConfirmationDialogWindow m_orderConfirmationDialogWindow;
+        private TargetBasedOrderScheduledEventArgs m_activeTargetBasedOrderEventArgs;
 
         public GameplayGameState(
             IGameSessionContext gameSessionContext,
+            IGraphicsInterfaceService graphicsInterfaceService,
             IKeyboardEventProvider keyboardEventProvider,
             IMouseEventProvider mouseEventProvider,
             ISpriteBatchProvider spriteBatchProvider,
+            ISpriteFontProvider spriteFontProvider,
             IEntitySelectionContext entitySelectionContext,
             IEntitySelector entitySelector,
             IOrderTypeResolver orderTypeResolver,
@@ -56,13 +72,16 @@ namespace RuneForge.Core.GameStates.Implementations
             Camera2DParameters cameraParameters,
             CameraController cameraController,
             UnitController unitController,
+            Lazy<ContentManager> contentManagerProvider,
             Lazy<GraphicsDevice> graphicsDeviceProvider
             )
         {
             m_gameSessionContext = gameSessionContext;
+            m_graphicsInterfaceService = graphicsInterfaceService;
             m_keyboardEventProvider = keyboardEventProvider;
             m_mouseEventProvider = mouseEventProvider;
             m_spriteBatchProvider = spriteBatchProvider;
+            m_spriteFontProvider = spriteFontProvider;
             m_entitySelectionContext = entitySelectionContext;
             m_entitySelector = entitySelector;
             m_orderTypeResolver = orderTypeResolver;
@@ -72,17 +91,28 @@ namespace RuneForge.Core.GameStates.Implementations
             m_cameraParameters = cameraParameters;
             m_cameraController = cameraController;
             m_unitController = unitController;
+            m_contentManagerProvider = contentManagerProvider;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
+            m_interfaceSpriteBatch = null;
+            m_entityDetailsWindow = null;
+            m_orderConfirmationDialogWindow = null;
+            m_activeTargetBasedOrderEventArgs = null;
         }
 
         public override void Run()
         {
+            GraphicsDevice graphicsDevice = m_graphicsDeviceProvider.Value;
+            m_graphicsInterfaceService.Viewport = new Viewport(0, 0, graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight);
+            m_graphicsInterfaceService.RegisterControl(m_entityDetailsWindow);
+            m_graphicsInterfaceService.RegisterControl(m_orderConfirmationDialogWindow);
             SubscribeToKeyboardEvents();
             SubscribeToMouseEvents();
             base.Run();
         }
         public override void Stop()
         {
+            m_graphicsInterfaceService.UnregisterControl(m_entityDetailsWindow);
+            m_graphicsInterfaceService.UnregisterControl(m_orderConfirmationDialogWindow);
             UnsubscribeFromKeyboardEvents();
             UnsubscribeFromMouseEvents();
             base.Stop();
@@ -119,6 +149,7 @@ namespace RuneForge.Core.GameStates.Implementations
 
             GraphicsDevice graphicsDevice = m_graphicsDeviceProvider.Value;
 
+            m_interfaceSpriteBatch = new SpriteBatch(graphicsDevice);
             SpriteBatch worldSpriteBatch = new SpriteBatch(graphicsDevice);
             SpriteBatch onDisplayInterfaceSpriteBatch = new SpriteBatch(graphicsDevice);
             m_spriteBatchProvider.WorldSpriteBatch = worldSpriteBatch;
@@ -130,6 +161,10 @@ namespace RuneForge.Core.GameStates.Implementations
                 renderer.LoadContent();
 
             base.LoadContent();
+
+            CreateInterfaceWindows();
+            m_entityDetailsWindow.LoadContent();
+            m_orderConfirmationDialogWindow.LoadContent();
         }
 
         private void SubscribeToKeyboardEvents()
@@ -148,11 +183,62 @@ namespace RuneForge.Core.GameStates.Implementations
         {
             m_mouseEventProvider.MouseButtonClicked += HandleEntitySelection;
             m_mouseEventProvider.MouseButtonClicked += HandleOrderOnRightClick;
+            m_mouseEventProvider.MouseButtonClicked += HandleOrderConfirmation;
         }
         private void UnsubscribeFromMouseEvents()
         {
             m_mouseEventProvider.MouseButtonClicked -= HandleEntitySelection;
             m_mouseEventProvider.MouseButtonClicked -= HandleOrderOnRightClick;
+            m_mouseEventProvider.MouseButtonClicked -= HandleOrderConfirmation;
+        }
+
+        private void CreateInterfaceWindows()
+        {
+            m_entityDetailsWindow = new EntityDetailsWindow(
+                new ControlEventSource(),
+                m_contentManagerProvider.Value,
+                m_graphicsDeviceProvider.Value,
+                m_interfaceSpriteBatch,
+                m_gameSessionContext,
+                m_spriteFontProvider
+                )
+            {
+                X = c_interfaceWindowsOffset,
+                Y = c_interfaceWindowsOffset,
+                Visible = false,
+            };
+            m_entityDetailsWindow.InstantOrderScheduled += (sender, e) => HandleInstantOrder(sender, e);
+            m_entityDetailsWindow.TargetBasedOrderScheduled += (sender, e) => HandleTargetBasedOrder(sender, e);
+            m_entityDetailsWindow.OrderQueueClearingScheduled += (sender, e) => HandleOrderQueueClearing(sender, e);
+
+            m_orderConfirmationDialogWindow = new OrderConfirmationDialogWindow(
+                new ControlEventSource(),
+                m_contentManagerProvider.Value,
+                m_graphicsDeviceProvider.Value,
+                m_interfaceSpriteBatch,
+                m_spriteFontProvider
+                )
+            {
+                X = m_entityDetailsWindow.X + m_entityDetailsWindow.Width + c_interfaceWindowsOffset,
+                Y = c_interfaceWindowsOffset,
+                Visible = false,
+            };
+            m_orderConfirmationDialogWindow.OrderCancelled += (sender, e) => HandleOrderCancellation(sender, e);
+
+            m_entitySelectionContext.EntitySelected += (sender, e) =>
+            {
+                m_entityDetailsWindow.Entity = m_entitySelectionContext.Entity;
+                m_entityDetailsWindow.Visible = true;
+            };
+            m_entitySelectionContext.EntitySelectionDropped += (sender, e) =>
+            {
+                m_entityDetailsWindow.Visible = false;
+                if (m_activeTargetBasedOrderEventArgs != null)
+                {
+                    m_activeTargetBasedOrderEventArgs.Cancel();
+                    m_activeTargetBasedOrderEventArgs = null;
+                }    
+            };
         }
 
         private void HandleCameraMovement(object sender, KeyboardEventArgs e)
@@ -197,9 +283,11 @@ namespace RuneForge.Core.GameStates.Implementations
         {
             if (!e.Handled && e.Button == MouseButtons.LeftButton)
             {
-                e.Handle();
                 if (m_entitySelector.TrySelectEntity(e.X, e.Y, out Entity entity))
+                {
+                    e.Handle();
                     m_entitySelectionContext.Entity = entity;
+                }
             }
         }
         private void HandleEntitySelectionDrop(object sender, KeyboardEventArgs e)
@@ -210,6 +298,56 @@ namespace RuneForge.Core.GameStates.Implementations
                 m_entitySelectionContext.Entity = null;
             }
         }
+        private void HandleInstantOrder(object sender, InstantOrderScheduledEventArgs e)
+        {
+            ExecuteOrder(m_entityDetailsWindow.Entity, 0, 0, e.OrderType);
+            if (m_activeTargetBasedOrderEventArgs != null)
+            {
+                m_activeTargetBasedOrderEventArgs.Cancel();
+                m_activeTargetBasedOrderEventArgs = null;
+            }
+        }
+        private void HandleTargetBasedOrder(object sender, TargetBasedOrderScheduledEventArgs e)
+        {
+            m_orderConfirmationDialogWindow.Visible = true;
+            m_activeTargetBasedOrderEventArgs = e;
+            m_activeTargetBasedOrderEventArgs.Completed += (sender, e) => m_orderConfirmationDialogWindow.Visible = false;
+            m_activeTargetBasedOrderEventArgs.Cancelled += (sender, e) => m_orderConfirmationDialogWindow.Visible = false;
+        }
+        private void HandleOrderQueueClearing(object sender, EventArgs e)
+        {
+            if (m_activeTargetBasedOrderEventArgs != null)
+            {
+                m_activeTargetBasedOrderEventArgs.Cancel();
+                m_activeTargetBasedOrderEventArgs = null;
+            }
+            switch (m_entityDetailsWindow.Entity)
+            {
+                case Unit unit:
+                    m_unitController.ClearOrderQueue(unit);
+                    break;
+                case Building _:
+                    throw new NotImplementedException();
+            }
+        }
+        private void HandleOrderConfirmation(object sender, MouseEventArgs e)
+        {
+            if (!e.Handled && e.Button == MouseButtons.LeftButton && m_activeTargetBasedOrderEventArgs != null)
+            {
+                (int worldX, int worldY) = GetWorldPointByScreenPoint(e.Location, out _);
+                ExecuteOrder(m_entityDetailsWindow.Entity, worldX, worldY, m_activeTargetBasedOrderEventArgs.OrderType);
+                m_activeTargetBasedOrderEventArgs.Complete();
+                m_activeTargetBasedOrderEventArgs = null;
+            }
+        }
+        private void HandleOrderCancellation(object sender, EventArgs e)
+        {
+            if (m_activeTargetBasedOrderEventArgs != null)
+            {
+                m_activeTargetBasedOrderEventArgs.Cancel();
+                m_activeTargetBasedOrderEventArgs = null;
+            }
+        }
         private void HandleOrderOnRightClick(object sender, MouseEventArgs e)
         {
             Entity entity = m_entitySelectionContext.Entity;
@@ -218,18 +356,39 @@ namespace RuneForge.Core.GameStates.Implementations
                 e.Handle();
                 if (m_orderTypeResolver.TryResolveOrderType(entity, e.X, e.Y, out Type orderType))
                 {
-                    bool shiftPressed = (m_keyboardEventProvider.GetState().GetModifierKeys() & ModifierKeys.Shift) == ModifierKeys.Shift;
-                    (int targetCellX, int targetCellY) = GetCellByScreenPoint(e.Location);
-                    if (entity is Unit unit && orderType == typeof(MoveOrder))
-                        m_unitController.Move(unit, targetCellX, targetCellY, shiftPressed);
+                    (int worldX, int worldY) = GetWorldPointByScreenPoint(e.Location, out _);
+                    ExecuteOrder(entity, worldX, worldY, orderType);
+                }
+                if (m_activeTargetBasedOrderEventArgs != null)
+                {
+                    m_activeTargetBasedOrderEventArgs.Cancel();
+                    m_activeTargetBasedOrderEventArgs = null;
                 }
             }
         }
 
-        private Point GetCellByScreenPoint(Point screenPoint)
+        private void ExecuteOrder(Entity entity, int worldX, int worldY, Type orderType)
+        {
+            bool shiftPressed = (m_keyboardEventProvider.GetState().GetModifierKeys() & ModifierKeys.Shift) == ModifierKeys.Shift;
+            if (entity is Unit unit)
+                ExecuteUnitOrder(unit, worldX, worldY, orderType, shiftPressed);
+            else if (m_entityDetailsWindow.Entity is Building)
+                throw new NotImplementedException();
+        }
+        private void ExecuteUnitOrder(Unit unit, int worldX, int worldY, Type orderType, bool addToQueue)
+        {
+            if (orderType == typeof(MoveOrder))
+            {
+                Point destinationCell = new Point(worldX / Map.CellWidth, worldY / Map.CellHeight);
+                m_unitController.Move(unit, destinationCell.X, destinationCell.Y, addToQueue);
+            }
+        }
+
+        private Point GetWorldPointByScreenPoint(Point screenPoint, out Point cell)
         {
             Point worldPoint = m_camera.TranslateScreenToWorld(screenPoint.ToVector2()).ToPoint();
-            return new Point(worldPoint.X / Map.CellWidth, worldPoint.Y / Map.CellHeight);
+            cell = new Point(worldPoint.X / Map.CellWidth, worldPoint.Y / Map.CellHeight);
+            return worldPoint;
         }
     }
 }
