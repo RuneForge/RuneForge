@@ -85,6 +85,7 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<DirectionComponentFactory>();
             services.AddScoped<MovementComponentFactory>();
             services.AddScoped<ResourceContainerComponentFactory>();
+            services.AddScoped<ResourceSourceComponentFactory>();
             services.AddScoped<ISystem, OrderSystem>();
             services.AddScoped<ISystem, MovementSystem>();
             return services;
