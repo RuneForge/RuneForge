@@ -2,7 +2,6 @@
   <Name>Farm</Name>
   <ComponentPrototypes>
     <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Buildings\Farm" HasPlayerColor="true" />
-    <OrderQueueComponentPrototype />
     <LocationComponentPrototype Width="2" Height="2" />
   </ComponentPrototypes>
 </BuildingPrototype>
