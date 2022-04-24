@@ -33,6 +33,7 @@ namespace RuneForge.Content.Pipeline.Game.Maps
             writer.Write(map.Height);
 
             writer.Write(map.HumanPlayerId);
+            writer.Write(map.NeutralPassivePlayerId);
 
             WritePlayerPrototypes(writer, map);
 

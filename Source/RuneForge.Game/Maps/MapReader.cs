@@ -23,6 +23,7 @@ namespace RuneForge.Game.Maps
             int height = reader.ReadInt32();
 
             Guid humanPlayerId = reader.ReadGuid();
+            Guid neutralPassivePlayerId = reader.ReadGuid();
 
             List<PlayerPrototype> playerPrototypes = ReadPlayers(reader);
 
@@ -36,7 +37,7 @@ namespace RuneForge.Game.Maps
             List<MapLandscapeCell> landscapeCells = ReadLandscapeCellData(reader, width, height);
             List<MapDecorationCell> decorationCells = ReadDecorationCellData(reader, width, height);
 
-            return new Map(name, width, height, humanPlayerId, tileset, landscapeCells, decorationCells, playerPrototypes, unitInstancePrototypes, buildingInstancePrototypes);
+            return new Map(name, width, height, humanPlayerId, neutralPassivePlayerId, tileset, landscapeCells, decorationCells, playerPrototypes, unitInstancePrototypes, buildingInstancePrototypes);
         }
 
         private static List<PlayerPrototype> ReadPlayers(ContentReader reader)
