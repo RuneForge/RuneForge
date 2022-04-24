@@ -1,9 +1,12 @@
 ﻿using System;
 
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Entities;
+using RuneForge.Game.Components.PrototypeReaders;
 
 namespace RuneForge.Game.Components.Implementations
 {
+    [ComponentPrototypeReader(typeof(ResourceSourceComponentPrototypeReader))]
     public class ResourceSourceComponentPrototype : ComponentPrototype
     {
         public ResourceTypes ResourceType { get; }
