@@ -8,5 +8,6 @@
     <LocationComponentPrototype Width="1" Height="1" />
     <DirectionComponentPrototype Direction="North" />
     <MovementComponentPrototype MovementSpeed="0.75" MovementType="LandMovementRequired" />
+    <ResourceContainerComponentPrototype />
   </ComponentPrototypes>
 </UnitPrototype>

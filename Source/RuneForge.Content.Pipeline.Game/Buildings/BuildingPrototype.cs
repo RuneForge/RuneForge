@@ -17,6 +17,7 @@ namespace RuneForge.Content.Pipeline.Game.Buildings
         [XmlArrayItem(ElementName = "AnimationAtlasComponentPrototype", Type = typeof(AnimationAtlasComponentPrototype))]
         [XmlArrayItem(ElementName = "OrderQueueComponentPrototype", Type = typeof(OrderQueueComponentPrototype))]
         [XmlArrayItem(ElementName = "LocationComponentPrototype", Type = typeof(LocationComponentPrototype))]
+        [XmlArrayItem(ElementName = "ResourceContainerComponentPrototype", Type = typeof(ResourceContainerComponentPrototype))]
         public List<ComponentPrototype> ComponentPrototypes { get; set; }
     }
 }
