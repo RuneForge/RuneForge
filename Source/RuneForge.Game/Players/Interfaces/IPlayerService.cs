@@ -12,5 +12,9 @@ namespace RuneForge.Game.Players.Interfaces
         public void AddPlayer(Player player);
 
         public void RemovePlayer(Guid playerId);
+
+        public void RegisterPlayerChanges(Guid playerId);
+
+        public void CommitChanges();
     }
 }
