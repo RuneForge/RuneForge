@@ -57,19 +57,7 @@ namespace RuneForge.Game.PathGenerators
                 }
             }
 
-            HashSet<Point> occupiedCells = new HashSet<Point>();
-            foreach (Entity entity in m_gameSessionContext.Units.Concat<Entity>(m_gameSessionContext.Buildings))
-            {
-                if (entity.TryGetComponentOfType(out LocationComponent locationComponent))
-                {
-                    foreach (Point occupiedCell in locationComponent.GetOccupiedCells())
-                        occupiedCells.Add(occupiedCell);
-                }
-                if (entity.TryGetComponentOfType(out MovementComponent movementComponent) && movementComponent.MovementInProgress)
-                {
-                    occupiedCells.Add(movementComponent.DestinationCell);
-                }
-            }
+            HashSet<Point> occupiedCells = GetCellsOccupiedByEntities();
 
             int GetIndex(int x, int y) => (y * map.Width) + x;
             int[] visitedCells = new int[map.Width * map.Height];
@@ -98,11 +86,7 @@ namespace RuneForge.Game.PathGenerators
                     if (occupiedCells.Contains(nextCell))
                         continue;
 
-                    int actualMovementFlags = (int)requiredMovementFlags;
-                    actualMovementFlags &= (int)map.GetLandscapeCellMovementFlags(nextCell.X, nextCell.Y);
-                    if (map.GetDecorationCell(nextCell.X, nextCell.Y).Tier > MapDecorationCellTier.None)
-                        actualMovementFlags &= ~(int)map.GetDecorationCellMovementFlags(nextCell.X, nextCell.Y);
-
+                    int actualMovementFlags = CalculateMovementFlags(requiredMovementFlags, map, nextCell);
                     if (actualMovementFlags == 0)
                         continue;
 
@@ -169,6 +153,48 @@ namespace RuneForge.Game.PathGenerators
 
             while (reversedPath.Count > 0)
                 path.Enqueue(reversedPath.Pop());
+        }
+
+        public bool IsCellFree(Point cell, MovementFlags requiredMovementFlags)
+        {
+            Map map = m_gameSessionContext.Map;
+            HashSet<Point> occupiedCells = GetCellsOccupiedByEntities();
+            if (occupiedCells.Contains(cell))
+                return false;
+
+            int actualMovementFlags = CalculateMovementFlags(requiredMovementFlags, map, cell);
+            if (actualMovementFlags == 0)
+                return false;
+
+            return true;
+        }
+
+        private static int CalculateMovementFlags(MovementFlags requiredMovementFlags, Map map, Point nextCell)
+        {
+            int actualMovementFlags = (int)requiredMovementFlags;
+            actualMovementFlags &= (int)map.GetLandscapeCellMovementFlags(nextCell.X, nextCell.Y);
+            if (map.GetDecorationCell(nextCell.X, nextCell.Y).Tier > MapDecorationCellTier.None)
+                actualMovementFlags &= ~(int)map.GetDecorationCellMovementFlags(nextCell.X, nextCell.Y);
+            return actualMovementFlags;
+        }
+
+        private HashSet<Point> GetCellsOccupiedByEntities()
+        {
+            HashSet<Point> occupiedCells = new HashSet<Point>();
+            foreach (Entity entity in m_gameSessionContext.Units.Concat<Entity>(m_gameSessionContext.Buildings))
+            {
+                if (entity.TryGetComponentOfType(out LocationComponent locationComponent))
+                {
+                    foreach (Point occupiedCell in locationComponent.GetOccupiedCells())
+                        occupiedCells.Add(occupiedCell);
+                }
+                if (entity.TryGetComponentOfType(out MovementComponent movementComponent) && movementComponent.MovementInProgress)
+                {
+                    occupiedCells.Add(movementComponent.DestinationCell);
+                }
+            }
+
+            return occupiedCells;
         }
     }
 }

@@ -10,5 +10,7 @@ namespace RuneForge.Game.PathGenerators.Interfaces
     {
         public void GeneratePath(Point origin, Point destination, MovementFlags requiredMovementFlags, out PathType pathType, out Queue<Point> path);
         public void GeneratePath(Point origin, IList<Point> destinations, MovementFlags requiredMovementFlags, out PathType pathType, out Queue<Point> path);
+
+        public bool IsCellFree(Point cell, MovementFlags requiredMovementFlags);
     }
 }
