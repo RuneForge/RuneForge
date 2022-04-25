@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+
+using RuneForge.Game.Components.Interfaces;
+using RuneForge.Game.Entities;
 
 namespace RuneForge.Game.Players
 {
-    public class Player
+    public class Player : Entity
     {
         public Guid Id { get; }
 
@@ -10,7 +14,8 @@ namespace RuneForge.Game.Players
 
         public PlayerColor Color { get; }
 
-        public Player(Guid id, string name, PlayerColor color)
+        public Player(Guid id, string name, PlayerColor color, IList<IComponent> components)
+            : base(components)
         {
             Id = id;
             Name = name;
