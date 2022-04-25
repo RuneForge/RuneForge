@@ -73,6 +73,16 @@ namespace RuneForge.Content.Pipeline.Game.Maps
                         writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeC, NumberStyles.HexNumber)));
                         writer.Write(new Color(uint.Parse(playerPrototype.Color.EntityColorShadeD, NumberStyles.HexNumber)));
                     }
+
+                    List<ComponentPrototype> componentPrototypes = playerPrototype.ComponentPrototypes;
+                    if (componentPrototypes == null)
+                        throw new InvalidOperationException("The player prototype should have at least an empty list of component prototypes.");
+                    else
+                    {
+                        writer.Write(componentPrototypes.Count);
+                        foreach (ComponentPrototype componentPrototype in componentPrototypes)
+                            writer.Write(componentPrototype);
+                    }
                 }
             }
         }
