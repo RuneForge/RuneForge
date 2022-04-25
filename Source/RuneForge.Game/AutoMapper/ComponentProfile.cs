@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+
+using AutoMapper;
 
 using RuneForge.Data.Components;
 using RuneForge.Game.Components.Implementations;
@@ -23,7 +25,8 @@ namespace RuneForge.Game.AutoMapper
                 .Include<MovementComponent, MovementComponentDto>()
                 .Include<ResourceContainerComponent, ResourceContainerComponentDto>()
                 .Include<ResourceSourceComponent, ResourceSourceComponentDto>()
-                .Include<ResourceStorageComponent, ResourceStorageComponentDto>();
+                .Include<ResourceStorageComponent, ResourceStorageComponentDto>()
+                .Include<UnitShelterComponent, UnitShelterComponentDto>();
 
             CreateMap<TextureAtlasComponent, TextureAtlasComponentDto>();
             CreateMap<AnimationAtlasComponent, AnimationAtlasComponentDto>();
@@ -35,6 +38,8 @@ namespace RuneForge.Game.AutoMapper
             CreateMap<ResourceContainerComponent, ResourceContainerComponentDto>();
             CreateMap<ResourceSourceComponent, ResourceSourceComponentDto>();
             CreateMap<ResourceStorageComponent, ResourceStorageComponentDto>();
+            CreateMap<UnitShelterComponent, UnitShelterComponentDto>()
+                .ForMember(component => component.OccupantIds, options => options.MapFrom(component => component.Occupants.Select(unit => unit.Id).ToArray()));
         }
     }
 }
