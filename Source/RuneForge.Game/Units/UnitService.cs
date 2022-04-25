@@ -63,6 +63,8 @@ namespace RuneForge.Game.Units
                 for (int i = unitIndex; i < m_gameSessionContext.Units.Count; i++)
                     m_unitsByIds[m_gameSessionContext.Units[i].Id] = i;
                 m_unitRepository.RemoveUnit(unitId);
+                if (m_changedUnitIds.Contains(unitId))
+                    m_changedUnitIds.Remove(unitId);
             }
             else
                 throw new KeyNotFoundException("No unit was found by the specified Id.");
