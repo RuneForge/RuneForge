@@ -339,6 +339,21 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Interface/Controls/Window.png
 
+#begin Textures/Interface/Icons.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Interface/Icons.png
+
+#begin Textures/Interface/License.txt
+/copy:Textures/Interface/License.txt
+
 #begin Textures/Maps/License.txt
 /copy:Textures/Maps/License.txt
 
