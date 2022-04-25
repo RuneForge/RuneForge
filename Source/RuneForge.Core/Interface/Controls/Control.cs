@@ -565,7 +565,7 @@ namespace RuneForge.Core.Interface.Controls
 
         private void InvokeEventHandlerIfEnabled<TEventArgs>(EventHandler<TEventArgs> eventHandler, object sender, TEventArgs eventArgs)
         {
-            if (Enabled)
+            if (Enabled && Visible)
             {
                 eventHandler?.Invoke(sender, eventArgs);
             }
@@ -616,34 +616,25 @@ namespace RuneForge.Core.Interface.Controls
 
         private void InvokeChildControlMouseEventMethod(ControlEventMethodSelector<MouseEventArgs> methodSelector, object sender, MouseEventArgs e)
         {
-            //IL_0023: Unknown result type (might be due to invalid IL or missing references)
-            //IL_0028: Unknown result type (might be due to invalid IL or missing references)
             Viewport currentControlViewport = e.Viewport;
-            InvokeChildControlEventMethod(BuiltInControlMethodSelector, builtInControls: true, childControls: false, sender, e);
-            InvokeChildControlEventMethod(ChildControlMethodSelector, builtInControls: false, childControls: true, sender, e);
-            e.SetViewport(in currentControlViewport);
             EventHandler<MouseEventArgs> BuiltInControlMethodSelector(Control control)
             {
-                //IL_0008: Unknown result type (might be due to invalid IL or missing references)
-                //IL_000d: Unknown result type (might be due to invalid IL or missing references)
-                //IL_0012: Unknown result type (might be due to invalid IL or missing references)
-                Viewport viewport2 = GraphicsControlGeometryHelpers.CreateChildViewport(in currentControlViewport, control.Bounds);
-                e.SetViewport(in viewport2);
+                Viewport viewport = GraphicsControlGeometryHelpers.CreateChildViewport(in currentControlViewport, control.Bounds);
+                e.SetViewport(in viewport);
                 return methodSelector(control);
             }
             EventHandler<MouseEventArgs> ChildControlMethodSelector(Control control)
             {
-                //IL_0008: Unknown result type (might be due to invalid IL or missing references)
-                //IL_000d: Unknown result type (might be due to invalid IL or missing references)
-                //IL_0012: Unknown result type (might be due to invalid IL or missing references)
-                //IL_001b: Unknown result type (might be due to invalid IL or missing references)
-                //IL_0020: Unknown result type (might be due to invalid IL or missing references)
-                //IL_0025: Unknown result type (might be due to invalid IL or missing references)
                 Viewport viewport = GraphicsControlGeometryHelpers.CreateChildViewport(in currentControlViewport, control.Bounds);
                 viewport = GraphicsControlGeometryHelpers.CreateChildViewport(in viewport, GetContainerBounds());
                 e.SetViewport(in viewport);
                 return methodSelector(control);
             }
+            InvokeChildControlEventMethod(BuiltInControlMethodSelector, true, false, sender, e);
+            InvokeChildControlEventMethod(ChildControlMethodSelector, false, true, sender, e);
+            e.SetViewport(in currentControlViewport);
+            if (!e.Handled && Enabled && Visible && Bounds.Contains(e.GetLocationInsideViewport()))
+                e.Handle();
         }
 
         private void OnChildControlRenderRequested(object sender, EventArgs e)

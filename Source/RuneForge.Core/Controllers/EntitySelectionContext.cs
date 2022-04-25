@@ -23,9 +23,9 @@ namespace RuneForge.Core.Controllers
                 {
                     if (m_entity != null)
                         OnEntitySelectionDropped(EventArgs.Empty);
+                    m_entity = value;
                     if (value != null)
                         OnEntitySelected(EventArgs.Empty);
-                    m_entity = value;
                 }
             }
         }

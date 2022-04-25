@@ -46,7 +46,7 @@ namespace RuneForge.Core.Interface.Controls
         {
             base.OnMouseButtonPressed(sender, e);
             Point locationInsideViewport = e.GetLocationInsideViewport();
-            if (!m_pressed && e.Button == (e.Button & MouseButtons.LeftButton) && new Rectangle(0, 0, Width, Height).Contains(locationInsideViewport))
+            if (!m_pressed && Enabled && Visible && e.Button == (e.Button & MouseButtons.LeftButton) && new Rectangle(0, 0, Width, Height).Contains(locationInsideViewport))
             {
                 OnPressedInternal(e);
             }
