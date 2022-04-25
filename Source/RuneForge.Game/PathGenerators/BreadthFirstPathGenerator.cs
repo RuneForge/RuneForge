@@ -169,6 +169,35 @@ namespace RuneForge.Game.PathGenerators
             return true;
         }
 
+        public bool TryGetClosestFreeCell(Point cell, IList<Point> possibleCells, MovementFlags requiredMovementFlags, out Point result)
+        {
+            Map map = m_gameSessionContext.Map;
+            HashSet<Point> occupiedCells = GetCellsOccupiedByEntities();
+
+            result = Point.Zero;
+            int minDistance = int.MaxValue;
+            foreach (Point possibleCell in possibleCells)
+            {
+                if (possibleCell.X < 0 || possibleCell.Y < 0 || possibleCell.X >= map.Width || possibleCell.Y >= map.Height)
+                    continue;
+
+                if (occupiedCells.Contains(possibleCell))
+                    continue;
+
+                int actualMovementFlags = CalculateMovementFlags(requiredMovementFlags, map, cell);
+                if (actualMovementFlags == 0)
+                    continue;
+
+                int distance = Math.Abs(cell.X - possibleCell.X) + Math.Abs(cell.Y - possibleCell.Y);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    result = possibleCell;
+                }
+            }
+            return minDistance < int.MaxValue;
+        }
+
         private static int CalculateMovementFlags(MovementFlags requiredMovementFlags, Map map, Point nextCell)
         {
             int actualMovementFlags = (int)requiredMovementFlags;

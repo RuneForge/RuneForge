@@ -12,5 +12,6 @@ namespace RuneForge.Game.PathGenerators.Interfaces
         public void GeneratePath(Point origin, IList<Point> destinations, MovementFlags requiredMovementFlags, out PathType pathType, out Queue<Point> path);
 
         public bool IsCellFree(Point cell, MovementFlags requiredMovementFlags);
+        public bool TryGetClosestFreeCell(Point cell, IList<Point> possibleCells, MovementFlags requiredMovementFlags, out Point result);
     }
 }
