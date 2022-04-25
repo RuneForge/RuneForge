@@ -36,10 +36,26 @@ namespace RuneForge.Game.PathGenerators
 
         public void GeneratePath(Point origin, Point destination, MovementFlags requiredMovementFlags, out PathType pathType, out Queue<Point> path)
         {
+            GeneratePath(origin, new Point[1] { destination }, requiredMovementFlags, out pathType, out path);
+        }
+
+        public void GeneratePath(Point origin, IList<Point> destinations, MovementFlags requiredMovementFlags, out PathType pathType, out Queue<Point> path)
+        {
             Map map = m_gameSessionContext.Map;
 
-            destination.X = Math.Max(Math.Min(destination.X, map.Width - 1), 0);
-            destination.Y = Math.Max(Math.Min(destination.Y, map.Height - 1), 0);
+            destinations = new List<Point>(destinations);
+            for (int i = destinations.Count - 1; i >= 0; i--)
+            {
+                Point destination = destinations[i];
+                if (destinations.Count > 1 && (destination.X < 0 || destination.Y < 0 || destination.X >= map.Width || destination.Y >= map.Height))
+                    destinations.RemoveAt(i);
+                else
+                {
+                    destination.X = Math.Max(Math.Min(destination.X, map.Width - 1), 0);
+                    destination.Y = Math.Max(Math.Min(destination.Y, map.Height - 1), 0);
+                    destinations[i] = destination;
+                }
+            }
 
             HashSet<Point> occupiedCells = new HashSet<Point>();
             foreach (Entity entity in m_gameSessionContext.Units.Concat<Entity>(m_gameSessionContext.Buildings))
@@ -97,11 +113,26 @@ namespace RuneForge.Game.PathGenerators
 
             path = new Queue<Point>();
             pathType = PathType.PathToDestination;
-            if (visitedCells[GetIndex(destination.X, destination.Y)] == -1)
+
+            int minCost = int.MaxValue;
+            Point finalDestination = new Point();
+            foreach (Point destination in destinations)
+            {
+                int cost = visitedCells[GetIndex(destination.X, destination.Y)];
+                if (cost >= 0 && cost < minCost)
+                {
+                    minCost = cost;
+                    finalDestination = destination;
+                }
+            }
+            if (minCost == int.MaxValue)
+                finalDestination = destinations[m_gameSessionContext.RandomNumbersGenerator.Next(destinations.Count)];
+
+            if (visitedCells[GetIndex(finalDestination.X, finalDestination.Y)] == -1)
             {
                 pathType = PathType.PathToClosestReachableCell;
 
-                Point reachableDestination = destination;
+                Point reachableDestination = finalDestination;
                 while (reachableDestination != origin)
                 {
                     reachableDestination.X += Math.Sign(origin.X - reachableDestination.X);
@@ -111,26 +142,26 @@ namespace RuneForge.Game.PathGenerators
                         break;
                 }
 
-                destination = reachableDestination;
+                finalDestination = reachableDestination;
                 if (reachableDestination == origin)
                     pathType = PathType.NoPath;
             }
 
             Stack<Point> reversedPath = new Stack<Point>();
-            while (destination != origin)
+            while (finalDestination != origin)
             {
-                reversedPath.Push(destination);
+                reversedPath.Push(finalDestination);
 
                 foreach (Point neighborCellOffset in s_neighborCellOffsets)
                 {
-                    Point nextCell = destination + neighborCellOffset;
+                    Point nextCell = finalDestination + neighborCellOffset;
 
                     if (nextCell.X < 0 || nextCell.Y < 0 || nextCell.X >= map.Width || nextCell.Y >= map.Height)
                         continue;
 
-                    if (visitedCells[GetIndex(nextCell.X, nextCell.Y)] == visitedCells[GetIndex(destination.X, destination.Y)] - 1)
+                    if (visitedCells[GetIndex(nextCell.X, nextCell.Y)] == visitedCells[GetIndex(finalDestination.X, finalDestination.Y)] - 1)
                     {
-                        destination = nextCell;
+                        finalDestination = nextCell;
                         break;
                     }
                 }
