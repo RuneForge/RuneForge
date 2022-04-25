@@ -5,5 +5,6 @@
     <LocationComponentPrototype Width="3" Height="3" />
     <ResourceContainerComponentPrototype GoldAmount="50000" />
     <ResourceSourceComponentPrototype ResourceType="Gold" AmountGiven="100" ExtractionTimeMilliseconds="1000.0" />
+    <UnitShelterComponentPrototype OccupantsLimit="1" />
   </ComponentPrototypes>
 </BuildingPrototype>
