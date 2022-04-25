@@ -38,6 +38,8 @@ namespace RuneForge.Game.GameSessions
 
         public Collection<Player> Players { get; }
 
+        public Random RandomNumbersGenerator { get; }
+
         public bool Initialized { get; private set; }
 
         public GameSessionContext(
@@ -71,6 +73,7 @@ namespace RuneForge.Game.GameSessions
             Units = new Collection<Unit>();
             Buildings = new Collection<Building>();
             Players = new Collection<Player>();
+            RandomNumbersGenerator = new Random();
             Initialized = false;
         }
 
