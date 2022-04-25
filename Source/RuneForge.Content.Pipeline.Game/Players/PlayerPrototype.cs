@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+
+using RuneForge.Content.Pipeline.Game.Components;
+using RuneForge.Content.Pipeline.Game.Components.Implementations;
 
 namespace RuneForge.Content.Pipeline.Game.Players
 {
@@ -13,5 +17,9 @@ namespace RuneForge.Content.Pipeline.Game.Players
 
         [XmlElement(ElementName = "Color")]
         public PlayerColor Color { get; set; }
+
+        [XmlArray(ElementName = "ComponentPrototypes")]
+        [XmlArrayItem(ElementName = "ResourceContainerComponentPrototype", Type = typeof(ResourceContainerComponentPrototype))]
+        public List<ComponentPrototype> ComponentPrototypes { get; set; }
     }
 }

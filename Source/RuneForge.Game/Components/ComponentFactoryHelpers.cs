@@ -10,6 +10,11 @@ namespace RuneForge.Game.Components
 {
     public static class ComponentFactoryHelpers
     {
+        public static Collection<IComponent> CreateComponentCollection(IServiceProvider serviceProvider, IList<ComponentPrototype> componentPrototypes)
+        {
+            return CreateComponentCollection(serviceProvider, componentPrototypes, Array.Empty<ComponentPrototype>());
+        }
+
         public static Collection<IComponent> CreateComponentCollection(IServiceProvider serviceProvider, IList<ComponentPrototype> componentPrototypes, IList<ComponentPrototype> componentPrototypeOverrides)
         {
             Dictionary<Type, ComponentPrototype> componentPrototypeOverridesByTypes = componentPrototypeOverrides.ToDictionary(componentPrototypeOverride => componentPrototypeOverride.GetType());

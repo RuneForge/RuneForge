@@ -56,8 +56,16 @@ namespace RuneForge.Game.Maps
                 Color entityColorShadeC = reader.ReadColor();
                 Color entityColorShadeD = reader.ReadColor();
 
+                int componentPrototypesCount = reader.ReadInt32();
+                List<ComponentPrototype> componentPrototypes = new List<ComponentPrototype>();
+                for (int j = 0; j < componentPrototypesCount; j++)
+                {
+                    ComponentPrototype componentPrototype = reader.ReadComponentPrototype();
+                    componentPrototypes.Add(componentPrototype);
+                }
+
                 PlayerColor color = new PlayerColor(mainColor, entityColorShadeA, entityColorShadeB, entityColorShadeC, entityColorShadeD);
-                playerPrototypes.Add(new PlayerPrototype(id, name, color));
+                playerPrototypes.Add(new PlayerPrototype(id, name, color, componentPrototypes));
             }
 
             return playerPrototypes;

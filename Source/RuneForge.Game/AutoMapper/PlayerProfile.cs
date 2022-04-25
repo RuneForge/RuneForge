@@ -13,11 +13,6 @@ namespace RuneForge.Game.AutoMapper
             DestinationMemberNamingConvention = new ExactMatchNamingConvention();
 
             CreateMap<Player, PlayerDto>();
-            CreateMap<PlayerDto, Player>().ConstructUsing((player, context) =>
-            {
-                PlayerColor playerColor = context.Mapper.Map<PlayerColorDto, PlayerColor>(player.Color);
-                return new Player(player.Id, player.Name, playerColor);
-            });
 
             CreateMap<PlayerColor, PlayerColorDto>();
             CreateMap<PlayerColorDto, PlayerColor>().ConstructUsing((playerColor, context) =>
