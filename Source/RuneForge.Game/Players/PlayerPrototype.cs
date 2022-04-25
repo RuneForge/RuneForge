@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+using RuneForge.Game.Components;
 
 namespace RuneForge.Game.Players
 {
@@ -10,11 +14,14 @@ namespace RuneForge.Game.Players
 
         public PlayerColor Color { get; }
 
-        public PlayerPrototype(Guid id, string name, PlayerColor color)
+        public ReadOnlyCollection<ComponentPrototype> ComponentPrototypes { get; }
+
+        public PlayerPrototype(Guid id, string name, PlayerColor color, IList<ComponentPrototype> componentPrototypes)
         {
             Id = id;
             Name = name;
             Color = color;
+            ComponentPrototypes = new ReadOnlyCollection<ComponentPrototype>(componentPrototypes);
         }
     }
 }
