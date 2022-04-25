@@ -327,12 +327,21 @@
   <PlayerPrototypes>
     <PlayerPrototype Id="EC376F66-FDC5-4F37-B7F9-BFF5F677048C" Name="Human Player">
       <Color MainColor="FF0000A0" EntityColorShadeA="FF0000A0" EntityColorShadeB="FF000078" EntityColorShadeC="FF00005A" EntityColorShadeD="FF00003C" />
+      <ComponentPrototypes>
+        <ResourceContainerComponentPrototype GoldAmount="1200" />
+      </ComponentPrototypes>
     </PlayerPrototype>
     <PlayerPrototype Id="D828CEB3-25EB-4E13-8723-F3D698C175E6" Name="Computer Player">
       <Color MainColor="FFA00000" EntityColorShadeA="FFA00000" EntityColorShadeB="FF780000" EntityColorShadeC="FF5A0000" EntityColorShadeD="FF3C0000" />
+      <ComponentPrototypes>
+        <ResourceContainerComponentPrototype GoldAmount="1200" />
+      </ComponentPrototypes>
     </PlayerPrototype>
     <PlayerPrototype Id="3501414E-B369-49F9-9CE0-B9F5BAF83589" Name="Neutral Passive Player">
       <Color MainColor="FFA0A0A0" EntityColorShadeA="FFA0A0A0" EntityColorShadeB="FF787878" EntityColorShadeC="FF5A5A5A" EntityColorShadeD="FF3C3C3C" />
+      <ComponentPrototypes>
+        <ResourceContainerComponentPrototype />
+      </ComponentPrototypes>
     </PlayerPrototype>
   </PlayerPrototypes>
   <UnitInstancePrototypes>
