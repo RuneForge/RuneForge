@@ -455,7 +455,7 @@ namespace RuneForge.Core.Interface.Controls
         protected override Rectangle GetContainerBounds()
         {
             int x = 7;
-            int y = 30;
+            int y = 29;
             int width = Width - 14;
             int height = Height - 37;
             return new Rectangle(x, y, width, height);
