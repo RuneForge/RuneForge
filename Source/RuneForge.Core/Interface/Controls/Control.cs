@@ -625,15 +625,15 @@ namespace RuneForge.Core.Interface.Controls
             }
             EventHandler<MouseEventArgs> ChildControlMethodSelector(Control control)
             {
-                Viewport viewport = GraphicsControlGeometryHelpers.CreateChildViewport(in currentControlViewport, control.Bounds);
-                viewport = GraphicsControlGeometryHelpers.CreateChildViewport(in viewport, GetContainerBounds());
+                Viewport viewport = GraphicsControlGeometryHelpers.CreateChildViewport(in currentControlViewport, GetContainerBounds());
+                viewport = GraphicsControlGeometryHelpers.CreateChildViewport(in viewport, control.Bounds);
                 e.SetViewport(in viewport);
                 return methodSelector(control);
             }
             InvokeChildControlEventMethod(BuiltInControlMethodSelector, true, false, sender, e);
             InvokeChildControlEventMethod(ChildControlMethodSelector, false, true, sender, e);
             e.SetViewport(in currentControlViewport);
-            if (!e.Handled && Enabled && Visible && Bounds.Contains(e.GetLocationInsideViewport()))
+            if (!e.Handled && Enabled && Visible && new Rectangle(0, 0, Size.X, Size.Y).Contains(e.GetLocationInsideViewport()))
                 e.Handle();
         }
 
