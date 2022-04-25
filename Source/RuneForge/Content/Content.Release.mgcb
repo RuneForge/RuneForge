@@ -99,6 +99,11 @@
 /processor:PassThroughProcessor
 /build:TextureAtlases/Interface/Controls/Window.xml
 
+#begin TextureAtlases/Interface/Icons.xml
+/importer:TextureAtlasImporter
+/processor:PassThroughProcessor
+/build:TextureAtlases/Interface/Icons.xml
+
 #begin TextureAtlases/Maps/SummerPlains.xml
 /importer:TextureAtlasImporter
 /processor:PassThroughProcessor
