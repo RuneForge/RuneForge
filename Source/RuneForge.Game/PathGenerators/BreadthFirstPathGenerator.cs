@@ -212,7 +212,9 @@ namespace RuneForge.Game.PathGenerators
             HashSet<Point> occupiedCells = new HashSet<Point>();
             foreach (Entity entity in m_gameSessionContext.Units.Concat<Entity>(m_gameSessionContext.Buildings))
             {
-                if (entity.TryGetComponentOfType(out LocationComponent locationComponent))
+                if (entity.TryGetComponentOfType(out LocationComponent locationComponent)
+                    && (!entity.TryGetComponentOfType(out UnitShelterOccupantComponent shelterOccupantComponent)
+                    || !shelterOccupantComponent.InsideShelter))
                 {
                     foreach (Point occupiedCell in locationComponent.GetOccupiedCells())
                         occupiedCells.Add(occupiedCell);
