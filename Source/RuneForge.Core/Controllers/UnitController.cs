@@ -2,7 +2,10 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
+using RuneForge.Game.Buildings;
+using RuneForge.Game.Buildings.Interfaces;
 using RuneForge.Game.Components.Implementations;
+using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Orders.Implementations;
 using RuneForge.Game.PathGenerators.Interfaces;
 using RuneForge.Game.Units;
@@ -31,6 +34,21 @@ namespace RuneForge.Core.Controllers
 
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
             orderQueueComponent.EnqueueOrder(new MoveOrder(unit, destinationCellX, destinationCellY, false, pathGenerator));
+            m_unitService.RegisterUnitChanges(unit.Id);
+        }
+
+        public void GatherResources(Unit unit, Building resourceSourceBuilding, bool addToQueue)
+        {
+            if (!unit.TryGetComponentOfType(out OrderQueueComponent orderQueueComponent) || !unit.HasComponentOfType<MovementComponent>())
+                return;
+
+            if (!addToQueue)
+                orderQueueComponent.ClearOrderQueue();
+
+            IGameSessionContext gameSessionContext = m_serviceProvider.GetRequiredService<IGameSessionContext>();
+            IBuildingService buildingService = m_serviceProvider.GetRequiredService<IBuildingService>();
+            IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
+            orderQueueComponent.EnqueueOrder(new GatherResourcesOrder(unit, resourceSourceBuilding, false, gameSessionContext, buildingService, pathGenerator));
             m_unitService.RegisterUnitChanges(unit.Id);
         }
 
