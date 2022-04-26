@@ -8,5 +8,6 @@
     <LocationComponentPrototype Width="1" Height="1" />
     <DirectionComponentPrototype Direction="North" />
     <MovementComponentPrototype MovementSpeed="1.0" MovementType="LandMovementRequired" />
+    <HealthComponentPrototype Health="600" MaxHealth="600" />
   </ComponentPrototypes>
 </UnitPrototype>

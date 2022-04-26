@@ -10,5 +10,6 @@
     <MovementComponentPrototype MovementSpeed="0.75" MovementType="LandMovementRequired" />
     <ResourceContainerComponentPrototype />
     <UnitShelterOccupantComponentPrototype />
+    <HealthComponentPrototype Health="240" MaxHealth="240" />
   </ComponentPrototypes>
 </UnitPrototype>
