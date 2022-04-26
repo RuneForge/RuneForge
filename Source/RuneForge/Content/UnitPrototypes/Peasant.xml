@@ -9,5 +9,6 @@
     <DirectionComponentPrototype Direction="North" />
     <MovementComponentPrototype MovementSpeed="0.75" MovementType="LandMovementRequired" />
     <ResourceContainerComponentPrototype />
+    <UnitShelterOccupantComponentPrototype />
   </ComponentPrototypes>
 </UnitPrototype>
