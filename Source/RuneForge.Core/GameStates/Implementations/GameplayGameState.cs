@@ -23,6 +23,7 @@ using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Orders.Implementations;
+using RuneForge.Game.Players.Interfaces;
 using RuneForge.Game.Systems.Interfaces;
 using RuneForge.Game.Units;
 
@@ -40,6 +41,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly IMouseEventProvider m_mouseEventProvider;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
         private readonly ISpriteFontProvider m_spriteFontProvider;
+        private readonly IPlayerService m_playerService;
         private readonly IEntitySelectionContext m_entitySelectionContext;
         private readonly IEntitySelector m_entitySelector;
         private readonly IOrderTypeResolver m_orderTypeResolver;
@@ -55,6 +57,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private EntityDetailsWindow m_entityDetailsWindow;
         private OrderConfirmationDialogWindow m_orderConfirmationDialogWindow;
         private TargetBasedOrderScheduledEventArgs m_activeTargetBasedOrderEventArgs;
+        private PlayerResourceStatisticsWindow m_playerResourceStatisticsWindow;
 
         public GameplayGameState(
             IGameSessionContext gameSessionContext,
@@ -63,6 +66,7 @@ namespace RuneForge.Core.GameStates.Implementations
             IMouseEventProvider mouseEventProvider,
             ISpriteBatchProvider spriteBatchProvider,
             ISpriteFontProvider spriteFontProvider,
+            IPlayerService playerService,
             IEntitySelectionContext entitySelectionContext,
             IEntitySelector entitySelector,
             IOrderTypeResolver orderTypeResolver,
@@ -82,6 +86,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_mouseEventProvider = mouseEventProvider;
             m_spriteBatchProvider = spriteBatchProvider;
             m_spriteFontProvider = spriteFontProvider;
+            m_playerService = playerService;
             m_entitySelectionContext = entitySelectionContext;
             m_entitySelector = entitySelector;
             m_orderTypeResolver = orderTypeResolver;
@@ -97,6 +102,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_entityDetailsWindow = null;
             m_orderConfirmationDialogWindow = null;
             m_activeTargetBasedOrderEventArgs = null;
+            m_playerResourceStatisticsWindow = null;
         }
 
         public override void Run()
@@ -105,6 +111,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_graphicsInterfaceService.Viewport = new Viewport(0, 0, graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight);
             m_graphicsInterfaceService.RegisterControl(m_entityDetailsWindow);
             m_graphicsInterfaceService.RegisterControl(m_orderConfirmationDialogWindow);
+            m_graphicsInterfaceService.RegisterControl(m_playerResourceStatisticsWindow);
             SubscribeToKeyboardEvents();
             SubscribeToMouseEvents();
             base.Run();
@@ -113,6 +120,7 @@ namespace RuneForge.Core.GameStates.Implementations
         {
             m_graphicsInterfaceService.UnregisterControl(m_entityDetailsWindow);
             m_graphicsInterfaceService.UnregisterControl(m_orderConfirmationDialogWindow);
+            m_graphicsInterfaceService.UnregisterControl(m_playerResourceStatisticsWindow);
             UnsubscribeFromKeyboardEvents();
             UnsubscribeFromMouseEvents();
             base.Stop();
@@ -122,6 +130,8 @@ namespace RuneForge.Core.GameStates.Implementations
         {
             foreach (ISystem system in m_systems.Where(system => system.Enabled))
                 system.Update(gameTime);
+
+            m_playerResourceStatisticsWindow.UpdateStatistics();
 
             base.Update(gameTime);
         }
@@ -165,6 +175,7 @@ namespace RuneForge.Core.GameStates.Implementations
             CreateInterfaceWindows();
             m_entityDetailsWindow.LoadContent();
             m_orderConfirmationDialogWindow.LoadContent();
+            m_playerResourceStatisticsWindow.LoadContent();
         }
 
         private void SubscribeToKeyboardEvents()
@@ -224,6 +235,19 @@ namespace RuneForge.Core.GameStates.Implementations
                 Visible = false,
             };
             m_orderConfirmationDialogWindow.OrderCancelled += (sender, e) => HandleOrderCancellation(sender, e);
+
+            m_playerResourceStatisticsWindow = new PlayerResourceStatisticsWindow(
+                new ControlEventSource(),
+                m_contentManagerProvider.Value,
+                m_graphicsDeviceProvider.Value,
+                m_interfaceSpriteBatch,
+                m_spriteFontProvider
+                )
+            {
+                Player = m_playerService.GetPlayer(m_gameSessionContext.Map.HumanPlayerId),
+            };
+            m_playerResourceStatisticsWindow.X = m_graphicsInterfaceService.Viewport.Width - (m_playerResourceStatisticsWindow.Width + c_interfaceWindowsOffset);
+            m_playerResourceStatisticsWindow.Y = c_interfaceWindowsOffset;
 
             m_entitySelectionContext.EntitySelected += (sender, e) =>
             {
