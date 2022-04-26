@@ -36,7 +36,10 @@ namespace RuneForge.Core.Rendering
         public override void Draw(GameTime gameTime)
         {
             Entity selectedEntity = m_entitySelectionContext.Entity;
-            if (selectedEntity != null && selectedEntity.TryGetComponentOfType(out LocationComponent locationComponent))
+            if (selectedEntity != null
+                && selectedEntity.TryGetComponentOfType(out LocationComponent locationComponent)
+                && (!selectedEntity.TryGetComponentOfType(out UnitShelterOccupantComponent shelterOccupantComponent)
+                || !shelterOccupantComponent.InsideShelter))
             {
                 Player entityOwner = selectedEntity switch
                 {

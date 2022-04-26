@@ -65,7 +65,10 @@ namespace RuneForge.Game.Orders.Implementations
                     }
                 }
                 if ((movementComponent.MovementScheduled && !movementComponent.PathBlocked) || movementComponent.MovementInProgress)
+                {
                     UpdateMoveAnimation(gameTime.ElapsedGameTime);
+                    stateChanged = true;
+                }
             }
 
             base.Update(gameTime, out bool stateChangedInternal);
@@ -89,12 +92,14 @@ namespace RuneForge.Game.Orders.Implementations
             animationStateComponent.ElapsedTime = TimeSpan.Zero;
             animationStateComponent.ResetRequested = requestReset;
         }
+
         private void UpdateMoveAnimation(TimeSpan elapsedTime)
         {
             if (!Entity.TryGetComponentOfType(out AnimationStateComponent animationStateComponent))
                 return;
             animationStateComponent.ElapsedTime = elapsedTime;
         }
+
         private void StopMoveAnimation()
         {
             if (!Entity.TryGetComponentOfType(out AnimationStateComponent animationStateComponent))

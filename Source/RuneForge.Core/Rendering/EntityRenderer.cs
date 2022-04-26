@@ -74,6 +74,8 @@ namespace RuneForge.Core.Rendering
             {
                 if (!entity.TryGetComponentOfType(out LocationComponent locationComponent))
                     continue;
+                if (entity.TryGetComponentOfType(out UnitShelterOccupantComponent unitShelterOccupantComponent) && unitShelterOccupantComponent.InsideShelter)
+                    continue;
 
                 int minX = (int)locationComponent.X;
                 int minY = (int)locationComponent.Y;
