@@ -23,6 +23,7 @@ namespace RuneForge.Content.Pipeline.Game.Units
         [XmlArrayItem(ElementName = "ResourceContainerComponentPrototype", Type = typeof(ResourceContainerComponentPrototype))]
         [XmlArrayItem(ElementName = "UnitShelterOccupantComponentPrototype", Type = typeof(UnitShelterOccupantComponentPrototype))]
         [XmlArrayItem(ElementName = "HealthComponentPrototype", Type = typeof(HealthComponentPrototype))]
+        [XmlArrayItem(ElementName = "MeleeCombatComponentPrototype", Type = typeof(MeleeCombatComponentPrototype))]
         public List<ComponentPrototype> ComponentPrototypes { get; set; }
     }
 }
