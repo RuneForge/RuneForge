@@ -123,6 +123,7 @@ namespace RuneForge.Core.Interface.Windows
 
                 Text = "Gather Resources",
             };
+            m_unitGatherResourcesButton.Clicked += (sender, e) => OnTargetBasedOrderScheduled(new TargetBasedOrderScheduledEventArgs(typeof(GatherResourcesOrder)));
             m_unitSpecificControls.Add(m_unitGatherResourcesButton);
 
             m_unitRepairButton = new Button(null, ContentManager, GraphicsDevice, SpriteBatch)
