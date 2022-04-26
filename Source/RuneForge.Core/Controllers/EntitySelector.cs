@@ -28,6 +28,8 @@ namespace RuneForge.Core.Controllers
             {
                 if (!entityToCheck.TryGetComponentOfType(out LocationComponent locationComponent))
                     continue;
+                if (entityToCheck.TryGetComponentOfType(out UnitShelterOccupantComponent unitShelterOccupantComponent) && unitShelterOccupantComponent.InsideShelter)
+                    continue;
 
                 Rectangle entityRectangle = new Rectangle((int)locationComponent.X, (int)locationComponent.Y, locationComponent.Width, locationComponent.Height);
                 if (entityRectangle.Contains(worldPoint))
