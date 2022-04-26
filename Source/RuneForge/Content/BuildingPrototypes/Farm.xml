@@ -3,5 +3,6 @@
   <ComponentPrototypes>
     <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Buildings\Farm" HasPlayerColor="true" />
     <LocationComponentPrototype Width="2" Height="2" />
+    <DurabilityComponentPrototype Durability="800" MaxDurability="800" />
   </ComponentPrototypes>
 </BuildingPrototype>
