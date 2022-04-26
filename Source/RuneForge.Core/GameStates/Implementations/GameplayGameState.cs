@@ -18,6 +18,7 @@ using RuneForge.Core.Interface.Windows;
 using RuneForge.Core.Rendering;
 using RuneForge.Core.Rendering.Interfaces;
 using RuneForge.Game.Buildings;
+using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.Entities;
 using RuneForge.Game.GameSessions;
 using RuneForge.Game.GameSessions.Interfaces;
@@ -192,15 +193,15 @@ namespace RuneForge.Core.GameStates.Implementations
         }
         private void SubscribeToMouseEvents()
         {
-            m_mouseEventProvider.MouseButtonClicked += HandleEntitySelection;
-            m_mouseEventProvider.MouseButtonClicked += HandleOrderOnRightClick;
             m_mouseEventProvider.MouseButtonClicked += HandleOrderConfirmation;
+            m_mouseEventProvider.MouseButtonClicked += HandleOrderOnRightClick;
+            m_mouseEventProvider.MouseButtonClicked += HandleEntitySelection;
         }
         private void UnsubscribeFromMouseEvents()
         {
-            m_mouseEventProvider.MouseButtonClicked -= HandleEntitySelection;
-            m_mouseEventProvider.MouseButtonClicked -= HandleOrderOnRightClick;
             m_mouseEventProvider.MouseButtonClicked -= HandleOrderConfirmation;
+            m_mouseEventProvider.MouseButtonClicked -= HandleOrderOnRightClick;
+            m_mouseEventProvider.MouseButtonClicked -= HandleEntitySelection;
         }
 
         private void CreateInterfaceWindows()
@@ -358,6 +359,7 @@ namespace RuneForge.Core.GameStates.Implementations
         {
             if (!e.Handled && e.Button == MouseButtons.LeftButton && m_activeTargetBasedOrderEventArgs != null)
             {
+                e.Handle();
                 (int worldX, int worldY) = GetWorldPointByScreenPoint(e.Location, out _);
                 ExecuteOrder(m_entityDetailsWindow.Entity, worldX, worldY, m_activeTargetBasedOrderEventArgs.OrderType);
                 m_activeTargetBasedOrderEventArgs.Complete();
@@ -405,6 +407,21 @@ namespace RuneForge.Core.GameStates.Implementations
             {
                 Point destinationCell = new Point(worldX / Map.CellWidth, worldY / Map.CellHeight);
                 m_unitController.Move(unit, destinationCell.X, destinationCell.Y, addToQueue);
+            }
+            if (orderType == typeof(GatherResourcesOrder))
+            {
+                Building resourceSourceBuilding = m_gameSessionContext.Buildings
+                    .Where(entity => entity is Building
+                        && entity.TryGetComponentOfType(out LocationComponent locationComponent)
+                        && new Rectangle((int)locationComponent.X, (int)locationComponent.Y, locationComponent.Width, locationComponent.Height).Contains(new Point(worldX, worldY))
+                        && (!entity.TryGetComponentOfType(out UnitShelterOccupantComponent shelterOccupantComponent)
+                        || !shelterOccupantComponent.InsideShelter)
+                        && entity.TryGetComponentOfType(out ResourceSourceComponent resourceSourceComponent)
+                        && entity.TryGetComponentOfType(out ResourceContainerComponent resourceContainerComponent)
+                        && resourceContainerComponent.GetResourceAmount(resourceSourceComponent.ResourceType) > 0)
+                    .FirstOrDefault();
+                if (resourceSourceBuilding != null)
+                    m_unitController.GatherResources(unit, resourceSourceBuilding, addToQueue);
             }
         }
 
