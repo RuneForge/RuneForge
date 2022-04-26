@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 using RuneForge.Game.Buildings;
 using RuneForge.Game.Maps;
@@ -17,6 +18,8 @@ namespace RuneForge.Game.GameSessions.Interfaces
         public Collection<Building> Buildings { get; }
 
         public Collection<Player> Players { get; }
+
+        public Random RandomNumbersGenerator { get; }
 
         public bool Initialized { get; }
 

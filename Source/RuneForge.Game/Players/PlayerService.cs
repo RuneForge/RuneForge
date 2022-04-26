@@ -17,6 +17,7 @@ namespace RuneForge.Game.Players
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly IMapper m_mapper;
         private readonly Dictionary<Guid, int> m_playersByIds;
+        private readonly HashSet<Guid> m_changedPlayerIds;
 
         public PlayerService(IPlayerRepository playerRepository, IGameSessionContext gameSessionContext, IMapper mapper)
         {
@@ -24,6 +25,7 @@ namespace RuneForge.Game.Players
             m_gameSessionContext = gameSessionContext;
             m_mapper = mapper;
             m_playersByIds = new Dictionary<Guid, int>();
+            m_changedPlayerIds = new HashSet<Guid>();
         }
 
         public Player GetPlayer(Guid playerId)
@@ -61,9 +63,31 @@ namespace RuneForge.Game.Players
                 for (int i = playerIndex; i < m_gameSessionContext.Players.Count; i++)
                     m_playersByIds[m_gameSessionContext.Players[i].Id] = i;
                 m_playerRepository.RemovePlayer(playerId);
+                if (m_changedPlayerIds.Contains(playerId))
+                    m_changedPlayerIds.Remove(playerId);
             }
             else
                 throw new KeyNotFoundException("No player was found by the specified Id.");
+        }
+
+        public void RegisterPlayerChanges(Guid playerId)
+        {
+            if (m_playersByIds.ContainsKey(playerId))
+            {
+                m_changedPlayerIds.Add(playerId);
+            }
+            else
+                throw new KeyNotFoundException("No player was found by the specified Id.");
+        }
+
+        public void CommitChanges()
+        {
+            foreach (Guid playerId in m_changedPlayerIds)
+            {
+                Player player = GetPlayer(playerId);
+                m_playerRepository.SavePlayer(m_mapper.Map<Player, PlayerDto>(player));
+            }
+            m_changedPlayerIds.Clear();
         }
     }
 }

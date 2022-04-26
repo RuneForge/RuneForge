@@ -15,7 +15,9 @@ namespace RuneForge.Game.Components.Implementations
         private int m_width;
         private int m_height;
         private ReadOnlyCollection<Point> m_occupiedCellsCache;
-        private bool m_cacheInvalidated;
+        private ReadOnlyCollection<Point> m_surroundingCellsCache;
+        private bool m_occupiedCellsCacheInvalidated;
+        private bool m_surroundingCellsCacheInvalidated;
 
         public LocationComponent(float x, float y, int width, int height)
         {
@@ -24,7 +26,9 @@ namespace RuneForge.Game.Components.Implementations
             m_width = width;
             m_height = height;
             m_occupiedCellsCache = null;
-            m_cacheInvalidated = true;
+            m_surroundingCellsCache = null;
+            m_occupiedCellsCacheInvalidated = true;
+            m_surroundingCellsCacheInvalidated = true;
         }
 
         public float X
@@ -136,7 +140,11 @@ namespace RuneForge.Game.Components.Implementations
 
         public ReadOnlyCollection<Point> GetOccupiedCells()
         {
-            return !m_cacheInvalidated ? m_occupiedCellsCache : m_occupiedCellsCache = RebuildOccupiedCellsCache();
+            return !m_occupiedCellsCacheInvalidated ? m_occupiedCellsCache : m_occupiedCellsCache = RebuildOccupiedCellsCache();
+        }
+        public ReadOnlyCollection<Point> GetSurroundingCells()
+        {
+            return !m_surroundingCellsCacheInvalidated ? m_surroundingCellsCache : m_surroundingCellsCache = RebuildSurroundingCellsCache();
         }
 
         private ReadOnlyCollection<Point> RebuildOccupiedCellsCache()
@@ -148,13 +156,34 @@ namespace RuneForge.Game.Components.Implementations
                 int yCells = YCells +  (i / HeightCells);
                 occupiedCells.Add(new Point(xCells, yCells));
             }
-            m_cacheInvalidated = false;
+            m_occupiedCellsCacheInvalidated = false;
             return occupiedCells.AsReadOnly();
+        }
+        private ReadOnlyCollection<Point> RebuildSurroundingCellsCache()
+        {
+            List<Point> surroundingCells = new List<Point>((WidthCells * 2) + (HeightCells * 2) + 4);
+            for (int x = 0; x < WidthCells; x++)
+            {
+                surroundingCells.Add(new Point(x + XCells, YCells - 1));
+                surroundingCells.Add(new Point(x + XCells, YCells + HeightCells));
+            }
+            for (int y = 0; y < HeightCells; y++)
+            {
+                surroundingCells.Add(new Point(XCells - 1, y + YCells));
+                surroundingCells.Add(new Point(XCells + WidthCells, y + YCells));
+            }
+            surroundingCells.Add(new Point(XCells - 1, YCells - 1));
+            surroundingCells.Add(new Point(XCells + WidthCells, YCells - 1));
+            surroundingCells.Add(new Point(XCells - 1, YCells + HeightCells));
+            surroundingCells.Add(new Point(XCells + WidthCells, YCells + HeightCells));
+            m_surroundingCellsCacheInvalidated = false;
+            return surroundingCells.AsReadOnly();
         }
 
         private void InvalidateCache()
         {
-            m_cacheInvalidated = true;
+            m_occupiedCellsCacheInvalidated = true;
+            m_surroundingCellsCacheInvalidated = true;
         }
     }
 }
