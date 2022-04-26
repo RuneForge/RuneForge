@@ -27,7 +27,8 @@ namespace RuneForge.Game.AutoMapper
                 .Include<ResourceSourceComponent, ResourceSourceComponentDto>()
                 .Include<ResourceStorageComponent, ResourceStorageComponentDto>()
                 .Include<UnitShelterComponent, UnitShelterComponentDto>()
-                .Include<UnitShelterOccupantComponent, UnitShelterOccupantComponentDto>();
+                .Include<UnitShelterOccupantComponent, UnitShelterOccupantComponentDto>()
+                .Include<HealthComponent, HealthComponentDto>();
 
             CreateMap<TextureAtlasComponent, TextureAtlasComponentDto>();
             CreateMap<AnimationAtlasComponent, AnimationAtlasComponentDto>();
@@ -42,6 +43,7 @@ namespace RuneForge.Game.AutoMapper
             CreateMap<UnitShelterComponent, UnitShelterComponentDto>()
                 .ForMember(component => component.OccupantIds, options => options.MapFrom(component => component.Occupants.Select(unit => unit.Id).ToArray()));
             CreateMap<UnitShelterOccupantComponent, UnitShelterOccupantComponentDto>();
+            CreateMap<HealthComponent, HealthComponentDto>();
         }
     }
 }
