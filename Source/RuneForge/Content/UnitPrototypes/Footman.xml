@@ -9,6 +9,6 @@
     <DirectionComponentPrototype Direction="North" />
     <MovementComponentPrototype MovementSpeed="1.0" MovementType="LandMovementRequired" />
     <HealthComponentPrototype Health="600" MaxHealth="600" />
-    <MeleeCombatComponentPrototype />
+    <MeleeCombatComponentPrototype AttackPower="30" CycleTimeMilliseconds="800" ActionTimeMilliseconds="400" />
   </ComponentPrototypes>
 </UnitPrototype>
