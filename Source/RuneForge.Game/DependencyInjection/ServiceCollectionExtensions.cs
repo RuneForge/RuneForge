@@ -8,6 +8,7 @@ using RuneForge.Data.Players;
 using RuneForge.Data.Players.Interfaces;
 using RuneForge.Data.Units;
 using RuneForge.Data.Units.Interfaces;
+using RuneForge.Game.AutoMapper.Resolvers;
 using RuneForge.Game.Buildings;
 using RuneForge.Game.Buildings.Interfaces;
 using RuneForge.Game.Components.Factories;
@@ -95,6 +96,12 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<ISystem, OrderSystem>();
             services.AddScoped<ISystem, MovementSystem>();
             services.AddScoped<ISystem, ResourceSystem>();
+            return services;
+        }
+
+        public static IServiceCollection AddAutoMapperValueResolvers(this IServiceCollection services)
+        {
+            services.AddTransient<MeleeCombatComponentTargetEntityIdValueResolver>();
             return services;
         }
     }

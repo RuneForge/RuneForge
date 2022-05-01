@@ -8,6 +8,9 @@ namespace RuneForge.Content.Pipeline.Game.Components.PrototypeWriters
     {
         public override void WriteComponentPrototype(ContentWriter contentWriter, MeleeCombatComponentPrototype componentPrototype)
         {
+            contentWriter.Write(componentPrototype.AttackPower);
+            contentWriter.Write(componentPrototype.CycleTimeMilliseconds);
+            contentWriter.Write(componentPrototype.ActionTimeMilliseconds);
         }
     }
 }

@@ -74,6 +74,7 @@ namespace RuneForge
             services.AddBuildingServices();
             services.AddPlayerServices();
             services.AddEntityComponentSystemServices();
+            services.AddAutoMapperValueResolvers();
         }
     }
 }

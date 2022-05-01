@@ -6,7 +6,7 @@ namespace RuneForge.Game.Components.Factories
     {
         public override MeleeCombatComponent CreateComponentFromPrototype(MeleeCombatComponentPrototype componentPrototype, MeleeCombatComponentPrototype componentPrototypeOverride)
         {
-            return new MeleeCombatComponent();
+            return new MeleeCombatComponent(componentPrototype.AttackPower, componentPrototype.CycleTime, componentPrototype.ActionTime);
         }
     }
 }
