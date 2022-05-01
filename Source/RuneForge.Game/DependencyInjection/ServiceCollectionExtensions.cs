@@ -96,12 +96,14 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<ISystem, OrderSystem>();
             services.AddScoped<ISystem, MovementSystem>();
             services.AddScoped<ISystem, ResourceSystem>();
+            services.AddScoped<ISystem, MeleeCombatSystem>();
             return services;
         }
 
         public static IServiceCollection AddAutoMapperValueResolvers(this IServiceCollection services)
         {
             services.AddTransient<MeleeCombatComponentTargetEntityIdValueResolver>();
+            services.AddTransient<AttackOrderTargetEntityIdValueResolver>();
             return services;
         }
     }
