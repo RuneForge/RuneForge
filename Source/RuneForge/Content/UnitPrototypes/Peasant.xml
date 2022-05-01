@@ -11,5 +11,6 @@
     <ResourceContainerComponentPrototype />
     <UnitShelterOccupantComponentPrototype />
     <HealthComponentPrototype Health="240" MaxHealth="240" />
+    <MeleeCombatComponentPrototype />
   </ComponentPrototypes>
 </UnitPrototype>
