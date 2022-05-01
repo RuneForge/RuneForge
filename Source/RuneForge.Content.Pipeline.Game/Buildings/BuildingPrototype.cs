@@ -21,6 +21,7 @@ namespace RuneForge.Content.Pipeline.Game.Buildings
         [XmlArrayItem(ElementName = "ResourceSourceComponentPrototype", Type = typeof(ResourceSourceComponentPrototype))]
         [XmlArrayItem(ElementName = "ResourceStorageComponentPrototype", Type = typeof(ResourceStorageComponentPrototype))]
         [XmlArrayItem(ElementName = "UnitShelterComponentPrototype", Type = typeof(UnitShelterComponentPrototype))]
+        [XmlArrayItem(ElementName = "DurabilityComponentPrototype", Type = typeof(DurabilityComponentPrototype))]
         public List<ComponentPrototype> ComponentPrototypes { get; set; }
     }
 }

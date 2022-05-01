@@ -4,5 +4,6 @@
     <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Buildings\Barracks" HasPlayerColor="true" />
     <OrderQueueComponentPrototype />
     <LocationComponentPrototype Width="3" Height="3" />
+    <DurabilityComponentPrototype Durability="1200" MaxDurability="1200" />
   </ComponentPrototypes>
 </BuildingPrototype>
