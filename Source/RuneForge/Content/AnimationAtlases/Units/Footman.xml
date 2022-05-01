@@ -127,66 +127,66 @@
     <!-- Attack Animations -->
     <Animation Name="Attack-North" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-North-0" X="0" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-North-1" X="0" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-North-2" X="0" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-North-3" X="0" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-North-0" X="0" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-North-1" X="0" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-North-2" X="0" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-North-3" X="0" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Attack-South" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-South-0" X="72" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-South-1" X="72" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-South-2" X="72" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-South-3" X="72" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-South-0" X="72" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-South-1" X="72" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-South-2" X="72" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-South-3" X="72" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Attack-West" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-West-0" X="144" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-West-1" X="144" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-West-2" X="144" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-West-3" X="144" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-West-0" X="144" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-West-1" X="144" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-West-2" X="144" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-West-3" X="144" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Attack-East" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-East-0" X="216" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-East-1" X="216" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-East-2" X="216" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-East-3" X="216" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-East-0" X="216" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-East-1" X="216" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-East-2" X="216" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-East-3" X="216" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Attack-NorthWest" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-NorthWest-0" X="288" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-NorthWest-1" X="288" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-NorthWest-2" X="288" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-NorthWest-3" X="288" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-NorthWest-0" X="288" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-NorthWest-1" X="288" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-NorthWest-2" X="288" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-NorthWest-3" X="288" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Attack-NorthEast" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-NorthEast-0" X="360" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-NorthEast-1" X="360" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-NorthEast-2" X="360" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-NorthEast-3" X="360" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-NorthEast-0" X="360" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-NorthEast-1" X="360" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-NorthEast-2" X="360" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-NorthEast-3" X="360" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Attack-SouthWest" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-SouthWest-0" X="432" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-SouthWest-1" X="432" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-SouthWest-2" X="432" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-SouthWest-3" X="432" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-SouthWest-0" X="432" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-SouthWest-1" X="432" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-SouthWest-2" X="432" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-SouthWest-3" X="432" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <Animation Name="Attack-SouthEast" Looped="false" Reversed="false">
       <AnimationRegions>
-        <AnimationRegion Name="Attack-SouthEast-0" X="504" Y="360" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-SouthEast-1" X="504" Y="432" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-SouthEast-2" X="504" Y="504" Width="72" Height="72" FrameTimeMilliseconds="48" />
-        <AnimationRegion Name="Attack-SouthEast-3" X="504" Y="576" Width="72" Height="72" FrameTimeMilliseconds="80" />
+        <AnimationRegion Name="Attack-SouthEast-0" X="504" Y="360" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-SouthEast-1" X="504" Y="432" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-SouthEast-2" X="504" Y="504" Width="72" Height="72" FrameTimeMilliseconds="200" />
+        <AnimationRegion Name="Attack-SouthEast-3" X="504" Y="576" Width="72" Height="72" FrameTimeMilliseconds="200" />
       </AnimationRegions>
     </Animation>
     <!-- Death Animations -->
