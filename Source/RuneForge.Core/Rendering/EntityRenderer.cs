@@ -198,7 +198,7 @@ namespace RuneForge.Core.Rendering
                 m_animationCache[entity] = animation;
             }
 
-            if (animationStateComponent.ResetRequested)
+            if (animationStateComponent.ResetRequested || animation.Completed)
                 animation.Reset();
             animation.Update(new GameTime(TimeSpan.Zero, animationStateComponent.ElapsedTime));
 
