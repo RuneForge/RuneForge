@@ -42,6 +42,8 @@ namespace RuneForge.Game.GameSessions
 
         public bool Initialized { get; private set; }
 
+        public bool Completed { get; private set; }
+
         public GameSessionContext(
             IMapLandscapeCellTypeResolver landscapeCellTypeResolver,
             IMapDecorationCellTypeResolver decorationCellTypeResolver,
@@ -75,6 +77,7 @@ namespace RuneForge.Game.GameSessions
             Players = new Collection<Player>();
             RandomNumbersGenerator = new Random();
             Initialized = false;
+            Completed = false;
         }
 
         public void Initialize(GameSessionParameters parameters)
@@ -127,6 +130,16 @@ namespace RuneForge.Game.GameSessions
             {
                 Building building = buildingFactory.CreateFromInstancePrototype(buildingInstancePrototype);
                 buildingService.AddBuilding(building);
+            }
+        }
+
+        public void Complete()
+        {
+            if (Completed)
+                throw new NotSupportedException("Unable to complete the game session a second time.");
+            else
+            {
+                Completed = true;
             }
         }
     }

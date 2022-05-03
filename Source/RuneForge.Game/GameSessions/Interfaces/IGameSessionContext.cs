@@ -23,6 +23,10 @@ namespace RuneForge.Game.GameSessions.Interfaces
 
         public bool Initialized { get; }
 
+        public bool Completed { get; }
+
         public void Initialize(GameSessionParameters parameters);
+
+        public void Complete();
     }
 }
