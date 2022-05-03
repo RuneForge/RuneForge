@@ -30,6 +30,13 @@ namespace RuneForge.Game.Units
             return new Unit(unit.Id, unit.Name, owner, Array.Empty<IComponent>());
         }
 
+        public Unit CreateFromPrototype(UnitPrototype prototype, Player owner)
+        {
+            int id = m_nextUnitId++;
+            Collection<IComponent> components = ComponentFactoryHelpers.CreateComponentCollection(m_serviceProvider, prototype.ComponentPrototypes);
+            return new Unit(id, prototype.Name, owner, components);
+        }
+
         public Unit CreateFromInstancePrototype(UnitInstancePrototype instancePrototype)
         {
             int id = m_nextUnitId++;
