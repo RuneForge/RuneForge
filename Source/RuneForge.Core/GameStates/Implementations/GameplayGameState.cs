@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 using RuneForge.Core.Controllers;
 using RuneForge.Core.Controllers.Interfaces;
+using RuneForge.Core.GameStates.Interfaces;
 using RuneForge.Core.Input;
 using RuneForge.Core.Input.EventProviders.Interfaces;
 using RuneForge.Core.Interface.Controls;
@@ -38,6 +39,7 @@ namespace RuneForge.Core.GameStates.Implementations
 
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly IGraphicsInterfaceService m_graphicsInterfaceService;
+        private readonly IGameStateService m_gameStateService;
         private readonly IKeyboardEventProvider m_keyboardEventProvider;
         private readonly IMouseEventProvider m_mouseEventProvider;
         private readonly ISpriteBatchProvider m_spriteBatchProvider;
@@ -63,6 +65,7 @@ namespace RuneForge.Core.GameStates.Implementations
         public GameplayGameState(
             IGameSessionContext gameSessionContext,
             IGraphicsInterfaceService graphicsInterfaceService,
+            IGameStateService gameStateService,
             IKeyboardEventProvider keyboardEventProvider,
             IMouseEventProvider mouseEventProvider,
             ISpriteBatchProvider spriteBatchProvider,
@@ -83,6 +86,7 @@ namespace RuneForge.Core.GameStates.Implementations
         {
             m_gameSessionContext = gameSessionContext;
             m_graphicsInterfaceService = graphicsInterfaceService;
+            m_gameStateService = gameStateService;
             m_keyboardEventProvider = keyboardEventProvider;
             m_mouseEventProvider = mouseEventProvider;
             m_spriteBatchProvider = spriteBatchProvider;
@@ -135,6 +139,9 @@ namespace RuneForge.Core.GameStates.Implementations
             m_entityDetailsWindow.UpdateEntityDetails();
             m_playerResourceStatisticsWindow.UpdateStatistics();
 
+            if (m_gameSessionContext.Completed)
+                CompleteState();
+
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
@@ -178,6 +185,11 @@ namespace RuneForge.Core.GameStates.Implementations
             m_entityDetailsWindow.LoadContent();
             m_orderConfirmationDialogWindow.LoadContent();
             m_playerResourceStatisticsWindow.LoadContent();
+        }
+
+        private void CompleteState()
+        {
+            m_gameStateService.RunGameState<MainMenuGameState>();
         }
 
         private void SubscribeToKeyboardEvents()
