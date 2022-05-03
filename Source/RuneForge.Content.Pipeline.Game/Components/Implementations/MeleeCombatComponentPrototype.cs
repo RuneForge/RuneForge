@@ -11,13 +11,13 @@ namespace RuneForge.Content.Pipeline.Game.Components.Implementations
         private const string c_runtimeTypeName = "RuneForge.Game.Components.Implementations.MeleeCombatComponentPrototype, RuneForge.Game";
 
         [XmlAttribute(AttributeName = "AttackPower")]
-        public decimal AttackPower { get; }
+        public decimal AttackPower { get; set; }
 
         [XmlAttribute(AttributeName = "CycleTimeMilliseconds")]
-        public float CycleTimeMilliseconds { get; }
+        public float CycleTimeMilliseconds { get; set; }
 
         [XmlAttribute(AttributeName = "ActionTimeMilliseconds")]
-        public float ActionTimeMilliseconds { get; }
+        public float ActionTimeMilliseconds { get; set; }
 
         public override string GetRuntimeTypeName()
         {
