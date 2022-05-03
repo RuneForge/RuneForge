@@ -83,6 +83,16 @@ namespace RuneForge.Core.Interface.Windows
             base.LoadContent();
         }
 
+        public void UpdateEntityDetails()
+        {
+            if (Entity == null)
+                return;
+
+            if ((Entity.TryGetComponentOfType(out HealthComponent healthComponent) && healthComponent.Health == 0)
+                || (Entity.TryGetComponentOfType(out DurabilityComponent durabilityComponent) && durabilityComponent.Durability == 0))
+                Entity = null;
+        }
+
         protected virtual void OnInstantOrderScheduled(InstantOrderScheduledEventArgs e)
         {
             InstantOrderScheduled?.Invoke(this, e);

@@ -97,6 +97,7 @@ namespace RuneForge.Game.DependencyInjection
             services.AddScoped<ISystem, MovementSystem>();
             services.AddScoped<ISystem, ResourceSystem>();
             services.AddScoped<ISystem, MeleeCombatSystem>();
+            services.AddScoped<ISystem, EntityLifetimeSystem>();
             return services;
         }
 

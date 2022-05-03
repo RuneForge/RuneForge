@@ -96,21 +96,21 @@ namespace RuneForge.Game.Systems.Implementations
             direction = Directions.None;
 
             bool result = false;
-            if (deltaCellX == 0 && deltaCellY == -1)
+            if (deltaCellX == 0 && deltaCellY < 0)
                 (result, direction) = (true, Directions.North);
-            if (deltaCellX == 0 && deltaCellY == +1)
+            if (deltaCellX == 0 && deltaCellY > 0)
                 (result, direction) = (true, Directions.South);
-            if (deltaCellX == -1 && deltaCellY == 0)
+            if (deltaCellX < 0 && deltaCellY == 0)
                 (result, direction) = (true, Directions.West);
-            if (deltaCellX == +1 && deltaCellY == 0)
+            if (deltaCellX > 0 && deltaCellY == 0)
                 (result, direction) = (true, Directions.East);
-            if (deltaCellX == -1 && deltaCellY == -1)
+            if (deltaCellX < 0 && deltaCellY < 0)
                 (result, direction) = (true, Directions.NorthWest);
-            if (deltaCellX == +1 && deltaCellY == -1)
+            if (deltaCellX > 0 && deltaCellY < 0)
                 (result, direction) = (true, Directions.NorthEast);
-            if (deltaCellX == -1 && deltaCellY == +1)
+            if (deltaCellX < 0 && deltaCellY > 0)
                 (result, direction) = (true, Directions.SouthWest);
-            if (deltaCellX == +1 && deltaCellY == +1)
+            if (deltaCellX > 0 && deltaCellY > 0)
                 (result, direction) = (true, Directions.SouthEast);
             return result;
         }
