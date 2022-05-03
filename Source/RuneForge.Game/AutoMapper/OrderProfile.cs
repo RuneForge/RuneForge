@@ -17,13 +17,16 @@ namespace RuneForge.Game.AutoMapper
             CreateMap<Order, OrderDto>()
                 .Include<MoveOrder, MoveOrderDto>()
                 .Include<GatherResourcesOrder, GatherResourcesOrderDto>()
-                .Include<AttackOrder, AttackOrderDto>();
+                .Include<AttackOrder, AttackOrderDto>()
+                .Include<ProduceUnitOrder, ProduceUnitOrderDto>();
 
             CreateMap<MoveOrder, MoveOrderDto>();
             CreateMap<GatherResourcesOrder, GatherResourcesOrderDto>()
                 .ForMember(order => order.ResourceSourceId, options => options.MapFrom(order => order.ResourceSource.Id));
             CreateMap<AttackOrder, AttackOrderDto>()
                 .ForMember(order => order.TargetEntityId, options => options.MapFrom<AttackOrderTargetEntityIdValueResolver>());
+            CreateMap<ProduceUnitOrder, ProduceUnitOrderDto>()
+                .ForMember(order => order.UnitPrototypeCode, options => options.MapFrom(order => order.UnitPrototype.Code));
         }
     }
 }
