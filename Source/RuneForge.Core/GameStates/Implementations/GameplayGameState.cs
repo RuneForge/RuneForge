@@ -132,6 +132,7 @@ namespace RuneForge.Core.GameStates.Implementations
             foreach (ISystem system in m_systems.Where(system => system.Enabled))
                 system.Update(gameTime);
 
+            m_entityDetailsWindow.UpdateEntityDetails();
             m_playerResourceStatisticsWindow.UpdateStatistics();
 
             base.Update(gameTime);
