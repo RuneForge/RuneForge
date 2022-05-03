@@ -31,7 +31,8 @@ namespace RuneForge.Game.AutoMapper
                 .Include<UnitShelterOccupantComponent, UnitShelterOccupantComponentDto>()
                 .Include<HealthComponent, HealthComponentDto>()
                 .Include<DurabilityComponent, DurabilityComponentDto>()
-                .Include<MeleeCombatComponent, MeleeCombatComponentDto>();
+                .Include<MeleeCombatComponent, MeleeCombatComponentDto>()
+                .Include<ProductionCostComponent, ProductionCostComponentDto>();
 
             CreateMap<TextureAtlasComponent, TextureAtlasComponentDto>();
             CreateMap<AnimationAtlasComponent, AnimationAtlasComponentDto>();
@@ -50,6 +51,7 @@ namespace RuneForge.Game.AutoMapper
             CreateMap<DurabilityComponent, DurabilityComponentDto>();
             CreateMap<MeleeCombatComponent, MeleeCombatComponentDto>()
                 .ForMember(component => component.TargetEntityId, options => options.MapFrom<MeleeCombatComponentTargetEntityIdValueResolver>());
+            CreateMap<ProductionCostComponent, ProductionCostComponentDto>();
         }
     }
 }
