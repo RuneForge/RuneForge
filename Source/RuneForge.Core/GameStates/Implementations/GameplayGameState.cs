@@ -408,6 +408,15 @@ namespace RuneForge.Core.GameStates.Implementations
                 Point destinationCell = new Point(worldX / Map.CellWidth, worldY / Map.CellHeight);
                 m_unitController.Move(unit, destinationCell.X, destinationCell.Y, addToQueue);
             }
+            if (orderType == typeof(AttackOrder))
+            {
+                Entity targetEntity = m_gameSessionContext.Units.Concat<Entity>(m_gameSessionContext.Buildings)
+                    .Where(entity => entity.TryGetComponentOfType(out LocationComponent locationComponent)
+                        && new Rectangle((int)locationComponent.X, (int)locationComponent.Y, locationComponent.Width, locationComponent.Height).Contains(new Point(worldX, worldY)))
+                    .FirstOrDefault();
+                if (targetEntity != null)
+                    m_unitController.Attack(unit, targetEntity, addToQueue);
+            }
             if (orderType == typeof(GatherResourcesOrder))
             {
                 Building resourceSourceBuilding = m_gameSessionContext.Buildings
