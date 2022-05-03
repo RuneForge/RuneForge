@@ -225,6 +225,7 @@ namespace RuneForge.Core.GameStates.Implementations
                 m_graphicsDeviceProvider.Value,
                 m_interfaceSpriteBatch,
                 m_gameSessionContext,
+                m_entitySelectionContext,
                 m_spriteFontProvider
                 )
             {
