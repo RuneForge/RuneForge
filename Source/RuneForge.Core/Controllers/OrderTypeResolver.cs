@@ -31,14 +31,9 @@ namespace RuneForge.Core.Controllers
         {
             Point worldPoint = m_camera.TranslateScreenToWorld(new Vector2(screenX, screenY)).ToPoint();
 
-            Player entityOwner = entity switch
-            {
-                Unit unit => unit.Owner,
-                Building building => building.Owner,
-                _ => null,
-            };
+            bool hasOwner = TryGetEntityOwner(entity, out Player entityOwner);
 
-            if (entityOwner == null || entityOwner.Id != m_gameSessionContext.Map.HumanPlayerId)
+            if (!hasOwner || entityOwner.Id != m_gameSessionContext.Map.HumanPlayerId)
             {
                 orderType = null;
                 return false;
@@ -48,7 +43,16 @@ namespace RuneForge.Core.Controllers
             {
                 Entity[] entitiesByLocation = GetEntitiesByLocation(worldPoint);
 
-                if (entitiesByLocation.Any(targetEntity => targetEntity is Building
+                if (entitiesByLocation.Any(targetEntity => TryGetEntityOwner(targetEntity, out Player targetEntityOwner)
+                    && targetEntityOwner.Id != m_gameSessionContext.Map.NeutralPassivePlayerId
+                    && targetEntityOwner.Id != entityOwner.Id))
+                {
+                    orderType = typeof(AttackOrder);
+                    return true;
+                }
+
+                if (entity.HasComponentOfType<ResourceContainerComponent>()
+                    && entitiesByLocation.Any(targetEntity => targetEntity is Building
                     && targetEntity.TryGetComponentOfType(out ResourceSourceComponent resourceSourceComponent)
                     && targetEntity.TryGetComponentOfType(out ResourceContainerComponent resourceContainerComponent)
                     && resourceContainerComponent.GetResourceAmount(resourceSourceComponent.ResourceType) > 0))
@@ -69,6 +73,22 @@ namespace RuneForge.Core.Controllers
 
             orderType = null;
             return false;
+        }
+
+        private bool TryGetEntityOwner(Entity entity, out Player owner)
+        {
+            switch (entity)
+            {
+                case Unit unit:
+                    owner = unit.Owner;
+                    return true;
+                case Building building:
+                    owner = building.Owner;
+                    return true;
+                default:
+                    owner = null;
+                    return false;
+            }
         }
 
         private Entity[] GetEntitiesByLocation(Point worldPoint)
