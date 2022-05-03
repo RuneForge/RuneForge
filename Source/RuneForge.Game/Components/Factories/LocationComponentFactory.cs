@@ -6,8 +6,8 @@ namespace RuneForge.Game.Components.Factories
     {
         public override LocationComponent CreateComponentFromPrototype(LocationComponentPrototype componentPrototype, LocationComponentPrototype componentPrototypeOverride)
         {
-            int? xCells = componentPrototype.XCells;
-            int? yCells = componentPrototype.YCells;
+            int xCells = componentPrototype.XCells ?? 0;
+            int yCells = componentPrototype.YCells ?? 0;
             int widthCells = (int)componentPrototype.WidthCells;
             int heightCells = (int)componentPrototype.HeightCells;
 
@@ -19,7 +19,7 @@ namespace RuneForge.Game.Components.Factories
                     yCells = (int)componentPrototypeOverride.YCells;
             }
 
-            return LocationComponent.CreateFromCellLocation((int)xCells, (int)yCells, widthCells, heightCells);
+            return LocationComponent.CreateFromCellLocation(xCells, yCells, widthCells, heightCells);
         }
     }
 }
