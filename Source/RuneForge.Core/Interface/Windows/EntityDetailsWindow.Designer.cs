@@ -112,6 +112,7 @@ namespace RuneForge.Core.Interface.Windows
 
                 Text = "Attack",
             };
+            m_unitAttackButton.Clicked += (sender, e) => OnTargetBasedOrderScheduled(new TargetBasedOrderScheduledEventArgs(typeof(AttackOrder)));
             m_unitSpecificControls.Add(m_unitAttackButton);
 
             m_unitGatherResourcesButton = new Button(null, ContentManager, GraphicsDevice, SpriteBatch)

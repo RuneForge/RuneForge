@@ -147,6 +147,7 @@ namespace RuneForge.Core.Interface.Windows
                     if (unit.Owner.Id != m_gameSessionContext.Map.HumanPlayerId)
                         break;
                     m_unitMoveButton.Enabled = unit.HasComponentOfType<MovementComponent>();
+                    m_unitAttackButton.Enabled = unit.HasComponentOfType<MeleeCombatComponent>();
                     m_unitGatherResourcesButton.Enabled = unit.HasComponentOfType<ResourceContainerComponent>() && unit.HasComponentOfType<UnitShelterOccupantComponent>();
                     m_unitClearOrderQueueButton.Enabled = unit.HasComponentOfType<OrderQueueComponent>();
                     break;
