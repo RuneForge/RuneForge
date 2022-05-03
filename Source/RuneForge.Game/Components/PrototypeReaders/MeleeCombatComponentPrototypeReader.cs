@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using System;
+
+using Microsoft.Xna.Framework.Content;
 
 using RuneForge.Game.Components.Implementations;
 
@@ -8,7 +10,10 @@ namespace RuneForge.Game.Components.PrototypeReaders
     {
         public override MeleeCombatComponentPrototype ReadTypedComponentPrototype(ContentReader contentReader)
         {
-            return new MeleeCombatComponentPrototype();
+            decimal attackPower = contentReader.ReadDecimal();
+            TimeSpan cycleTime = TimeSpan.FromMilliseconds(contentReader.ReadSingle());
+            TimeSpan actionTime = TimeSpan.FromMilliseconds(contentReader.ReadSingle());
+            return new MeleeCombatComponentPrototype(attackPower, cycleTime, actionTime);
         }
     }
 }

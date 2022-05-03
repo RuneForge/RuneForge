@@ -3,6 +3,7 @@
 using AutoMapper;
 
 using RuneForge.Data.Components;
+using RuneForge.Game.AutoMapper.Resolvers;
 using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.Components.Interfaces;
 
@@ -47,7 +48,8 @@ namespace RuneForge.Game.AutoMapper
             CreateMap<UnitShelterOccupantComponent, UnitShelterOccupantComponentDto>();
             CreateMap<HealthComponent, HealthComponentDto>();
             CreateMap<DurabilityComponent, DurabilityComponentDto>();
-            CreateMap<MeleeCombatComponent, MeleeCombatComponentDto>();
+            CreateMap<MeleeCombatComponent, MeleeCombatComponentDto>()
+                .ForMember(component => component.TargetEntityId, options => options.MapFrom<MeleeCombatComponentTargetEntityIdValueResolver>());
         }
     }
 }
