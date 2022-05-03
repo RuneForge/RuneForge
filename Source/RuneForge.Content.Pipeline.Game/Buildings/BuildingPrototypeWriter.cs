@@ -23,6 +23,7 @@ namespace RuneForge.Content.Pipeline.Game.Buildings
         protected override void Write(ContentWriter writer, BuildingPrototype buildingPrototype)
         {
             writer.Write(buildingPrototype.Name);
+            writer.Write(buildingPrototype.Code);
 
             List<ComponentPrototype> componentPrototypes = buildingPrototype.ComponentPrototypes;
             if (componentPrototypes == null)
