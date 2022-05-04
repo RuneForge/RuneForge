@@ -7,7 +7,7 @@
     <LocationComponentPrototype Width="4" Height="4" />
     <ResourceStorageComponentPrototype AcceptedResourceTypes="Gold" TransferTimeMilliseconds="1000.0" />
     <UnitShelterComponentPrototype OccupantsLimit="1" />
-    <DurabilityComponentPrototype Durability="1600" MaxDurability="1600" />
+    <DurabilityComponentPrototype Durability="3200" MaxDurability="3200" />
     <ProductionFacilityComponentPrototype>
       <UnitCodesProduced>
         <UnitCodeProduced>Peasant</UnitCodeProduced>

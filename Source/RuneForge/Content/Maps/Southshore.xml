@@ -433,14 +433,14 @@
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/TownHall</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
-        <LocationComponentPrototype X="7" Y="7" />
+        <LocationComponentPrototype X="9" Y="9" />
       </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
       <OwnerId>EC376F66-FDC5-4F37-B7F9-BFF5F677048C</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Barracks</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
-        <LocationComponentPrototype X="7" Y="1" />
+        <LocationComponentPrototype X="9" Y="2" />
       </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
@@ -462,14 +462,14 @@
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/TownHall</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
-        <LocationComponentPrototype X="53" Y="7" />
+        <LocationComponentPrototype X="51" Y="9" />
       </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
       <OwnerId>D828CEB3-25EB-4E13-8723-F3D698C175E6</OwnerId>
       <EntityPrototypeAssetName>BuildingPrototypes/Barracks</EntityPrototypeAssetName>
       <ComponentPrototypeOverrides>
-        <LocationComponentPrototype X="54" Y="1" />
+        <LocationComponentPrototype X="52" Y="2" />
       </ComponentPrototypeOverrides>
     </BuildingInstancePrototype>
     <BuildingInstancePrototype>
