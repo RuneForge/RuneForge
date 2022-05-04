@@ -4,8 +4,8 @@
   <ComponentPrototypes>
     <TextureAtlasComponentPrototype TextureAtlasAssetName="TextureAtlases\Buildings\GoldMine" HasPlayerColor="false" />
     <LocationComponentPrototype Width="3" Height="3" />
-    <ResourceContainerComponentPrototype GoldAmount="50000" />
-    <ResourceSourceComponentPrototype ResourceType="Gold" AmountGiven="100" ExtractionTimeMilliseconds="1000.0" />
+    <ResourceContainerComponentPrototype GoldAmount="250000" />
+    <ResourceSourceComponentPrototype ResourceType="Gold" AmountGiven="50" ExtractionTimeMilliseconds="1000.0" />
     <UnitShelterComponentPrototype OccupantsLimit="1" />
     <DurabilityComponentPrototype Durability="12000" MaxDurability="12000" />
   </ComponentPrototypes>
