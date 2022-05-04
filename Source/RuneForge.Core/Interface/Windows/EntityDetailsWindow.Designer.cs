@@ -182,6 +182,7 @@ namespace RuneForge.Core.Interface.Windows
 
                 Text = "Train Peasant",
             };
+            m_buildingTrainPeasantButton.Clicked += (sender, e) => OnInstantOrderScheduled(new InstantOrderScheduledEventArgs(typeof(ProduceUnitOrder), "Peasant"));
             m_buildingSpecificControls.Add(m_buildingTrainPeasantButton);
 
             m_buildingTrainFootmanButton = new Button(null, ContentManager, GraphicsDevice, SpriteBatch)
@@ -193,6 +194,7 @@ namespace RuneForge.Core.Interface.Windows
 
                 Text = "Train Footman",
             };
+            m_buildingTrainFootmanButton.Clicked += (sender, e) => OnInstantOrderScheduled(new InstantOrderScheduledEventArgs(typeof(ProduceUnitOrder), "Footman"));
             m_buildingSpecificControls.Add(m_buildingTrainFootmanButton);
 
             m_buildingClearOrderQueueButton = new Button(null, ContentManager, GraphicsDevice, SpriteBatch)
