@@ -16,6 +16,7 @@ using RuneForge.Game.Buildings;
 using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.Entities;
 using RuneForge.Game.GameSessions.Interfaces;
+using RuneForge.Game.Orders.Implementations;
 using RuneForge.Game.Units;
 
 namespace RuneForge.Core.Interface.Windows
@@ -146,6 +147,12 @@ namespace RuneForge.Core.Interface.Windows
             if (m_entity.TryGetComponentOfType(out ResourceContainerComponent resourceContainerComponent))
                 hash = HashCode.Combine(hash, resourceContainerComponent.GoldAmount);
 
+            if (m_entity.TryGetComponentOfType(out ProductionFacilityComponent productionFacilityComponent))
+                hash = HashCode.Combine(hash, productionFacilityComponent.UnitCurrentlyProduced, productionFacilityComponent.TimeElapsed);
+
+            if (m_entity.TryGetComponentOfType(out OrderQueueComponent orderQueueComponent))
+                hash = HashCode.Combine(hash, orderQueueComponent.CurrentOrder, orderQueueComponent.PendingOrders.Count);
+
             return hash;
         }
         private void FillStatusDetails()
@@ -178,6 +185,26 @@ namespace RuneForge.Core.Interface.Windows
             {
                 m_stringBuilder.AppendFormat("Gold Amount: {0}", resourceContainerComponent.GoldAmount);
                 m_stringBuilder.AppendLine();
+            }
+
+            if (m_entity.TryGetComponentOfType(out ProductionFacilityComponent productionFacilityComponent) && productionFacilityComponent.UnitCurrentlyProduced != null)
+            {
+                UnitPrototype unitPrototype = productionFacilityComponent.UnitCurrentlyProduced;
+                ProductionCostComponentPrototype productionCostComponentPrototype = productionFacilityComponent.UnitCurrentlyProduced.ComponentPrototypes.OfType<ProductionCostComponentPrototype>().Single();
+                m_stringBuilder.AppendFormat(
+                    "Producing: {0}, {1:0} sec left ({2:0}%)",
+                    productionFacilityComponent.UnitCurrentlyProduced.Name,
+                    (productionCostComponentPrototype.ProductionTime - productionFacilityComponent.TimeElapsed).TotalSeconds,
+                    100 * (productionFacilityComponent.TimeElapsed.TotalSeconds / productionCostComponentPrototype.ProductionTime.TotalSeconds)
+                    );
+                m_stringBuilder.AppendLine();
+
+                OrderQueueComponent orderQueueComponent = m_entity.GetComponentOfType<OrderQueueComponent>();
+                if (orderQueueComponent.PendingOrders.Count > 0)
+                {
+                    m_stringBuilder.AppendFormat("{0} more units queued", orderQueueComponent.PendingOrders.OfType<ProduceUnitOrder>().Count());
+                    m_stringBuilder.AppendLine();
+                }
             }
 
             m_stringBuilder.Remove(m_stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
