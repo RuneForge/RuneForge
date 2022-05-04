@@ -64,6 +64,47 @@ namespace RuneForge.Core.Rendering
             m_timeSincePreviousCacheReset = TimeSpan.Zero;
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            foreach (Entity entity in m_gameSessionContext.Buildings.Concat<Entity>(m_gameSessionContext.Units))
+            {
+                if (!entity.HasComponentOfType<LocationComponent>())
+                    continue;
+                if (entity.TryGetComponentOfType(out UnitShelterOccupantComponent unitShelterOccupantComponent) && unitShelterOccupantComponent.InsideShelter)
+                    continue;
+
+                if (entity.HasComponentOfType<AnimationAtlasComponent>()
+                    && entity.TryGetComponentOfType(out AnimationStateComponent animationStateComponent)
+                    && !string.IsNullOrEmpty(animationStateComponent.AnimationName))
+                {
+                    AnimationAtlasComponent animationAtlasComponent = entity.GetComponentOfType<AnimationAtlasComponent>();
+
+                    ContentManager contentManager = m_contentManagerProvider.Value;
+                    string animationAtlasAssetName = animationAtlasComponent.AnimationAtlasAssetName;
+                    if (!m_animationAtlasesByAssetNames.TryGetValue(animationAtlasAssetName, out AnimationAtlas animationAtlas))
+                    {
+                        animationAtlas = contentManager.Load<AnimationAtlas>(animationAtlasAssetName);
+                        m_animationAtlasesByAssetNames.Add(animationAtlasAssetName, animationAtlas);
+                    }
+
+                    string animationName = animationStateComponent.AnimationName;
+                    if (entity.TryGetComponentOfType(out DirectionComponent directionComponent))
+                        animationName = $"{animationName}-{directionComponent.Direction}";
+
+                    if (!m_animationCache.TryGetValue(entity, out Animation2D animation) || animation.Name != animationName)
+                    {
+                        animation = animationAtlas.Animations[animationName].CreateUpdateableCopy();
+                        m_animationCache[entity] = animation;
+                    }
+
+                    if (animationStateComponent.ResetRequested || animation.Completed)
+                        animation.Reset();
+                    animation.Update(new GameTime(TimeSpan.Zero, animationStateComponent.ElapsedTime));
+                }
+            }
+            base.Update(gameTime);
+        }
+
         public override void Draw(GameTime gameTime)
         {
             Rectangle viewportBounds = m_cameraParameters.Viewport.Bounds;
@@ -197,10 +238,6 @@ namespace RuneForge.Core.Rendering
                 animation = animationAtlas.Animations[animationName].CreateUpdateableCopy();
                 m_animationCache[entity] = animation;
             }
-
-            if (animationStateComponent.ResetRequested || animation.Completed)
-                animation.Reset();
-            animation.Update(new GameTime(TimeSpan.Zero, animationStateComponent.ElapsedTime));
 
             AnimationRegion2D mainAnimationRegion = animation.GetCurrentAnimationRegion();
             Rectangle buildingRectange = new Rectangle((int)locationComponent.X, (int)locationComponent.Y, locationComponent.Width, locationComponent.Height);
