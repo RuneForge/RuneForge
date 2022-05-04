@@ -74,6 +74,7 @@ namespace RuneForge.Core.DependencyInjection
             services.AddScoped<IOrderTypeResolver, OrderTypeResolver>();
             services.AddScoped<IEntitySelectionContext, EntitySelectionContext>();
             services.AddScoped<UnitController>();
+            services.AddScoped<BuildingController>();
             services.AddScoped<CameraController>();
             return services;
         }
