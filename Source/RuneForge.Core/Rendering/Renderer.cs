@@ -8,7 +8,9 @@ namespace RuneForge.Core.Rendering
 {
     public abstract class Renderer : IRenderer
     {
+        private bool m_enabled;
         private bool m_visible;
+        private int m_updateOrder;
         private int m_drawOrder;
 
         protected Renderer()
@@ -17,6 +19,18 @@ namespace RuneForge.Core.Rendering
             m_drawOrder = 0;
         }
 
+        public bool Enabled
+        {
+            get => m_enabled;
+            set
+            {
+                if (m_enabled != value)
+                {
+                    m_enabled = value;
+                    OnEnabledChanged(EventArgs.Empty);
+                }
+            }
+        }
         public bool Visible
         {
             get => m_visible;
@@ -26,6 +40,18 @@ namespace RuneForge.Core.Rendering
                 {
                     m_visible = value;
                     OnVisibleChanged(EventArgs.Empty);
+                }
+            }
+        }
+        public int UpdateOrder
+        {
+            get => m_updateOrder;
+            set
+            {
+                if (m_updateOrder != value)
+                {
+                    m_updateOrder = value;
+                    OnUpdateOrderChanged(EventArgs.Empty);
                 }
             }
         }
@@ -42,15 +68,32 @@ namespace RuneForge.Core.Rendering
             }
         }
 
-        public event EventHandler<EventArgs> DrawOrderChanged;
+        public event EventHandler<EventArgs> EnabledChanged;
         public event EventHandler<EventArgs> VisibleChanged;
+        public event EventHandler<EventArgs> UpdateOrderChanged;
+        public event EventHandler<EventArgs> DrawOrderChanged;
 
-        public abstract void Draw(GameTime gameTime);
-        public abstract void LoadContent();
+        public virtual void Update(GameTime gameTime)
+        {
+        }
+        public virtual void Draw(GameTime gameTime)
+        {
+        }
+        public virtual void LoadContent()
+        {
+        }
 
+        protected virtual void OnEnabledChanged(EventArgs e)
+        {
+            EnabledChanged?.Invoke(this, e);
+        }
         protected virtual void OnVisibleChanged(EventArgs e)
         {
             VisibleChanged?.Invoke(this, e);
+        }
+        protected virtual void OnUpdateOrderChanged(EventArgs e)
+        {
+            UpdateOrderChanged?.Invoke(this, e);
         }
         protected virtual void OnDrawOrderChanged(EventArgs e)
         {

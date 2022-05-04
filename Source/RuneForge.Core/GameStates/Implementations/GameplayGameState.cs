@@ -29,6 +29,8 @@ using RuneForge.Game.Players.Interfaces;
 using RuneForge.Game.Systems.Interfaces;
 using RuneForge.Game.Units;
 
+using XnaGame = Microsoft.Xna.Framework.Game;
+
 namespace RuneForge.Core.GameStates.Implementations
 {
     public class GameplayGameState : GameState
@@ -55,6 +57,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly CameraController m_cameraController;
         private readonly UnitController m_unitController;
         private readonly BuildingController m_buildingController;
+        private readonly Lazy<XnaGame> m_gameProvider;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
         private SpriteBatch m_interfaceSpriteBatch;
@@ -62,6 +65,8 @@ namespace RuneForge.Core.GameStates.Implementations
         private OrderConfirmationDialogWindow m_orderConfirmationDialogWindow;
         private TargetBasedOrderScheduledEventArgs m_activeTargetBasedOrderEventArgs;
         private PlayerResourceStatisticsWindow m_playerResourceStatisticsWindow;
+        private IngameMenuWindow m_ingameMenuWindow;
+        private bool m_gamePaused;
 
         public GameplayGameState(
             IGameSessionContext gameSessionContext,
@@ -82,6 +87,7 @@ namespace RuneForge.Core.GameStates.Implementations
             CameraController cameraController,
             UnitController unitController,
             BuildingController buildingController,
+            Lazy<XnaGame> gameProvider,
             Lazy<ContentManager> contentManagerProvider,
             Lazy<GraphicsDevice> graphicsDeviceProvider
             )
@@ -104,6 +110,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_cameraController = cameraController;
             m_unitController = unitController;
             m_buildingController = buildingController;
+            m_gameProvider = gameProvider;
             m_contentManagerProvider = contentManagerProvider;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
             m_interfaceSpriteBatch = null;
@@ -111,6 +118,8 @@ namespace RuneForge.Core.GameStates.Implementations
             m_orderConfirmationDialogWindow = null;
             m_activeTargetBasedOrderEventArgs = null;
             m_playerResourceStatisticsWindow = null;
+            m_ingameMenuWindow = null;
+            m_gamePaused = false;
         }
 
         public override void Run()
@@ -120,6 +129,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_graphicsInterfaceService.RegisterControl(m_entityDetailsWindow);
             m_graphicsInterfaceService.RegisterControl(m_orderConfirmationDialogWindow);
             m_graphicsInterfaceService.RegisterControl(m_playerResourceStatisticsWindow);
+            m_graphicsInterfaceService.RegisterControl(m_ingameMenuWindow);
             SubscribeToKeyboardEvents();
             SubscribeToMouseEvents();
             base.Run();
@@ -129,6 +139,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_graphicsInterfaceService.UnregisterControl(m_entityDetailsWindow);
             m_graphicsInterfaceService.UnregisterControl(m_orderConfirmationDialogWindow);
             m_graphicsInterfaceService.UnregisterControl(m_playerResourceStatisticsWindow);
+            m_graphicsInterfaceService.UnregisterControl(m_ingameMenuWindow);
             UnsubscribeFromKeyboardEvents();
             UnsubscribeFromMouseEvents();
             base.Stop();
@@ -136,14 +147,20 @@ namespace RuneForge.Core.GameStates.Implementations
 
         public override void Update(GameTime gameTime)
         {
-            foreach (ISystem system in m_systems.Where(system => system.Enabled))
-                system.Update(gameTime);
+            if (!m_gamePaused)
+            {
+                foreach (ISystem system in m_systems.Where(system => system.Enabled))
+                    system.Update(gameTime);
+
+                foreach (IRenderer renderer in m_renderers.Where(renderer => renderer.Visible))
+                    renderer.Update(gameTime);
+            }
 
             m_entityDetailsWindow.UpdateEntityDetails();
             m_playerResourceStatisticsWindow.UpdateStatistics();
 
             if (m_gameSessionContext.Completed)
-                CompleteState();
+                CompleteState(false);
 
             base.Update(gameTime);
         }
@@ -188,11 +205,18 @@ namespace RuneForge.Core.GameStates.Implementations
             m_entityDetailsWindow.LoadContent();
             m_orderConfirmationDialogWindow.LoadContent();
             m_playerResourceStatisticsWindow.LoadContent();
+            m_ingameMenuWindow.LoadContent();
         }
 
-        private void CompleteState()
+        private void CompleteState(bool exitToDesktop)
         {
-            m_gameStateService.RunGameState<MainMenuGameState>();
+            if (exitToDesktop)
+            {
+                XnaGame game = m_gameProvider.Value;
+                game.Exit();
+            }
+            else
+                m_gameStateService.RunGameState<MainMenuGameState>();
         }
 
         private void SubscribeToKeyboardEvents()
@@ -200,12 +224,14 @@ namespace RuneForge.Core.GameStates.Implementations
             m_keyboardEventProvider.KeyDown += HandleCameraMovement;
             m_keyboardEventProvider.KeyPressed += HandleCameraScaling;
             m_keyboardEventProvider.KeyPressed += HandleEntitySelectionDrop;
+            m_keyboardEventProvider.KeyPressed += HandleIngameMenuToggle;
         }
         private void UnsubscribeFromKeyboardEvents()
         {
             m_keyboardEventProvider.KeyDown -= HandleCameraMovement;
             m_keyboardEventProvider.KeyPressed -= HandleCameraScaling;
             m_keyboardEventProvider.KeyPressed -= HandleEntitySelectionDrop;
+            m_keyboardEventProvider.KeyPressed -= HandleIngameMenuToggle;
         }
         private void SubscribeToMouseEvents()
         {
@@ -267,6 +293,26 @@ namespace RuneForge.Core.GameStates.Implementations
             m_playerResourceStatisticsWindow.X = m_graphicsInterfaceService.Viewport.Width - (m_playerResourceStatisticsWindow.Width + c_interfaceWindowsOffset);
             m_playerResourceStatisticsWindow.Y = c_interfaceWindowsOffset;
 
+            m_ingameMenuWindow = new IngameMenuWindow(
+                new ControlEventSource(),
+                m_contentManagerProvider.Value,
+                m_graphicsDeviceProvider.Value,
+                m_interfaceSpriteBatch,
+                m_spriteFontProvider
+                )
+            {
+                Visible = m_gamePaused,
+            };
+            m_ingameMenuWindow.X = c_interfaceWindowsOffset;
+            m_ingameMenuWindow.Y = m_graphicsInterfaceService.Viewport.Height - (m_ingameMenuWindow.Height + c_interfaceWindowsOffset);
+            m_ingameMenuWindow.GameResumed += (sender, e) =>
+            {
+                m_gamePaused = false;
+                m_ingameMenuWindow.Visible = false;
+            };
+            m_ingameMenuWindow.ExitedToMainMenu += (sender, e) => CompleteState(false);
+            m_ingameMenuWindow.ExitedToDesktop += (sender, e) => CompleteState(true);
+
             m_entitySelectionContext.EntitySelected += (sender, e) =>
             {
                 m_entityDetailsWindow.Entity = m_entitySelectionContext.Entity;
@@ -283,6 +329,15 @@ namespace RuneForge.Core.GameStates.Implementations
             };
         }
 
+        private void HandleIngameMenuToggle(object sender, KeyboardEventArgs e)
+        {
+            if (!e.Handled && e.Key == Key.M && (e.ModifierKeys & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                e.Handle();
+                m_gamePaused = !m_gamePaused;
+                m_ingameMenuWindow.Visible = m_gamePaused;
+            }
+        }
         private void HandleCameraMovement(object sender, KeyboardEventArgs e)
         {
             if (!e.Handled && (e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.Left || e.Key == Key.Right))

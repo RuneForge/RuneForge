@@ -2,7 +2,7 @@
 
 namespace RuneForge.Core.Rendering.Interfaces
 {
-    public interface IRenderer : IDrawable
+    public interface IRenderer : IUpdateable, IDrawable
     {
         public void LoadContent();
     }
