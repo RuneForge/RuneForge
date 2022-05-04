@@ -246,6 +246,10 @@ namespace RuneForge.Core.Interface.Windows
                 case Building building:
                     if (building.Owner.Id != m_gameSessionContext.Map.HumanPlayerId)
                         break;
+                    m_buildingTrainPeasantButton.Enabled = building.HasComponentOfType<ProductionFacilityComponent>()
+                        && building.GetComponentOfType<ProductionFacilityComponent>().UnitsProduced.Any(unitPrototype => unitPrototype.Code == "Peasant");
+                    m_buildingTrainFootmanButton.Enabled = building.HasComponentOfType<ProductionFacilityComponent>()
+                        && building.GetComponentOfType<ProductionFacilityComponent>().UnitsProduced.Any(unitPrototype => unitPrototype.Code == "Footman");
                     m_buildingClearOrderQueueButton.Enabled = building.HasComponentOfType<OrderQueueComponent>();
                     break;
             }
