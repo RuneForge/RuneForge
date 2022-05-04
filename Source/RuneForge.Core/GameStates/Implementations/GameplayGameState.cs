@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using RuneForge.Core.Controllers;
 using RuneForge.Core.Controllers.Interfaces;
 using RuneForge.Core.GameStates.Interfaces;
+using RuneForge.Core.Helpers.Interfaces;
 using RuneForge.Core.Input;
 using RuneForge.Core.Input.EventProviders.Interfaces;
 using RuneForge.Core.Interface.Controls;
@@ -38,6 +39,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private const int c_interfaceWindowsOffset = 4;
 
         private static readonly string s_defaultMapAssetName = Path.Combine("Maps", "Southshore");
+        private static readonly string s_defaultSaveDirectoryName = "Saves";
 
         private readonly IGameSessionContext m_gameSessionContext;
         private readonly IGraphicsInterfaceService m_graphicsInterfaceService;
@@ -50,6 +52,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly IEntitySelectionContext m_entitySelectionContext;
         private readonly IEntitySelector m_entitySelector;
         private readonly IOrderTypeResolver m_orderTypeResolver;
+        private readonly IGameStateSerializer m_gameStateSerializer;
         private readonly IEnumerable<ISystem> m_systems;
         private readonly IEnumerable<IRenderer> m_renderers;
         private readonly Camera2D m_camera;
@@ -80,6 +83,7 @@ namespace RuneForge.Core.GameStates.Implementations
             IEntitySelectionContext entitySelectionContext,
             IEntitySelector entitySelector,
             IOrderTypeResolver orderTypeResolver,
+            IGameStateSerializer gameStateSerializer,
             IEnumerable<ISystem> systems,
             IEnumerable<IRenderer> renderers,
             Camera2D camera,
@@ -103,6 +107,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_entitySelectionContext = entitySelectionContext;
             m_entitySelector = entitySelector;
             m_orderTypeResolver = orderTypeResolver;
+            m_gameStateSerializer = gameStateSerializer;
             m_systems = systems;
             m_renderers = renderers;
             m_camera = camera;
@@ -310,6 +315,7 @@ namespace RuneForge.Core.GameStates.Implementations
                 m_gamePaused = false;
                 m_ingameMenuWindow.Visible = false;
             };
+            m_ingameMenuWindow.GameSaved += (sender, e) => SaveGameState();
             m_ingameMenuWindow.ExitedToMainMenu += (sender, e) => CompleteState(false);
             m_ingameMenuWindow.ExitedToDesktop += (sender, e) => CompleteState(true);
 
@@ -327,6 +333,14 @@ namespace RuneForge.Core.GameStates.Implementations
                     m_activeTargetBasedOrderEventArgs = null;
                 }    
             };
+        }
+
+        private void SaveGameState()
+        {
+            Directory.CreateDirectory(s_defaultSaveDirectoryName);
+            string fileName = Path.Combine(s_defaultSaveDirectoryName, m_gameStateSerializer.GetSaveFileName());
+            using FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate);
+            m_gameStateSerializer.SerializeGameState(fileStream);
         }
 
         private void HandleIngameMenuToggle(object sender, KeyboardEventArgs e)
