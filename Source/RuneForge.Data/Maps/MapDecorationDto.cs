@@ -1,5 +1,8 @@
-﻿namespace RuneForge.Data.Maps
+﻿using System;
+
+namespace RuneForge.Data.Maps
 {
+    [Serializable]
     public class MapDecorationDto
     {
         public int Id { get; set; }

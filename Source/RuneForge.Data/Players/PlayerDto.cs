@@ -5,6 +5,7 @@ using RuneForge.Data.Components;
 
 namespace RuneForge.Data.Players
 {
+    [Serializable]
     public class PlayerDto
     {
         public Guid Id { get; set; }

@@ -2,6 +2,7 @@
 
 namespace RuneForge.Data.Components
 {
+    [Serializable]
     public class AnimationStateComponentDto : ComponentDto
     {
         public string AnimationName { get; set; }

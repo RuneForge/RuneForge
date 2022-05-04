@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 
 namespace RuneForge.Data.Players
 {
+    [Serializable]
     public class PlayerColorDto
     {
         public Color MainColor { get; set; }

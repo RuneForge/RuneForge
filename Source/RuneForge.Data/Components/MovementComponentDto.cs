@@ -1,5 +1,8 @@
-﻿namespace RuneForge.Data.Components
+﻿using System;
+
+namespace RuneForge.Data.Components
 {
+    [Serializable]
     public class MovementComponentDto : ComponentDto
     {
         public float MovementSpeed { get; }

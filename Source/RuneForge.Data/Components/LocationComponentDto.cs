@@ -1,5 +1,8 @@
-﻿namespace RuneForge.Data.Components
+﻿using System;
+
+namespace RuneForge.Data.Components
 {
+    [Serializable]
     public class LocationComponentDto : ComponentDto
     {
         public float X { get; set; }
