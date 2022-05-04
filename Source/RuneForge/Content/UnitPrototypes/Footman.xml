@@ -10,5 +10,6 @@
     <MovementComponentPrototype MovementSpeed="1.0" MovementType="LandMovementRequired" />
     <HealthComponentPrototype Health="600" MaxHealth="600" />
     <MeleeCombatComponentPrototype AttackPower="30" CycleTimeMilliseconds="800" ActionTimeMilliseconds="400" />
+    <ProductionCostComponentPrototype GoldAmount="600" ProductionTime="20000" />
   </ComponentPrototypes>
 </UnitPrototype>

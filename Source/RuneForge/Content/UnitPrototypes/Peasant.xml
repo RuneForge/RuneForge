@@ -12,5 +12,6 @@
     <UnitShelterOccupantComponentPrototype />
     <HealthComponentPrototype Health="240" MaxHealth="240" />
     <MeleeCombatComponentPrototype AttackPower="12" CycleTimeMilliseconds="900" ActionTimeMilliseconds="300" />
+    <ProductionCostComponentPrototype GoldAmount="400" ProductionTime="10000" />
   </ComponentPrototypes>
 </UnitPrototype>
