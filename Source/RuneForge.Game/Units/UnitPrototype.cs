@@ -9,11 +9,14 @@ namespace RuneForge.Game.Units
     {
         public string Name { get; }
 
+        public string Code { get; }
+
         public ReadOnlyCollection<ComponentPrototype> ComponentPrototypes { get; }
 
-        public UnitPrototype(string name, IList<ComponentPrototype> componentPrototypes)
+        public UnitPrototype(string name, string code, IList<ComponentPrototype> componentPrototypes)
         {
             Name = name;
+            Code = code;
             ComponentPrototypes = new ReadOnlyCollection<ComponentPrototype>(componentPrototypes);
         }
     }

@@ -12,6 +12,7 @@ namespace RuneForge.Game.Units
         protected override UnitPrototype Read(ContentReader reader, UnitPrototype existingInstance)
         {
             string name = reader.ReadString();
+            string code = reader.ReadString();
 
             int componentPrototypesCount = reader.ReadInt32();
             List<ComponentPrototype> componentPrototypes = new List<ComponentPrototype>();
@@ -21,7 +22,7 @@ namespace RuneForge.Game.Units
                 componentPrototypes.Add(componentPrototype);
             }
 
-            return new UnitPrototype(name, componentPrototypes);
+            return new UnitPrototype(name, code, componentPrototypes);
         }
     }
 }

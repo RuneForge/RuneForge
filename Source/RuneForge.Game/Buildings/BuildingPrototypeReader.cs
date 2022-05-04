@@ -12,6 +12,7 @@ namespace RuneForge.Game.Buildings
         protected override BuildingPrototype Read(ContentReader reader, BuildingPrototype existingInstance)
         {
             string name = reader.ReadString();
+            string code = reader.ReadString();
 
             int componentPrototypesCount = reader.ReadInt32();
             List<ComponentPrototype> componentPrototypes = new List<ComponentPrototype>();
@@ -21,7 +22,7 @@ namespace RuneForge.Game.Buildings
                 componentPrototypes.Add(componentPrototype);
             }
 
-            return new BuildingPrototype(name, componentPrototypes);
+            return new BuildingPrototype(name, code, componentPrototypes);
         }
     }
 }

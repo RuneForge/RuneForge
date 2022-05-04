@@ -23,6 +23,7 @@ namespace RuneForge.Content.Pipeline.Game.Units
         protected override void Write(ContentWriter writer, UnitPrototype unitPrototype)
         {
             writer.Write(unitPrototype.Name);
+            writer.Write(unitPrototype.Code);
 
             List<ComponentPrototype> componentPrototypes = unitPrototype.ComponentPrototypes;
             if (componentPrototypes == null)
