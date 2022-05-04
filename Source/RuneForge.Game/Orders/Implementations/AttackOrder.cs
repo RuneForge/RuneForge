@@ -58,12 +58,12 @@ namespace RuneForge.Game.Orders.Implementations
                     }
                     else if (!CompletingRequested && !CancellationRequested)
                     {
-                        if ((!movementComponent.MovementScheduled || movementComponent.PathBlocked) && !meleeCombatComponent.CycleInProgress)
+                        if ((!movementComponent.MovementScheduled) && !meleeCombatComponent.CycleInProgress)
                         {
                             LocationComponent locationComponent = Entity.GetComponentOfType<LocationComponent>();
                             LocationComponent targetLocationComponent = TargetEntity.GetComponentOfType<LocationComponent>();
                             m_pathGenerator.GeneratePath(locationComponent.LocationCells, targetLocationComponent.GetSurroundingCells(), movementComponent.MovementType, out PathType pathType, out Queue<Point> path);
-                            if (path.Count == 0)
+                            if (pathType == PathType.PathToDestination && path.Count == 0)
                             {
                                 StopAnimation();
                                 meleeCombatComponent.Reset();
@@ -72,7 +72,7 @@ namespace RuneForge.Game.Orders.Implementations
                                 StartAttackAnimation(false);
                                 stateChanged = true;
                             }
-                            else
+                            else if (path.Count > 0)
                             {
                                 StopAnimation();
                                 movementComponent.OriginCell = locationComponent.LocationCells;
@@ -81,6 +81,11 @@ namespace RuneForge.Game.Orders.Implementations
                                 movementComponent.MovementInProgress = false;
                                 movementComponent.PathBlocked = false;
                                 StartMoveAnimation(false);
+                                stateChanged = true;
+                            }
+                            else
+                            {
+                                StopAnimation();
                                 stateChanged = true;
                             }
                         }
