@@ -176,13 +176,16 @@ namespace RuneForge.Game.Systems.Implementations
                                 }
                             }
 
-                            foreach (Unit footman in m_gameSessionContext.Units.Where(unit => unit.Owner == player && unit.Name == "Footman").Take(c_footmansSelectedForAttack))
+                            if (closestEnemyEntity != null)
                             {
-                                OrderQueueComponent footmanOrderQueueComponent = footman.GetComponentOfType<OrderQueueComponent>();
-                                if (footmanOrderQueueComponent.CurrentOrder?.State != OrderState.Scheduled && footmanOrderQueueComponent.CurrentOrder?.State != OrderState.InProgress)
+                                foreach (Unit footman in m_gameSessionContext.Units.Where(unit => unit.Owner == player && unit.Name == "Footman").Take(c_footmansSelectedForAttack))
                                 {
-                                    footmanOrderQueueComponent.EnqueueOrder(CreateAttackOrder(footman, closestEnemyEntity));
-                                    m_unitService.RegisterUnitChanges(footman.Id);
+                                    OrderQueueComponent footmanOrderQueueComponent = footman.GetComponentOfType<OrderQueueComponent>();
+                                    if (footmanOrderQueueComponent.CurrentOrder?.State != OrderState.Scheduled && footmanOrderQueueComponent.CurrentOrder?.State != OrderState.InProgress)
+                                    {
+                                        footmanOrderQueueComponent.EnqueueOrder(CreateAttackOrder(footman, closestEnemyEntity));
+                                        m_unitService.RegisterUnitChanges(footman.Id);
+                                    }
                                 }
                             }
                         }
