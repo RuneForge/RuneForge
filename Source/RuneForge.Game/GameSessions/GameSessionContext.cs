@@ -92,11 +92,12 @@ namespace RuneForge.Game.GameSessions
                 map.ResolveLandscapeCellTypes(m_landscapeCellTypeResolver);
                 map.ResolveDecorationCellTypes(m_decorationCellTypeResolver);
                 map.CreateMapDecorations(m_mapDecorationFactory, mapDecorationService);
+
+                Map = map;
                 CreatePlayers(map);
                 CreateUnits(map);
                 CreateBuildings(map);
 
-                Map = map;
                 Initialized = true;
             }
         }
@@ -138,9 +139,7 @@ namespace RuneForge.Game.GameSessions
             if (Completed)
                 throw new NotSupportedException("Unable to complete the game session a second time.");
             else
-            {
                 Completed = true;
-            }
         }
     }
 }

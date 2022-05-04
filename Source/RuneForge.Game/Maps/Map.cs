@@ -30,6 +30,9 @@ namespace RuneForge.Game.Maps
 
         public ReadOnlyCollection<PlayerPrototype> PlayerPrototypes { get; }
 
+        public ReadOnlyCollection<UnitPrototype> UnitPrototypes { get; }
+        public ReadOnlyCollection<BuildingPrototype> BuildingPrototypes { get; }
+
         public ReadOnlyCollection<UnitInstancePrototype> UnitInstancePrototypes { get; }
         public ReadOnlyCollection<BuildingInstancePrototype> BuildingInstancePrototypes { get; }
 
@@ -43,6 +46,8 @@ namespace RuneForge.Game.Maps
             IList<MapLandscapeCell> landscapeCells,
             IList<MapDecorationCell> decorationCells,
             IList<PlayerPrototype> playerPrototypes,
+            IList<UnitPrototype> unitPrototypes,
+            IList<BuildingPrototype> buildingPrototypes,
             IList<UnitInstancePrototype> unitInstancePrototypes,
             IList<BuildingInstancePrototype> buildingInstancePrototypes
             )
@@ -57,6 +62,8 @@ namespace RuneForge.Game.Maps
             NeutralPassivePlayerId = neutralPassivePlayerId;
             Tileset = tileset;
             PlayerPrototypes = new ReadOnlyCollection<PlayerPrototype>(playerPrototypes);
+            UnitPrototypes = new ReadOnlyCollection<UnitPrototype>(unitPrototypes);
+            BuildingPrototypes = new ReadOnlyCollection<BuildingPrototype>(buildingPrototypes);
             UnitInstancePrototypes = new ReadOnlyCollection<UnitInstancePrototype>(unitInstancePrototypes);
             BuildingInstancePrototypes = new ReadOnlyCollection<BuildingInstancePrototype>(buildingInstancePrototypes);
         }

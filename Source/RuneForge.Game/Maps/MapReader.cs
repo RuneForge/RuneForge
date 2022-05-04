@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -27,8 +28,8 @@ namespace RuneForge.Game.Maps
 
             List<PlayerPrototype> playerPrototypes = ReadPlayers(reader);
 
-            List<UnitInstancePrototype> unitInstancePrototypes = ReadUnitInstancePrototypes(reader);
-            List<BuildingInstancePrototype> buildingInstancePrototypes = ReadBuildingInstancePrototypes(reader);
+            List<UnitInstancePrototype> unitInstancePrototypes = ReadUnitInstancePrototypes(reader, out Dictionary<string, UnitPrototype> unitPrototypes);
+            List<BuildingInstancePrototype> buildingInstancePrototypes = ReadBuildingInstancePrototypes(reader, out Dictionary<string, BuildingPrototype> buildingPrototypes);
 
             Dictionary<string, MapDecorationPrototype> decorationPrototypes = ReadDecorationPrototypes(reader);
 
@@ -37,7 +38,21 @@ namespace RuneForge.Game.Maps
             List<MapLandscapeCell> landscapeCells = ReadLandscapeCellData(reader, width, height);
             List<MapDecorationCell> decorationCells = ReadDecorationCellData(reader, width, height);
 
-            return new Map(name, width, height, humanPlayerId, neutralPassivePlayerId, tileset, landscapeCells, decorationCells, playerPrototypes, unitInstancePrototypes, buildingInstancePrototypes);
+            return new Map(
+                name,
+                width,
+                height,
+                humanPlayerId,
+                neutralPassivePlayerId,
+                tileset,
+                landscapeCells,
+                decorationCells,
+                playerPrototypes,
+                unitPrototypes.Values.ToArray(),
+                buildingPrototypes.Values.ToArray(),
+                unitInstancePrototypes,
+                buildingInstancePrototypes
+                );
         }
 
         private static List<PlayerPrototype> ReadPlayers(ContentReader reader)
@@ -71,11 +86,11 @@ namespace RuneForge.Game.Maps
             return playerPrototypes;
         }
 
-        private static List<UnitInstancePrototype> ReadUnitInstancePrototypes(ContentReader reader)
+        private static List<UnitInstancePrototype> ReadUnitInstancePrototypes(ContentReader reader, out Dictionary<string, UnitPrototype> unitPrototypes)
         {
             int unitInstancePrototypesCount = reader.ReadInt32();
             List<UnitInstancePrototype> unitInstancePrototypes = new List<UnitInstancePrototype>();
-            Dictionary<string, UnitPrototype> unitPrototypes = new Dictionary<string, UnitPrototype>();
+            unitPrototypes = new Dictionary<string, UnitPrototype>();
             for (int i = 0; i < unitInstancePrototypesCount; i++)
             {
                 Guid ownerId = reader.ReadGuid();
@@ -99,11 +114,11 @@ namespace RuneForge.Game.Maps
 
             return unitInstancePrototypes;
         }
-        private static List<BuildingInstancePrototype> ReadBuildingInstancePrototypes(ContentReader reader)
+        private static List<BuildingInstancePrototype> ReadBuildingInstancePrototypes(ContentReader reader, out Dictionary<string, BuildingPrototype> buildingPrototypes)
         {
             int buildingInstancePrototypesCount = reader.ReadInt32();
             List<BuildingInstancePrototype> buildingInstancePrototypes = new List<BuildingInstancePrototype>();
-            Dictionary<string, BuildingPrototype> buildingPrototypes = new Dictionary<string, BuildingPrototype>();
+            buildingPrototypes = new Dictionary<string, BuildingPrototype>();
             for (int i = 0; i < buildingInstancePrototypesCount; i++)
             {
                 Guid ownerId = reader.ReadGuid();
