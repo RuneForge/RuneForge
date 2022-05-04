@@ -54,6 +54,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly Camera2DParameters m_cameraParameters;
         private readonly CameraController m_cameraController;
         private readonly UnitController m_unitController;
+        private readonly BuildingController m_buildingController;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
         private SpriteBatch m_interfaceSpriteBatch;
@@ -80,6 +81,7 @@ namespace RuneForge.Core.GameStates.Implementations
             Camera2DParameters cameraParameters,
             CameraController cameraController,
             UnitController unitController,
+            BuildingController buildingController,
             Lazy<ContentManager> contentManagerProvider,
             Lazy<GraphicsDevice> graphicsDeviceProvider
             )
@@ -101,6 +103,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_cameraParameters = cameraParameters;
             m_cameraController = cameraController;
             m_unitController = unitController;
+            m_buildingController = buildingController;
             m_contentManagerProvider = contentManagerProvider;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
             m_interfaceSpriteBatch = null;
@@ -339,7 +342,7 @@ namespace RuneForge.Core.GameStates.Implementations
         }
         private void HandleInstantOrder(object sender, InstantOrderScheduledEventArgs e)
         {
-            ExecuteOrder(m_entityDetailsWindow.Entity, 0, 0, e.OrderType);
+            ExecuteOrder(m_entityDetailsWindow.Entity, 0, 0, e.OrderType, e.OrderData);
             if (m_activeTargetBasedOrderEventArgs != null)
             {
                 m_activeTargetBasedOrderEventArgs.Cancel();
@@ -365,8 +368,9 @@ namespace RuneForge.Core.GameStates.Implementations
                 case Unit unit:
                     m_unitController.ClearOrderQueue(unit);
                     break;
-                case Building _:
-                    throw new NotImplementedException();
+                case Building building:
+                    m_buildingController.ClearOrderQueue(building);
+                    break;
             }
         }
         private void HandleOrderConfirmation(object sender, MouseEventArgs e)
@@ -375,7 +379,7 @@ namespace RuneForge.Core.GameStates.Implementations
             {
                 e.Handle();
                 (int worldX, int worldY) = GetWorldPointByScreenPoint(e.Location, out _);
-                ExecuteOrder(m_entityDetailsWindow.Entity, worldX, worldY, m_activeTargetBasedOrderEventArgs.OrderType);
+                ExecuteOrder(m_entityDetailsWindow.Entity, worldX, worldY, m_activeTargetBasedOrderEventArgs.OrderType, null);
                 m_activeTargetBasedOrderEventArgs.Complete();
                 m_activeTargetBasedOrderEventArgs = null;
             }
@@ -397,7 +401,7 @@ namespace RuneForge.Core.GameStates.Implementations
                 if (m_orderTypeResolver.TryResolveOrderType(entity, e.X, e.Y, out Type orderType))
                 {
                     (int worldX, int worldY) = GetWorldPointByScreenPoint(e.Location, out _);
-                    ExecuteOrder(entity, worldX, worldY, orderType);
+                    ExecuteOrder(entity, worldX, worldY, orderType, null);
                 }
                 if (m_activeTargetBasedOrderEventArgs != null)
                 {
@@ -407,13 +411,13 @@ namespace RuneForge.Core.GameStates.Implementations
             }
         }
 
-        private void ExecuteOrder(Entity entity, int worldX, int worldY, Type orderType)
+        private void ExecuteOrder(Entity entity, int worldX, int worldY, Type orderType, object orderData)
         {
             bool shiftPressed = (m_keyboardEventProvider.GetState().GetModifierKeys() & ModifierKeys.Shift) == ModifierKeys.Shift;
             if (entity is Unit unit)
                 ExecuteUnitOrder(unit, worldX, worldY, orderType, shiftPressed);
-            else if (m_entityDetailsWindow.Entity is Building)
-                throw new NotImplementedException();
+            if (entity is Building building)
+                ExecuteBuildingOrder(building, orderType, orderData, shiftPressed);
         }
         private void ExecuteUnitOrder(Unit unit, int worldX, int worldY, Type orderType, bool addToQueue)
         {
@@ -445,6 +449,14 @@ namespace RuneForge.Core.GameStates.Implementations
                     .FirstOrDefault();
                 if (resourceSourceBuilding != null)
                     m_unitController.GatherResources(unit, resourceSourceBuilding, addToQueue);
+            }
+        }
+        private void ExecuteBuildingOrder(Building building, Type orderType, object orderData, bool addToQueue)
+        {
+            if (orderType == typeof(ProduceUnitOrder))
+            {
+                string unitPrototypeCode = (string)orderData;
+                m_buildingController.ProduceUnit(building, unitPrototypeCode, addToQueue);
             }
         }
 
