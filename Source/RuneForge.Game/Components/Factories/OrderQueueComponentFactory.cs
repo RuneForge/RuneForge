@@ -4,6 +4,7 @@ using System.Linq;
 
 using RuneForge.Data.Components;
 using RuneForge.Data.Orders;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.Orders;
 using RuneForge.Game.Orders.Attributes;
@@ -11,6 +12,7 @@ using RuneForge.Game.Orders.Interfaces;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(OrderQueueComponentDto))]
     public class OrderQueueComponentFactory : ComponentFactory<OrderQueueComponent, OrderQueueComponentPrototype, OrderQueueComponentDto>
     {
         private readonly Dictionary<Type, IOrderFactory> m_orderFactoriesByDtoTypes;

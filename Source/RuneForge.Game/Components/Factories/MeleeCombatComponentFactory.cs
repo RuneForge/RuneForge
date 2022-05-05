@@ -3,6 +3,7 @@
 using RuneForge.Data.Components;
 using RuneForge.Game.Buildings;
 using RuneForge.Game.Buildings.Interfaces;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.Entities;
 using RuneForge.Game.Units;
@@ -10,6 +11,7 @@ using RuneForge.Game.Units.Interfaces;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(MeleeCombatComponentDto))]
     public class MeleeCombatComponentFactory : ComponentFactory<MeleeCombatComponent, MeleeCombatComponentPrototype, MeleeCombatComponentDto>
     {
         private readonly IUnitService m_unitService;

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 
 using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.Units;
 using RuneForge.Game.Units.Interfaces;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(UnitShelterComponentDto))]
     public class UnitShelterComponentFactory : ComponentFactory<UnitShelterComponent, UnitShelterComponentPrototype, UnitShelterComponentDto>
     {
         private readonly IUnitService m_unitService;

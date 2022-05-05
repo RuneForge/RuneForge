@@ -1,8 +1,10 @@
 ﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(ProductionCostComponentDto))]
     public class ProductionCostComponentFactory : ComponentFactory<ProductionCostComponent, ProductionCostComponentPrototype, ProductionCostComponentDto>
     {
         public override ProductionCostComponent CreateComponentFromPrototype(ProductionCostComponentPrototype componentPrototype, ProductionCostComponentPrototype componentPrototypeOverride)

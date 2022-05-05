@@ -1,8 +1,10 @@
 ﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(UnitShelterOccupantComponentDto))]
     public class UnitShelterOccupantComponentFactory : ComponentFactory<UnitShelterOccupantComponent, UnitShelterOccupantComponentPrototype, UnitShelterOccupantComponentDto>
     {
         public override UnitShelterOccupantComponent CreateComponentFromPrototype(UnitShelterOccupantComponentPrototype componentPrototype, UnitShelterOccupantComponentPrototype componentPrototypeOverride)

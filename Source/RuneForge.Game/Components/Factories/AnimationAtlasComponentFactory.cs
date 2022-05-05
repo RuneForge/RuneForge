@@ -1,8 +1,10 @@
 ﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(AnimationAtlasComponentDto))]
     public class AnimationAtlasComponentFactory : ComponentFactory<AnimationAtlasComponent, AnimationAtlasComponentPrototype, AnimationAtlasComponentDto>
     {
         public override AnimationAtlasComponent CreateComponentFromPrototype(AnimationAtlasComponentPrototype componentPrototype, AnimationAtlasComponentPrototype componentPrototypeOverride)

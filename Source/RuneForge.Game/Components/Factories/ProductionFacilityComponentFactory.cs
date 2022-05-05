@@ -2,12 +2,14 @@
 using System.Linq;
 
 using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Units;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(ProductionFacilityComponentDto))]
     public class ProductionFacilityComponentFactory : ComponentFactory<ProductionFacilityComponent, ProductionFacilityComponentPrototype, ProductionFacilityComponentDto>
     {
         private readonly IGameSessionContext m_gameSessionContext;

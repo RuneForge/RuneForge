@@ -1,8 +1,10 @@
 ﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(LocationComponentDto))]
     public class LocationComponentFactory : ComponentFactory<LocationComponent, LocationComponentPrototype, LocationComponentDto>
     {
         public override LocationComponent CreateComponentFromPrototype(LocationComponentPrototype componentPrototype, LocationComponentPrototype componentPrototypeOverride)

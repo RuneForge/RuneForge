@@ -1,9 +1,11 @@
 ﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Entities;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(MovementComponentDto))]
     public class MovementComponentFactory : ComponentFactory<MovementComponent, MovementComponentPrototype, MovementComponentDto>
     {
         public override MovementComponent CreateComponentFromPrototype(MovementComponentPrototype componentPrototype, MovementComponentPrototype componentPrototypeOverride)

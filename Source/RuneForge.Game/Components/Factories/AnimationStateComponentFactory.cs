@@ -1,8 +1,10 @@
 ﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(AnimationStateComponentDto))]
     public class AnimationStateComponentFactory : ComponentFactory<AnimationStateComponent, AnimationStateComponentPrototype, AnimationStateComponentDto>
     {
         public override AnimationStateComponent CreateComponentFromPrototype(AnimationStateComponentPrototype componentPrototype, AnimationStateComponentPrototype componentPrototypeOverride)

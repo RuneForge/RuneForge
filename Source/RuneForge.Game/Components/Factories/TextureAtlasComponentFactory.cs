@@ -1,8 +1,10 @@
 ﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Attributes;
 using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
+    [ComponentDto(typeof(TextureAtlasComponentDto))]
     public class TextureAtlasComponentFactory : ComponentFactory<TextureAtlasComponent, TextureAtlasComponentPrototype, TextureAtlasComponentDto>
     {
         public override TextureAtlasComponent CreateComponentFromPrototype(TextureAtlasComponentPrototype componentPrototype, TextureAtlasComponentPrototype componentPrototypeOverride)
