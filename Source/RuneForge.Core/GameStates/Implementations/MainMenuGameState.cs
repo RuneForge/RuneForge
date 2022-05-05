@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,6 +11,7 @@ using RuneForge.Core.GameStates.Interfaces;
 using RuneForge.Core.Interface.Controls;
 using RuneForge.Core.Interface.Interfaces;
 using RuneForge.Core.Interface.Windows;
+using RuneForge.Game.GameSessions;
 
 using XnaGame = Microsoft.Xna.Framework.Game;
 
@@ -16,31 +19,36 @@ namespace RuneForge.Core.GameStates
 {
     public class MainMenuGameState : GameState
     {
+        private static readonly string s_defaultMapAssetName = Path.Combine("Maps", "Southshore");
+
+        private readonly IServiceScopeFactory m_serviceScopeFactory;
+        private readonly IGraphicsInterfaceService m_graphicsInterfaceService;
+        private readonly ISpriteFontProvider m_spriteFontProvider;
+        private readonly IGameStateService m_gameStateService;
         private readonly Lazy<XnaGame> m_gameProvider;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
-        private readonly ISpriteFontProvider m_spriteFontProvider;
-        private readonly IGraphicsInterfaceService m_graphicsInterfaceService;
-        private readonly IGameStateService m_gameStateService;
         private SpriteBatch m_spriteBatch;
         private MainMenuWindow m_mainMenuWindow;
         private Label m_titleLabel;
 
         public MainMenuGameState(
+            IServiceScopeFactory serviceScopeFactory,
+            IGraphicsInterfaceService graphicsInterfaceService,
+            ISpriteFontProvider spriteFontProvider,
+            IGameStateService gameStateService,
             Lazy<XnaGame> gameProvider,
             Lazy<ContentManager> contentManagerProvider,
-            Lazy<GraphicsDevice> graphicsDeviceProvider,
-            ISpriteFontProvider spriteFontProvider,
-            IGraphicsInterfaceService graphicsInterfaceService,
-            IGameStateService gameStateService
+            Lazy<GraphicsDevice> graphicsDeviceProvider
             )
         {
+            m_serviceScopeFactory = serviceScopeFactory;
+            m_graphicsInterfaceService = graphicsInterfaceService;
+            m_spriteFontProvider = spriteFontProvider;
+            m_gameStateService = gameStateService;
             m_gameProvider = gameProvider;
             m_contentManagerProvider = contentManagerProvider;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
-            m_spriteFontProvider = spriteFontProvider;
-            m_graphicsInterfaceService = graphicsInterfaceService;
-            m_gameStateService = gameStateService;
         }
 
         public override void Run()
@@ -89,8 +97,15 @@ namespace RuneForge.Core.GameStates
 
         private void OnStartGameButtonClicked(object sender, EventArgs e)
         {
-            m_gameStateService.RunGameState<GameplayGameState>();
+            IServiceScope serviceScope = m_serviceScopeFactory.CreateScope();
+            GameSessionParameters gameSessionParameters = serviceScope.ServiceProvider.GetRequiredService<GameSessionParameters>();
+
+            gameSessionParameters.Type = GameSessionType.NewGame;
+            gameSessionParameters.MapAssetName = s_defaultMapAssetName;
+            gameSessionParameters.StartPaused = false;
+            m_gameStateService.RunGameState(serviceScope, serviceScope.ServiceProvider.GetRequiredService<GameplayGameState>());
         }
+
         private void OnExitGameButtonClicked(object sender, EventArgs e)
         {
             XnaGame game = m_gameProvider.Value;
