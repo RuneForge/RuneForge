@@ -13,6 +13,7 @@ using RuneForge.Data.Players.Interfaces;
 using RuneForge.Data.Units;
 using RuneForge.Data.Units.Interfaces;
 using RuneForge.Game.Buildings.Interfaces;
+using RuneForge.Game.GameSessions;
 using RuneForge.Game.Players.Interfaces;
 using RuneForge.Game.Units.Interfaces;
 
@@ -63,7 +64,7 @@ namespace RuneForge.Core.Helpers
             ReadOnlyCollection<BuildingDto> buildings = m_buildingRepository.GetBuildings();
             ReadOnlyCollection<MapDecorationDto> mapDecorations = m_mapDecorationRepository.GetMapDecorations();
 
-            SerializableGameState serializableGameState = new SerializableGameState()
+            SerializableGameSessionContext gameSessionContext = new SerializableGameSessionContext()
             {
                 Players = players,
                 Units = units,
@@ -72,7 +73,7 @@ namespace RuneForge.Core.Helpers
             };
 
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Serialize(stream, serializableGameState);
+            binaryFormatter.Serialize(stream, gameSessionContext);
         }
     }
 }
