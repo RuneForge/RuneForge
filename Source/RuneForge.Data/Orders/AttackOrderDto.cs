@@ -1,5 +1,8 @@
-﻿namespace RuneForge.Data.Orders
+﻿using System;
+
+namespace RuneForge.Data.Orders
 {
+    [Serializable]
     public class AttackOrderDto : OrderDto
     {
         public string TargetEntityId { get; }

@@ -5,6 +5,7 @@ using RuneForge.Data.Components;
 
 namespace RuneForge.Data.Units
 {
+    [Serializable]
     public class UnitDto
     {
         public int Id { get; set; }

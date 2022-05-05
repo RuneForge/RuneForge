@@ -10,12 +10,16 @@ namespace RuneForge.Core.Interface.Windows
 {
     public partial class IngameMenuWindow : Window
     {
+        private static readonly TimeSpan s_saveGameButtonThrottleTime = TimeSpan.FromSeconds(1);
+
         private readonly ISpriteFontProvider m_spriteFontProvider;
+        private DateTime m_previousClickTime;
 
         public IngameMenuWindow(ControlEventSource eventSource, ContentManager contentManager, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, ISpriteFontProvider spriteFontProvider)
             : base(eventSource, contentManager, graphicsDevice, spriteBatch)
         {
             m_spriteFontProvider = spriteFontProvider;
+            m_previousClickTime = DateTime.MinValue;
             CreateLayout();
         }
 

@@ -5,6 +5,7 @@ using RuneForge.Data.Components;
 
 namespace RuneForge.Data.Buildings
 {
+    [Serializable]
     public class BuildingDto
     {
         public int Id { get; set; }

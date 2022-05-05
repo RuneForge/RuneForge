@@ -2,6 +2,7 @@
 
 namespace RuneForge.Data.Components
 {
+    [Serializable]
     public class UnitShelterOccupantComponentDto : ComponentDto
     {
         public bool InsideShelter { get; set; }

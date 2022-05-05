@@ -7,6 +7,8 @@ using RuneForge.Core.GameStates;
 using RuneForge.Core.GameStates.Components;
 using RuneForge.Core.GameStates.Implementations;
 using RuneForge.Core.GameStates.Interfaces;
+using RuneForge.Core.Helpers;
+using RuneForge.Core.Helpers.Interfaces;
 using RuneForge.Core.Input.Components;
 using RuneForge.Core.Input.EventProviders;
 using RuneForge.Core.Input.EventProviders.Configuration;
@@ -42,6 +44,7 @@ namespace RuneForge.Core.DependencyInjection
 
         public static IServiceCollection AddGameStateManagementServices(this IServiceCollection services)
         {
+            services.AddScoped<IGameStateSerializer, GameStateSerializer>();
             services.AddSingleton<IGameStateService, GameStateService>();
             services.AddSingleton<IGameComponent, GameStateComponent>();
             services.AddScoped<MainMenuGameState>();

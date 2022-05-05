@@ -2,6 +2,7 @@
 
 namespace RuneForge.Data.Components
 {
+    [Serializable]
     public class MeleeCombatComponentDto : ComponentDto
     {
         public decimal AttackPower { get; set; }

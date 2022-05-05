@@ -2,6 +2,7 @@
 
 namespace RuneForge.Data.Components
 {
+    [Serializable]
     public class ResourceStorageComponentDto : ComponentDto
     {
         public int AcceptedResourceTypes { get; set; }

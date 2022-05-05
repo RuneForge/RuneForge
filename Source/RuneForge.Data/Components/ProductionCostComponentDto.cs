@@ -2,6 +2,7 @@
 
 namespace RuneForge.Data.Components
 {
+    [Serializable]
     public class ProductionCostComponentDto : ComponentDto
     {
         public decimal GoldAmount { get; set; }
