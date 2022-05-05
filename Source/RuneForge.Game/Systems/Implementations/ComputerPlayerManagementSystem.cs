@@ -24,7 +24,7 @@ namespace RuneForge.Game.Systems.Implementations
     public class ComputerPlayerManagementSystem : System
     {
         private const int c_miningPeasantsCount = 10;
-        private const int с_goldRequiredForFootmanProduction = 600;
+        private const int c_goldRequiredForFootmanProduction = 600;
         private const int c_defenceRange = 16;
         private const int c_footmansCountToTriggerAttack = 10;
         private const int c_footmansSelectedForAttack = 5;
@@ -109,7 +109,7 @@ namespace RuneForge.Game.Systems.Implementations
                     }
 
                     // If there is additional gold, train footmans.
-                    if (resourceContainerComponent.GetResourceAmount(ResourceTypes.Gold) >= с_goldRequiredForFootmanProduction)
+                    if (resourceContainerComponent.GetResourceAmount(ResourceTypes.Gold) >= c_goldRequiredForFootmanProduction)
                     {
                         Building barracks = m_gameSessionContext.Buildings.Where(building => building.Owner == player && building.Name == "Barracks").FirstOrDefault();
                         if (barracks != null)
