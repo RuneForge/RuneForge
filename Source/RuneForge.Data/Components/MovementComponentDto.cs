@@ -7,6 +7,8 @@ namespace RuneForge.Data.Components
     {
         public float MovementSpeed { get; }
 
+        public int MovementType { get; }
+
         public int OriginCellX { get; set; }
         public int OriginCellY { get; set; }
 
