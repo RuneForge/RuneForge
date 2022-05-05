@@ -17,5 +17,9 @@ namespace RuneForge.Game.Entities.Interfaces
 
         public bool HasComponentOfType(Type componentType);
         public bool HasComponentOfType<TComponent>() where TComponent : class, IComponent;
+
+        public void AddComponent(IComponent component);
+
+        public void RemoveComponent(IComponent component);
     }
 }

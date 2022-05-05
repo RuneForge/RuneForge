@@ -79,14 +79,14 @@ namespace RuneForge.Game.Entities
             return HasComponentOfType(type);
         }
 
-        protected void AddComponent(IComponent component)
+        public void AddComponent(IComponent component)
         {
             m_components.Add(component);
             m_componentsByTypes.Add(component.GetType(), component);
             InvalidateCache();
         }
 
-        protected void RemoveComponent(IComponent component)
+        public void RemoveComponent(IComponent component)
         {
             foreach ((Type type, IComponent componentToCompare) in m_componentsByTypes)
             {
