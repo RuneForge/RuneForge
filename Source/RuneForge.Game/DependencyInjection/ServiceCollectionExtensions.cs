@@ -34,6 +34,7 @@ namespace RuneForge.Game.DependencyInjection
     {
         public static IServiceCollection AddGameSessionContext(this IServiceCollection services)
         {
+            services.AddScoped<GameSessionParameters>();
             services.AddScoped<IGameSessionContext, GameSessionContext>();
             return services;
         }
@@ -132,6 +133,7 @@ namespace RuneForge.Game.DependencyInjection
 
         public static IServiceCollection AddAutoMapperValueResolvers(this IServiceCollection services)
         {
+            services.AddTransient<OrderEntityIdValueResolver>();
             services.AddTransient<MeleeCombatComponentTargetEntityIdValueResolver>();
             services.AddTransient<AttackOrderTargetEntityIdValueResolver>();
             return services;
