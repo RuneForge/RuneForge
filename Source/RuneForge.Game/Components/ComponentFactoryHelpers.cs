@@ -27,7 +27,7 @@ namespace RuneForge.Game.Components
                 if (!componentPrototypeOverridesByTypes.TryGetValue(componentPrototypeType, out ComponentPrototype componentPrototypeOverride))
                     componentPrototypeOverride = null;
 
-                IComponentFactory componentFactory = serviceProvider.GetComponentFactory(componentPrototypeType);
+                IComponentFactory componentFactory = serviceProvider.GetComponentFactoryByPrototypeType(componentPrototypeType);
                 IComponent component = componentFactory.CreateComponentFromPrototype(componentPrototype, componentPrototypeOverride);
                 components.Add(component);
             }
