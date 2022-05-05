@@ -1,8 +1,9 @@
-﻿using RuneForge.Game.Components.Implementations;
+﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
-    public class DurabilityComponentFactory : ComponentFactory<DurabilityComponent, DurabilityComponentPrototype>
+    public class DurabilityComponentFactory : ComponentFactory<DurabilityComponent, DurabilityComponentPrototype, DurabilityComponentDto>
     {
         public override DurabilityComponent CreateComponentFromPrototype(DurabilityComponentPrototype componentPrototype, DurabilityComponentPrototype componentPrototypeOverride)
         {
@@ -10,6 +11,15 @@ namespace RuneForge.Game.Components.Factories
             {
                 Durability = componentPrototype.Durability,
                 MaxDurability = componentPrototype.MaxDurability,
+            };
+        }
+
+        public override DurabilityComponent CreateComponentFromDto(DurabilityComponentDto componentDto)
+        {
+            return new DurabilityComponent()
+            {
+                Durability = componentDto.Durability,
+                MaxDurability = componentDto.MaxDurability,
             };
         }
     }

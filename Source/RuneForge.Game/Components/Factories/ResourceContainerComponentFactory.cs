@@ -1,14 +1,23 @@
-﻿using RuneForge.Game.Components.Implementations;
+﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
-    public class ResourceContainerComponentFactory : ComponentFactory<ResourceContainerComponent, ResourceContainerComponentPrototype>
+    public class ResourceContainerComponentFactory : ComponentFactory<ResourceContainerComponent, ResourceContainerComponentPrototype, ResourceContainerComponentDto>
     {
         public override ResourceContainerComponent CreateComponentFromPrototype(ResourceContainerComponentPrototype componentPrototype, ResourceContainerComponentPrototype componentPrototypeOverride)
         {
             return new ResourceContainerComponent()
             {
                 GoldAmount = componentPrototype.GoldAmount,
+            };
+        }
+
+        public override ResourceContainerComponent CreateComponentFromDto(ResourceContainerComponentDto componentDto)
+        {
+            return new ResourceContainerComponent()
+            {
+                GoldAmount = componentDto.GoldAmount,
             };
         }
     }

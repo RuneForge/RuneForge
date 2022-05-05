@@ -1,8 +1,9 @@
-﻿using RuneForge.Game.Components.Implementations;
+﻿using RuneForge.Data.Components;
+using RuneForge.Game.Components.Implementations;
 
 namespace RuneForge.Game.Components.Factories
 {
-    public class LocationComponentFactory : ComponentFactory<LocationComponent, LocationComponentPrototype>
+    public class LocationComponentFactory : ComponentFactory<LocationComponent, LocationComponentPrototype, LocationComponentDto>
     {
         public override LocationComponent CreateComponentFromPrototype(LocationComponentPrototype componentPrototype, LocationComponentPrototype componentPrototypeOverride)
         {
@@ -20,6 +21,11 @@ namespace RuneForge.Game.Components.Factories
             }
 
             return LocationComponent.CreateFromCellLocation(xCells, yCells, widthCells, heightCells);
+        }
+
+        public override LocationComponent CreateComponentFromDto(LocationComponentDto componentDto)
+        {
+            return new LocationComponent(componentDto.X, componentDto.Y, componentDto.Width, componentDto.Height);
         }
     }
 }
