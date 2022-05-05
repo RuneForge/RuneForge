@@ -23,7 +23,6 @@ namespace RuneForge.Game.Units
             m_nextUnitId = 1;
         }
 
-#warning Add support for restoring the component collection from a DTO object.
         public Unit CreateFromDto(UnitDto unit)
         {
             Player owner = m_playerService.GetPlayer(unit.OwnerId);
