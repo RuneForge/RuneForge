@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using Microsoft.Xna.Framework.Content;
 
+using RuneForge.Data.Buildings;
+using RuneForge.Data.Components;
+using RuneForge.Data.Maps;
+using RuneForge.Data.Players;
+using RuneForge.Data.Units;
 using RuneForge.Game.Buildings;
 using RuneForge.Game.Buildings.Interfaces;
+using RuneForge.Game.Components.Extensions;
+using RuneForge.Game.Components.Interfaces;
 using RuneForge.Game.GameSessions.Interfaces;
 using RuneForge.Game.Maps;
 using RuneForge.Game.Maps.Interfaces;
@@ -17,6 +25,7 @@ namespace RuneForge.Game.GameSessions
 {
     public class GameSessionContext : IGameSessionContext
     {
+        private readonly IServiceProvider m_serviceProvider;
         private readonly IMapLandscapeCellTypeResolver m_landscapeCellTypeResolver;
         private readonly IMapDecorationCellTypeResolver m_decorationCellTypeResolver;
         private readonly IPlayerFactory m_playerFactory;
@@ -45,6 +54,7 @@ namespace RuneForge.Game.GameSessions
         public bool Completed { get; private set; }
 
         public GameSessionContext(
+            IServiceProvider serviceProvider,
             IMapLandscapeCellTypeResolver landscapeCellTypeResolver,
             IMapDecorationCellTypeResolver decorationCellTypeResolver,
             IPlayerFactory playerFactory,
@@ -58,6 +68,7 @@ namespace RuneForge.Game.GameSessions
             Lazy<IBuildingService> buildingServiceProvider
             )
         {
+            m_serviceProvider = serviceProvider;
             m_landscapeCellTypeResolver = landscapeCellTypeResolver;
             m_decorationCellTypeResolver = decorationCellTypeResolver;
             m_playerFactory = playerFactory;
@@ -91,14 +102,53 @@ namespace RuneForge.Game.GameSessions
                 Map map = contentManager.Load<Map>(parameters.MapAssetName);
                 map.ResolveLandscapeCellTypes(m_landscapeCellTypeResolver);
                 map.ResolveDecorationCellTypes(m_decorationCellTypeResolver);
-                map.CreateMapDecorations(m_mapDecorationFactory, mapDecorationService);
-
                 Map = map;
-                CreatePlayers(map);
-                CreateUnits(map);
-                CreateBuildings(map);
+
+                if (parameters.Type == GameSessionType.NewGame)
+                {
+                    map.CreateMapDecorations(m_mapDecorationFactory, mapDecorationService);
+
+                    CreatePlayers(map);
+                    CreateUnits(map);
+                    CreateBuildings(map);
+                }
+                else
+                {
+                    CreateMapDecorations(parameters.GameSessionContext.MapDecorations);
+
+                    CreatePlayers(parameters.GameSessionContext.Players);
+
+                    CreateUnits(parameters.GameSessionContext.Units);
+                    CreateBuildings(parameters.GameSessionContext.Buildings);
+
+                    Dictionary<Type, IComponentFactory> componentFactories = new Dictionary<Type, IComponentFactory>();
+                    CreatePlayerComponents(parameters.GameSessionContext.Players, componentFactories);
+
+                    CreateUnitComponents(parameters.GameSessionContext.Units, componentFactories);
+                    CreateBuildingComponents(parameters.GameSessionContext.Buildings, componentFactories);
+
+                    //throw new NotImplementedException();
+                }
 
                 Initialized = true;
+            }
+        }
+
+        public void Complete()
+        {
+            if (Completed)
+                throw new NotSupportedException("Unable to complete the game session a second time.");
+            else
+                Completed = true;
+        }
+
+        private void CreateMapDecorations(ReadOnlyCollection<MapDecorationDto> serializedMapDecorations)
+        {
+            IMapDecorationService mapDecorationService = m_mapDecorationServiceProvider.Value;
+            foreach (MapDecorationDto mapDecorationDto in serializedMapDecorations)
+            {
+                MapDecoration mapDecoration = m_mapDecorationFactory.CreateFromDto(mapDecorationDto);
+                mapDecorationService.AddMapDecoration(mapDecoration);
             }
         }
 
@@ -109,6 +159,26 @@ namespace RuneForge.Game.GameSessions
             {
                 Player player = m_playerFactory.CreateFromPrototype(playerPrototype);
                 playerService.AddPlayer(player);
+            }
+        }
+        private void CreatePlayers(ReadOnlyCollection<PlayerDto> serializedPlayers)
+        {
+            IPlayerService playerService = m_playerServiceProvider.Value;
+            foreach (PlayerDto playerDto in serializedPlayers)
+            {
+                Player player = m_playerFactory.CreateFromDto(playerDto);
+                playerService.AddPlayer(player);
+            }
+        }
+        private void CreatePlayerComponents(ReadOnlyCollection<PlayerDto> serializedPlayers, Dictionary<Type, IComponentFactory> componentFactories)
+        {
+            IPlayerService playerService = m_playerServiceProvider.Value;
+            foreach (PlayerDto playerDto in serializedPlayers)
+            {
+                Player player = playerService.GetPlayer(playerDto.Id);
+                foreach (ComponentDto componentDto in playerDto.Components)
+                    player.AddComponent(CreateComponentFromDto(componentDto, componentFactories));
+                playerService.RegisterPlayerChanges(player.Id);
             }
         }
 
@@ -122,6 +192,27 @@ namespace RuneForge.Game.GameSessions
                 unitService.AddUnit(unit);
             }
         }
+        private void CreateUnits(ReadOnlyCollection<UnitDto> serializedUnits)
+        {
+            IUnitFactory unitFactory = m_unitFactoryProvider.Value;
+            IUnitService unitService = m_unitServiceProvider.Value;
+            foreach (UnitDto unitDto in serializedUnits)
+            {
+                Unit unit = unitFactory.CreateFromDto(unitDto);
+                unitService.AddUnit(unit);
+            }
+        }
+        private void CreateUnitComponents(ReadOnlyCollection<UnitDto> serializedUnits, Dictionary<Type, IComponentFactory> componentFactories)
+        {
+            IUnitService unitService = m_unitServiceProvider.Value;
+            foreach (UnitDto unitDto in serializedUnits)
+            {
+                Unit unit = unitService.GetUnit(unitDto.Id);
+                foreach (ComponentDto componentDto in unitDto.Components)
+                    unit.AddComponent(CreateComponentFromDto(componentDto, componentFactories));
+                unitService.RegisterUnitChanges(unit.Id);
+            }
+        }
 
         private void CreateBuildings(Map map)
         {
@@ -133,13 +224,37 @@ namespace RuneForge.Game.GameSessions
                 buildingService.AddBuilding(building);
             }
         }
-
-        public void Complete()
+        private void CreateBuildings(ReadOnlyCollection<BuildingDto> serializedBuildings)
         {
-            if (Completed)
-                throw new NotSupportedException("Unable to complete the game session a second time.");
-            else
-                Completed = true;
+            IBuildingFactory buildingFactory = m_buildingFactoryProvider.Value;
+            IBuildingService buildingService = m_buildingServiceProvider.Value;
+            foreach (BuildingDto buildingDto in serializedBuildings)
+            {
+                Building building = buildingFactory.CreateFromDto(buildingDto);
+                buildingService.AddBuilding(building);
+            }
+        }
+        private void CreateBuildingComponents(ReadOnlyCollection<BuildingDto> serializedBuildings, Dictionary<Type, IComponentFactory> componentFactories)
+        {
+            IBuildingService buildingService = m_buildingServiceProvider.Value;
+            foreach (BuildingDto buildingDto in serializedBuildings)
+            {
+                Building building = buildingService.GetBuilding(buildingDto.Id);
+                foreach (ComponentDto componentDto in buildingDto.Components)
+                    building.AddComponent(CreateComponentFromDto(componentDto, componentFactories));
+                buildingService.RegisterBuildingChanges(building.Id);
+            }
+        }
+
+        private IComponent CreateComponentFromDto(ComponentDto componentDto, Dictionary<Type, IComponentFactory> componentFactories)
+        {
+            Type componentDtoType = componentDto.GetType();
+            if (!componentFactories.TryGetValue(componentDtoType, out IComponentFactory componentFactory))
+            {
+                componentFactory = m_serviceProvider.GetComponentFactoryByDtoType(componentDtoType);
+                componentFactories.Add(componentDtoType, componentFactory);
+            }
+            return componentFactory.CreateComponentFromDto(componentDto);
         }
     }
 }

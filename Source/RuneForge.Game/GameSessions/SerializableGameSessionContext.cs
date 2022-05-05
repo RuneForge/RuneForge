@@ -6,10 +6,10 @@ using RuneForge.Data.Maps;
 using RuneForge.Data.Players;
 using RuneForge.Data.Units;
 
-namespace RuneForge.Core.Helpers
+namespace RuneForge.Game.GameSessions
 {
     [Serializable]
-    public class SerializableGameState
+    public class SerializableGameSessionContext
     {
         public ReadOnlyCollection<PlayerDto> Players { get; set; }
 

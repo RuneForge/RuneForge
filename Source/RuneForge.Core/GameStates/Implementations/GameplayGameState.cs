@@ -38,7 +38,6 @@ namespace RuneForge.Core.GameStates.Implementations
     {
         private const int c_interfaceWindowsOffset = 4;
 
-        private static readonly string s_defaultMapAssetName = Path.Combine("Maps", "Southshore");
         private static readonly string s_defaultSaveDirectoryName = "Saves";
 
         private readonly IGameSessionContext m_gameSessionContext;
@@ -60,6 +59,7 @@ namespace RuneForge.Core.GameStates.Implementations
         private readonly CameraController m_cameraController;
         private readonly UnitController m_unitController;
         private readonly BuildingController m_buildingController;
+        private readonly GameSessionParameters m_gameSessionParameters;
         private readonly Lazy<XnaGame> m_gameProvider;
         private readonly Lazy<ContentManager> m_contentManagerProvider;
         private readonly Lazy<GraphicsDevice> m_graphicsDeviceProvider;
@@ -91,6 +91,7 @@ namespace RuneForge.Core.GameStates.Implementations
             CameraController cameraController,
             UnitController unitController,
             BuildingController buildingController,
+            GameSessionParameters gameSessionParameters,
             Lazy<XnaGame> gameProvider,
             Lazy<ContentManager> contentManagerProvider,
             Lazy<GraphicsDevice> graphicsDeviceProvider
@@ -115,6 +116,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_cameraController = cameraController;
             m_unitController = unitController;
             m_buildingController = buildingController;
+            m_gameSessionParameters = gameSessionParameters;
             m_gameProvider = gameProvider;
             m_contentManagerProvider = contentManagerProvider;
             m_graphicsDeviceProvider = graphicsDeviceProvider;
@@ -124,7 +126,7 @@ namespace RuneForge.Core.GameStates.Implementations
             m_activeTargetBasedOrderEventArgs = null;
             m_playerResourceStatisticsWindow = null;
             m_ingameMenuWindow = null;
-            m_gamePaused = false;
+            m_gamePaused = gameSessionParameters.StartPaused;
         }
 
         public override void Run()
@@ -188,8 +190,7 @@ namespace RuneForge.Core.GameStates.Implementations
 
         public override void LoadContent()
         {
-            GameSessionParameters parameters = new GameSessionParameters() { MapAssetName = s_defaultMapAssetName };
-            m_gameSessionContext.Initialize(parameters);
+            m_gameSessionContext.Initialize(m_gameSessionParameters);
 
             GraphicsDevice graphicsDevice = m_graphicsDeviceProvider.Value;
 
@@ -206,7 +207,7 @@ namespace RuneForge.Core.GameStates.Implementations
 
             base.LoadContent();
 
-            CreateInterfaceWindows();
+            CreateInterfaceWindows(graphicsDevice);
             m_entityDetailsWindow.LoadContent();
             m_orderConfirmationDialogWindow.LoadContent();
             m_playerResourceStatisticsWindow.LoadContent();
@@ -251,8 +252,10 @@ namespace RuneForge.Core.GameStates.Implementations
             m_mouseEventProvider.MouseButtonClicked -= HandleEntitySelection;
         }
 
-        private void CreateInterfaceWindows()
+        private void CreateInterfaceWindows(GraphicsDevice graphicsDevice)
         {
+            Viewport interfaceViewport = new Viewport(0, 0, graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight);
+
             m_entityDetailsWindow = new EntityDetailsWindow(
                 new ControlEventSource(),
                 m_contentManagerProvider.Value,
@@ -295,7 +298,7 @@ namespace RuneForge.Core.GameStates.Implementations
             {
                 Player = m_playerService.GetPlayer(m_gameSessionContext.Map.HumanPlayerId),
             };
-            m_playerResourceStatisticsWindow.X = m_graphicsInterfaceService.Viewport.Width - (m_playerResourceStatisticsWindow.Width + c_interfaceWindowsOffset);
+            m_playerResourceStatisticsWindow.X = interfaceViewport.Width - (m_playerResourceStatisticsWindow.Width + c_interfaceWindowsOffset);
             m_playerResourceStatisticsWindow.Y = c_interfaceWindowsOffset;
 
             m_ingameMenuWindow = new IngameMenuWindow(
@@ -309,7 +312,7 @@ namespace RuneForge.Core.GameStates.Implementations
                 Visible = m_gamePaused,
             };
             m_ingameMenuWindow.X = c_interfaceWindowsOffset;
-            m_ingameMenuWindow.Y = m_graphicsInterfaceService.Viewport.Height - (m_ingameMenuWindow.Height + c_interfaceWindowsOffset);
+            m_ingameMenuWindow.Y = interfaceViewport.Height - (m_ingameMenuWindow.Height + c_interfaceWindowsOffset);
             m_ingameMenuWindow.GameResumed += (sender, e) =>
             {
                 m_gamePaused = false;

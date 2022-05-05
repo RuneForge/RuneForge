@@ -5,9 +5,9 @@ namespace RuneForge.Data.Components
     [Serializable]
     public class MovementComponentDto : ComponentDto
     {
-        public float MovementSpeed { get; }
+        public float MovementSpeed { get; set; }
 
-        public int MovementType { get; }
+        public int MovementType { get; set; }
 
         public int OriginCellX { get; set; }
         public int OriginCellY { get; set; }
