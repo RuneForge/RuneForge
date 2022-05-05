@@ -34,7 +34,7 @@ namespace RuneForge.Core.Controllers
                 orderQueueComponent.ClearOrderQueue();
 
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
-            orderQueueComponent.EnqueueOrder(new MoveOrder(unit, destinationCellX, destinationCellY, false, pathGenerator));
+            orderQueueComponent.EnqueueOrder(new MoveOrder(unit, destinationCellX, destinationCellY, pathGenerator));
             m_unitService.RegisterUnitChanges(unit.Id);
         }
 
@@ -49,7 +49,7 @@ namespace RuneForge.Core.Controllers
             IGameSessionContext gameSessionContext = m_serviceProvider.GetRequiredService<IGameSessionContext>();
             IBuildingService buildingService = m_serviceProvider.GetRequiredService<IBuildingService>();
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
-            orderQueueComponent.EnqueueOrder(new GatherResourcesOrder(unit, resourceSourceBuilding, false, gameSessionContext, buildingService, pathGenerator));
+            orderQueueComponent.EnqueueOrder(new GatherResourcesOrder(unit, resourceSourceBuilding, gameSessionContext, buildingService, pathGenerator));
             m_unitService.RegisterUnitChanges(unit.Id);
         }
 
@@ -62,7 +62,7 @@ namespace RuneForge.Core.Controllers
                 orderQueueComponent.ClearOrderQueue();
 
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
-            orderQueueComponent.EnqueueOrder(new AttackOrder(unit, targetEntity, false, false, pathGenerator));
+            orderQueueComponent.EnqueueOrder(new AttackOrder(unit, targetEntity, pathGenerator));
             m_unitService.RegisterUnitChanges(unit.Id);
         }
 
