@@ -44,7 +44,15 @@ namespace RuneForge.Core.Interface.Windows
 
                 Text = "Save Game",
             };
-            m_saveGameButton.Clicked += (sender, e) => OnGameSaved(EventArgs.Empty);
+            m_saveGameButton.Clicked += (sender, e) =>
+            {
+                DateTime currentDateTime = DateTime.Now;
+                if (currentDateTime - m_previousClickTime >= s_saveGameButtonThrottleTime)
+                {
+                    OnGameSaved(EventArgs.Empty);
+                    m_previousClickTime = currentDateTime;
+                }
+            };
             Controls.Add(m_saveGameButton);
 
             m_exitToMainMenuButton = new Button(null, ContentManager, GraphicsDevice, SpriteBatch)
