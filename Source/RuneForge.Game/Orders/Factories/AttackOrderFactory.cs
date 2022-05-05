@@ -28,7 +28,7 @@ namespace RuneForge.Game.Orders.Factories
             Entity entity = GetEntity(orderDto.EntityId);
             Entity targetEntity = GetEntity(orderDto.TargetEntityId);
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
-            return new AttackOrder(entity, targetEntity, orderDto.CompletingRequested, orderDto.CancellationRequested, pathGenerator);
+            return new AttackOrder(entity, targetEntity, (OrderState)orderDto.State, orderDto.CompletingRequested, orderDto.CancellationRequested, pathGenerator);
         }
     }
 }

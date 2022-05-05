@@ -20,9 +20,14 @@ namespace RuneForge.Game.Orders.Implementations
         public UnitPrototype UnitPrototype { get; }
 
         public ProduceUnitOrder(Entity entity, UnitPrototype unitPrototype, IPlayerService playerService)
+            : this(entity, unitPrototype, OrderState.Scheduled, playerService)
+        {
+        }
+        public ProduceUnitOrder(Entity entity, UnitPrototype unitPrototype, OrderState orderState, IPlayerService playerService)
             : base(entity)
         {
             m_playerService = playerService;
+            State = orderState;
             UnitPrototype = unitPrototype;
         }
 

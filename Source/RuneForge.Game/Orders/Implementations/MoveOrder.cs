@@ -21,10 +21,15 @@ namespace RuneForge.Game.Orders.Implementations
 
         public bool CancellationRequested { get; private set; }
 
-        public MoveOrder(Entity entity, int destinationX, int destinationY, bool cancellationRequested, IPathGenerator pathGenerator)
+        public MoveOrder(Entity entity, int destinationX, int destinationY, IPathGenerator pathGenerator)
+            : this(entity, destinationX, destinationY, OrderState.Scheduled, false, pathGenerator)
+        {
+        }
+        public MoveOrder(Entity entity, int destinationX, int destinationY, OrderState orderState, bool cancellationRequested, IPathGenerator pathGenerator)
             : base(entity)
         {
             m_pathGenerator = pathGenerator;
+            State = orderState;
             DestinationX = destinationX;
             DestinationY = destinationY;
             CancellationRequested = cancellationRequested;

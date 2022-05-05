@@ -27,12 +27,17 @@ namespace RuneForge.Game.Orders.Implementations
 
         public bool CancellationRequested { get; private set; }
 
-        public GatherResourcesOrder(Entity entity, Building resourceSource, bool cancellationRequested, IGameSessionContext gameSessionContext, IBuildingService buildingService, IPathGenerator pathGenerator)
+        public GatherResourcesOrder(Entity entity, Building resourceSource, IGameSessionContext gameSessionContext, IBuildingService buildingService, IPathGenerator pathGenerator)
+            : this(entity, resourceSource, OrderState.Scheduled, false, gameSessionContext, buildingService, pathGenerator)
+        {
+        }
+        public GatherResourcesOrder(Entity entity, Building resourceSource, OrderState orderState, bool cancellationRequested, IGameSessionContext gameSessionContext, IBuildingService buildingService, IPathGenerator pathGenerator)
             : base(entity)
         {
             m_gameSessionContext = gameSessionContext;
             m_buildingService = buildingService;
             m_pathGenerator = pathGenerator;
+            State = orderState;
             ResourceSource = resourceSource;
             CancellationRequested = cancellationRequested;
         }

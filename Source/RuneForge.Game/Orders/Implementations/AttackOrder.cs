@@ -22,11 +22,16 @@ namespace RuneForge.Game.Orders.Implementations
         public bool CompletingRequested { get; private set; }
         public bool CancellationRequested { get; private set; }
 
-        public AttackOrder(Entity entity, Entity targetEntity, bool completingRequested, bool cancellationRequested, IPathGenerator pathGenerator)
+        public AttackOrder(Entity entity, Entity targetEntity, IPathGenerator pathGenerator)
+            : this(entity, targetEntity, OrderState.Scheduled, false, false, pathGenerator)
+        {
+        }
+        public AttackOrder(Entity entity, Entity targetEntity, OrderState orderState, bool completingRequested, bool cancellationRequested, IPathGenerator pathGenerator)
             : base(entity)
         {
             m_pathGenerator = pathGenerator;
             TargetEntity = targetEntity;
+            State = orderState;
             CompletingRequested = completingRequested;
             CancellationRequested = cancellationRequested;
         }

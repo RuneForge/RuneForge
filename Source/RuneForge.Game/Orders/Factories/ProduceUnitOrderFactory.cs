@@ -33,7 +33,7 @@ namespace RuneForge.Game.Orders.Factories
             Entity entity = GetEntity(orderDto.EntityId);
             IPlayerService playerService = m_serviceProvider.GetRequiredService<IPlayerService>();
             UnitPrototype unitPrototype = m_gameSessionContext.Map.UnitPrototypes.Where(unitPrototype => unitPrototype.Code == orderDto.UnitPrototypeCode).Single();
-            return new ProduceUnitOrder(entity, unitPrototype, playerService);
+            return new ProduceUnitOrder(entity, unitPrototype, (OrderState)orderDto.State, playerService);
         }
     }
 }

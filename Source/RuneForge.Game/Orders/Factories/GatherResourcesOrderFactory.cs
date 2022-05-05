@@ -34,7 +34,7 @@ namespace RuneForge.Game.Orders.Factories
             IGameSessionContext gameSessionContext = m_serviceProvider.GetRequiredService<IGameSessionContext>();
             IBuildingService buildingService = m_serviceProvider.GetRequiredService<IBuildingService>();
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
-            return new GatherResourcesOrder(entity, resourceSourceBuilding, orderDto.CancellationRequested, gameSessionContext, buildingService, pathGenerator);
+            return new GatherResourcesOrder(entity, resourceSourceBuilding, (OrderState)orderDto.State, orderDto.CancellationRequested, gameSessionContext, buildingService, pathGenerator);
         }
     }
 }

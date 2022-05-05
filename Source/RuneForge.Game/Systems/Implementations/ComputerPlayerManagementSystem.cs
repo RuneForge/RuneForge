@@ -235,19 +235,19 @@ namespace RuneForge.Game.Systems.Implementations
         {
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
             LocationComponent buildingLocationComponent = building.GetComponentOfType<LocationComponent>();
-            return new MoveOrder(unit, buildingLocationComponent.XCells, buildingLocationComponent.YCells, false, pathGenerator);
+            return new MoveOrder(unit, buildingLocationComponent.XCells, buildingLocationComponent.YCells, pathGenerator);
         }
 
         private AttackOrder CreateAttackOrder(Unit unit, Entity entity)
         {
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
-            return new AttackOrder(unit, entity, false, false, pathGenerator);
+            return new AttackOrder(unit, entity, pathGenerator);
         }
 
         private GatherResourcesOrder CreateGatherResourcesOrder(Unit unit, Building goldMine)
         {
             IPathGenerator pathGenerator = m_serviceProvider.GetRequiredService<IPathGenerator>();
-            return new GatherResourcesOrder(unit, goldMine, false, m_gameSessionContext, m_buildingService, pathGenerator);
+            return new GatherResourcesOrder(unit, goldMine, m_gameSessionContext, m_buildingService, pathGenerator);
         }
 
         private int CalculateDistance(Point first, Point second)
