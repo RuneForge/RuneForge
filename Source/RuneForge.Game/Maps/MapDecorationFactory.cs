@@ -1,4 +1,5 @@
-﻿using RuneForge.Game.Maps.Interfaces;
+﻿using RuneForge.Data.Maps;
+using RuneForge.Game.Maps.Interfaces;
 
 namespace RuneForge.Game.Maps
 {
@@ -15,6 +16,11 @@ namespace RuneForge.Game.Maps
         {
             int id = m_nextDecorationId++;
             return new MapDecoration(id, prototype.Name, x, y);
+        }
+
+        public MapDecoration CreateFromDto(MapDecorationDto mapDecorationDto)
+        {
+            return new MapDecoration(mapDecorationDto.Id, mapDecorationDto.Name, mapDecorationDto.X, mapDecorationDto.Y);
         }
     }
 }
