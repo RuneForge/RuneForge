@@ -25,6 +25,7 @@ namespace RuneForge.Game.Units
 
         public Unit CreateFromDto(UnitDto unit)
         {
+            m_nextUnitId = Math.Max(m_nextUnitId, unit.Id + 1);
             Player owner = m_playerService.GetPlayer(unit.OwnerId);
             return new Unit(unit.Id, unit.Name, owner, Array.Empty<IComponent>());
         }

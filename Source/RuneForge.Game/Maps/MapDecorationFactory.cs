@@ -1,4 +1,6 @@
-﻿using RuneForge.Data.Maps;
+﻿using System;
+
+using RuneForge.Data.Maps;
 using RuneForge.Game.Maps.Interfaces;
 
 namespace RuneForge.Game.Maps
@@ -20,6 +22,7 @@ namespace RuneForge.Game.Maps
 
         public MapDecoration CreateFromDto(MapDecorationDto mapDecorationDto)
         {
+            m_nextDecorationId = Math.Max(m_nextDecorationId, mapDecorationDto.Id + 1);
             return new MapDecoration(mapDecorationDto.Id, mapDecorationDto.Name, mapDecorationDto.X, mapDecorationDto.Y);
         }
     }
