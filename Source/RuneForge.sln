@@ -13,6 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Items", "Reposit
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{EB951AFC-1B4A-4EC4-9F25-A5D76756CE81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{0118DD37-A487-4D3A-A203-8058544BFC89}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\main.yaml = ..\.github\workflows\main.yaml
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C730F5A9-C0DF-4505-9FC5-213DBA9E34D0}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet.config = NuGet.config
@@ -28,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Core", "RuneForge
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Game", "RuneForge.Game\RuneForge.Game.csproj", "{850571C1-CAF5-4341-B583-C677F95E8FBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuneForge.Data", "RuneForge.Data\RuneForge.Data.csproj", "{E7C8B3B3-25BF-4585-BA16-ADEA8578128E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Data", "RuneForge.Data\RuneForge.Data.csproj", "{E7C8B3B3-25BF-4585-BA16-ADEA8578128E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Content.Pipeline.Core", "RuneForge.Content.Pipeline.Core\RuneForge.Content.Pipeline.Core.csproj", "{93F808B2-33F0-4BC2-B68E-7EABEC7EAF8D}"
 EndProject
@@ -67,6 +74,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB951AFC-1B4A-4EC4-9F25-A5D76756CE81} = {B0D6E60D-F582-4003-AFD9-C7F9436C4B4D}
+		{0118DD37-A487-4D3A-A203-8058544BFC89} = {EB951AFC-1B4A-4EC4-9F25-A5D76756CE81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A5463BD-05CD-4BC6-AAC7-32F6130CF8CC}
