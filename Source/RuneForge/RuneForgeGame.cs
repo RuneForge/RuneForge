@@ -22,6 +22,7 @@ using XnaGame = Microsoft.Xna.Framework.Game;
 
 namespace RuneForge
 {
+#error Sample error.
     public class RuneForgeGame : XnaGame
     {
         private static readonly string s_defaultMapAssetName = Path.Combine("Maps", "Southshore");
