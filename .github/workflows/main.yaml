@@ -29,3 +29,5 @@ jobs:
         run: dotnet build ./Source/RuneForge.sln --no-restore --configuration Debug
       - name: Build the Solution in the Release Configuration
         run: dotnet build ./Source/RuneForge.sln --no-restore --configuration Release
+      - name: Run Tests
+        run: dotnet test ./Source/RuneForge.sln --no-restore --no-build --verbosity normal
