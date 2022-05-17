@@ -8,8 +8,8 @@ namespace RuneForge.Data.Units
 {
     public class InMemoryUnitRepository : IUnitRepository
     {
-        private List<UnitDto> m_units;
-        private Dictionary<int, int> m_unitsByIds;
+        private readonly List<UnitDto> m_units;
+        private readonly Dictionary<int, int> m_unitsByIds;
 
         public InMemoryUnitRepository()
         {
