@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ED891767-DEBF-4D81-A972-34DEE9DF554E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8BE7E459-CCE2-4571-9A79-6125FE375C00}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge", "RuneForge\RuneForge.csproj", "{34C678FB-DBD3-48B5-918C-B220A6FA4EB6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93F808B2-33F0-4BC2-B68E-7EABEC7EAF8D} = {93F808B2-33F0-4BC2-B68E-7EABEC7EAF8D}
@@ -46,6 +48,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Core.Tests", "Tests\RuneForge.Core.Tests\RuneForge.Core.Tests.csproj", "{1ADEFA76-6B3A-49D8-9F49-ED4FC92233BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Data.Tests", "Tests\RuneForge.Data.Tests\RuneForge.Data.Tests.csproj", "{11596B0E-3173-4B2D-8EB8-40865361F674}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneForge.Tools.MapConverter", "Tools\RuneForge.Tools.MapConverter\RuneForge.Tools.MapConverter.csproj", "{F9A4CCB8-D8AC-4D4C-AE1C-41210E3074AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +89,10 @@ Global
 		{11596B0E-3173-4B2D-8EB8-40865361F674}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11596B0E-3173-4B2D-8EB8-40865361F674}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11596B0E-3173-4B2D-8EB8-40865361F674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9A4CCB8-D8AC-4D4C-AE1C-41210E3074AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9A4CCB8-D8AC-4D4C-AE1C-41210E3074AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9A4CCB8-D8AC-4D4C-AE1C-41210E3074AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9A4CCB8-D8AC-4D4C-AE1C-41210E3074AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +102,7 @@ Global
 		{0118DD37-A487-4D3A-A203-8058544BFC89} = {EB951AFC-1B4A-4EC4-9F25-A5D76756CE81}
 		{1ADEFA76-6B3A-49D8-9F49-ED4FC92233BE} = {ED891767-DEBF-4D81-A972-34DEE9DF554E}
 		{11596B0E-3173-4B2D-8EB8-40865361F674} = {ED891767-DEBF-4D81-A972-34DEE9DF554E}
+		{F9A4CCB8-D8AC-4D4C-AE1C-41210E3074AF} = {8BE7E459-CCE2-4571-9A79-6125FE375C00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A5463BD-05CD-4BC6-AAC7-32F6130CF8CC}
