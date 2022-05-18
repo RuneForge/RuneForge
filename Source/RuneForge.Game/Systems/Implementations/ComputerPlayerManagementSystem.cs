@@ -103,8 +103,11 @@ namespace RuneForge.Game.Systems.Implementations
                                 }
                             }
 
-                            peasantOrderQueueComponent.EnqueueOrder(CreateGatherResourcesOrder(peasant, closestGoldMine));
-                            m_unitService.RegisterUnitChanges(peasant.Id);
+                            if (closestGoldMine != null)
+                            {
+                                peasantOrderQueueComponent.EnqueueOrder(CreateGatherResourcesOrder(peasant, closestGoldMine));
+                                m_unitService.RegisterUnitChanges(peasant.Id);
+                            }
                         }
                     }
 
